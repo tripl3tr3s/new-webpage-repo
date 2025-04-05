@@ -94,7 +94,7 @@ export default function Hero() {
             <div className="relative w-full h-[400px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
-                  src="/img_hero.jpg"
+                  src="/new-webpage-repo/img_hero.jpg"
                   alt="Blockchain visualization"
                   width={500}
                   height={400}
