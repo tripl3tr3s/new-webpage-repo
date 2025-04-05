@@ -15,7 +15,7 @@ export default function Research() {
       youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L", 
       description:
         "Diving into Low float-High FDV issues & exposing VC's selling rewards of staked Vested tokens.",
-      image: "/VCsHighFDV_img.jpg?height=300&width=500",
+      image: "/VCsHighFDV_img.jpg",
       tags: ["FDV", "Staking Rewards", "VC's"],
     },
     {
@@ -23,7 +23,7 @@ export default function Research() {
       youtubeLink: "https://youtu.be/wKtFMFTwpTM?si=cZRCe4ZBDrKYlJ2F", 
       description:
         "Understanding Luna Crash to predict Ethena's future. Analyzing the similarities and differences.",
-      image: "/ethena_img.jpg?height=300&width=500",
+      image: "/ethena_img.jpg",
       tags: ["Algorithmic Stablecoin", "Tokenized Bonds", "Hedging"],
     },
     {
@@ -31,7 +31,7 @@ export default function Research() {
       youtubeLink: "https://youtu.be/c8AbMPubzBA?si=HqoDiybuS4KzXYmt", 
       description:
         "Deep dive into the NFTs history, exploring the reasons behind their rise and fall, and the potential for future growth.",
-      image: "/nfts_dead.jpg?height=300&width=500",
+      image: "/nfts_dead.jpg",
       tags: ["NFT's", "History", "Trend Assessment"],
     },
     {
@@ -39,7 +39,7 @@ export default function Research() {
       youtubeLink: "https://youtu.be/GuHb_IZlZis?si=KPmKqCFSABtV8CTN", 
       description:
         "Analysis of Larry Fink's influence on the crypto market and the impact of BlackRock venturing into Bitcoin.",
-      image: "/LFink.jpg?height=300&width=500",
+      image: "/LFink.jpg",
       tags: ["BlackRock", "Bitcoin", "ETF"],
     },
   ]
