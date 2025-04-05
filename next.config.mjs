@@ -46,7 +46,7 @@ function mergeConfig(nextConfig, userConfig) {
   }
 }
 
-module.exports = {
+export default{
   basePath: '/new-webpage-repo',
   assetPrefix: '/new-webpage-repo/',
   output: 'export',
