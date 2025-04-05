@@ -46,4 +46,8 @@ function mergeConfig(nextConfig, userConfig) {
   }
 }
 
-export default nextConfig
+module.exports = {
+  basePath: '/new-webpage-repo',
+  assetPrefix: '/new-webpage-repo/',
+  output: 'export',
+};
