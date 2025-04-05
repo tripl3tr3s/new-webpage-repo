@@ -15,7 +15,7 @@ export default function Research() {
       youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L", 
       description:
         "Diving into Low float-High FDV issues & exposing VC's selling rewards of staked Vested tokens.",
-      image: "/new_webpage_repo/VCsHighFDV_img.jpg",
+      image: "/new-webpage-repo/VCsHighFDV_img.jpg",
       tags: ["FDV", "Staking Rewards", "VC's"],
     },
     {
