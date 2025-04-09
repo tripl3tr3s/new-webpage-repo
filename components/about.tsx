@@ -80,7 +80,7 @@ export default function About() {
           >
             <h3 className="text-2xl font-bold mb-4">Background</h3>
             <p className="text-gray-400 mb-4">
-            I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis (SQL entry level).
+            I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis (SQL/pandas/ggplot2 entry level).
             Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain.
             </p>
             <p className="text-gray-400">
