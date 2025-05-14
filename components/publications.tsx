@@ -96,12 +96,23 @@ export default function Publications() {
                   <FileText className="w-6 h-6 text-green-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">{pub.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
+                    <a
+                      href={pub.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      {pub.title}
+                    </a>
+                  </h3>
                   <p className="text-gray-400 mb-2">
                     {pub.journal} • {pub.year}
                   </p>
                   <a
                     href={pub.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors"
                   >
                     Read Document <ExternalLink className="ml-1 w-4 h-4" />
