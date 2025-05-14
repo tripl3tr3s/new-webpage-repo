@@ -121,7 +121,7 @@ export default function Contact() {
                     href="mailto:contact@cryptoresearcher.com"
                     className="text-gray-400 hover:text-green-400 transition-colors"
                   >
-                    333wrks@gmail.com
+                    contact@researchooor.xyz
                   </a>
                 </div>
               </div>
