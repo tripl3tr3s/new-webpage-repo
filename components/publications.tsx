@@ -57,8 +57,7 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
       whileTap={{
         scale: 0.98,
         transition: {
-          duration: 1.2,
-          ease: bounceEase,
+          duration: 0.1,
         }
       }}
       style={{

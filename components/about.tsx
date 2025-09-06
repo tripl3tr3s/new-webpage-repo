@@ -101,36 +101,62 @@ export default function About() {
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8 }}
-            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative overflow-hidden group cursor-pointer"
+            whileHover={{
+              scale: 1.02,
+              transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                duration: 0.4
+              }
+            }}
           >
-            <h3 className="text-2xl font-bold mb-4">Background</h3>
-            <p className="text-muted-foreground mb-4">
-            I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis and Software development.
-            Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain and AI.
-            </p>
-            <p className="text-muted-foreground">
-            Authored 20+ in-depth research briefs (~50 pages each), blending thematic storytelling with hardcore crypto analysis, fueling videos racking up thousands of views.
-            From 2020 to this date, I laid the groundwork for a seamless pivot into professional crypto research and community building. 
-            
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-4">Background</h3>
+              <p className="text-muted-foreground mb-4">
+              I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis and Software development.
+              Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain and AI.
+              </p>
+              <p className="text-muted-foreground">
+              Authored 20+ in-depth research briefs (~50 pages each), blending thematic storytelling with hardcore crypto analysis, fueling videos racking up thousands of views.
+              From 2020 to this date, I laid the groundwork for a seamless pivot into professional crypto research and community building. 
+              
 
-            </p>
+              </p>
+            </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative overflow-hidden group cursor-pointer"
+            whileHover={{
+              scale: 1.02,
+              transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+                duration: 0.4
+              }
+            }}
           >
-            <h3 className="text-2xl font-bold mb-4">Current Focus</h3>
-            <p className="text-muted-foreground mb-4">
-              Transitioning into a <span className="text-green-400 font-semibold">Junior Full-Stack Web3 Developer/Analyst</span> while studying Machine Learning, Deep Learning and AI. 
-              Building practical applications that combine crypto research insights with modern web development.
-            </p>
-            <p className="text-muted-foreground">
-              Currently mastering advanced algorithms for training and optimization, applied mathematics for computer science, 
-              and developing full-stack applications with React, TypeScript, and Python data analysis workflows.
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold mb-4">Current Focus</h3>
+              <p className="text-muted-foreground mb-4">
+                Transitioning into a <span className="text-green-400 font-semibold">Junior Full-Stack Web3 Developer/Analyst</span> while studying Machine Learning, Deep Learning and AI. 
+                Building practical applications that combine crypto research insights with modern web development.
+              </p>
+              <p className="text-muted-foreground">
+                Currently mastering advanced algorithms for training and optimization, applied mathematics for computer science, 
+                and developing full-stack applications with React, TypeScript, and Python data analysis workflows.
+              </p>
+            </div>
           </motion.div>
         </div>
 
