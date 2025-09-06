@@ -125,7 +125,7 @@ export default function Research() {
 
         {/* Interactive Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="bg-gray-900/60 backdrop-blur-sm p-2 rounded-2xl border border-gray-700/50 shadow-2xl">
+          <div className="bg-card/60 backdrop-blur-sm p-2 rounded-2xl border border-border shadow-2xl">
             <motion.button
               onClick={() => setActiveTab("projects")}
               whileHover={{ 
@@ -138,14 +138,14 @@ export default function Research() {
               }}
               className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${
                 activeTab === "projects"
-                  ? "bg-gradient-to-r from-green-500 to-emerald-400 text-white shadow-lg shadow-green-500/25"
-                  : "text-gray-300 hover:text-white"
+                  ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {/* Background gradient animation for inactive state */}
               {activeTab !== "projects" && (
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
@@ -198,14 +198,14 @@ export default function Research() {
               }}
               className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${
                 activeTab === "research"
-                  ? "bg-gradient-to-r from-green-500 to-emerald-400 text-white shadow-lg shadow-green-500/25"
-                  : "text-gray-300 hover:text-white"
+                  ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {/* Background gradient animation for inactive state */}
               {activeTab !== "research" && (
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
@@ -260,7 +260,7 @@ export default function Research() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-gray-900/30 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/30 transition-all group"
+                className="bg-card/30 rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -270,10 +270,10 @@ export default function Research() {
                     height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
                   <div className="absolute top-4 left-4">
                     <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-                      project.status === "Live" ? "bg-green-500/20 text-green-400 border border-green-500/40" :
+                      project.status === "Live" ? "bg-primary/20 text-primary border border-primary/40" :
                       project.status === "In Progress" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40" :
                       "bg-blue-500/20 text-blue-400 border border-blue-500/40"
                     }`}>
@@ -281,26 +281,26 @@ export default function Research() {
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-800/80 text-gray-300 border border-gray-700">
+                    <span className="px-3 py-1 text-xs font-medium rounded-full bg-muted/80 text-muted-foreground border border-border">
                       {project.type}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400 mb-4">{project.description}</p>
+                  <p className="text-muted-foreground mb-4">{project.description}</p>
 
                   {/* Tech Stack */}
                   <div className="mb-4">
-                    <p className="text-sm text-gray-500 mb-2">Tech Stack:</p>
+                    <p className="text-sm text-muted-foreground mb-2">Tech Stack:</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-2 py-1 text-xs font-medium rounded bg-gray-800/50 text-gray-300 border border-gray-700/50"
+                          className="px-2 py-1 text-xs font-medium rounded bg-muted/50 text-muted-foreground border border-border"
                         >
                           {tech}
                         </span>
@@ -313,7 +313,7 @@ export default function Research() {
                     {project.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-green-500/10 text-green-400 border border-green-500/20"
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
                       >
                         {tag}
                       </span>
@@ -326,7 +326,7 @@ export default function Research() {
                       href={project.liveLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-green-500/10 text-green-400 border border-green-500/20 rounded-lg hover:bg-green-500/20 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all"
                     >
                       <ExternalLink className="w-4 h-4" />
                       Live Demo
@@ -335,7 +335,7 @@ export default function Research() {
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700/50 transition-all"
+                      className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
                     >
                       <GitBranch className="w-4 h-4" />
                       Code
@@ -349,7 +349,7 @@ export default function Research() {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-gray-900/30 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/30 transition-all group"
+                className="bg-card/30 rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -359,11 +359,11 @@ export default function Research() {
                     height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-green-400 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
                     <a
                       href={post.youtubeLink}
                       target="_blank"
@@ -380,7 +380,7 @@ export default function Research() {
                     {post.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-green-500/10 text-green-400 border border-green-500/20"
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
                       >
                         {tag}
                       </span>
