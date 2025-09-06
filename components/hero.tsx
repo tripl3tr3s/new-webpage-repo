@@ -61,7 +61,7 @@ export default function Hero() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-gray-400 text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0"
             >
-              Delivering sharp analysis on crypto trends, blockchain breakthroughs, and their real-world impact.
+              Delivering sharp analysis on crypto trends, blockchain breakthroughs, and full-stack scalable apps with real-world impact.
             </motion.p>
 
             <motion.div
@@ -107,7 +107,7 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 0.8 }}
+                transition={{ delay: 1.5, duration: 1.2 }}
                 className="absolute -left-10 bottom-10 p-4 bg-gray-900/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
