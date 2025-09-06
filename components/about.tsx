@@ -61,6 +61,21 @@ export default function About() {
     },
   }
 
+  const bounceEase = (x: number) => {
+    const n1 = 7.5625
+    const d1 = 2.75
+
+    if (x < 1 / d1) {
+        return n1 * x * x
+    } else if (x < 2 / d1) {
+        return n1 * (x -= 1.5 / d1) * x + 0.75
+    } else if (x < 2.5 / d1) {
+        return n1 * (x -= 2.25 / d1) * x + 0.9375
+    } else {
+        return n1 * (x -= 2.625 / d1) * x + 0.984375
+    }
+  }
+
   return (
     <section id="about" className="py-20 relative">
     <div className="container mx-auto px-4">
@@ -131,11 +146,38 @@ export default function About() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-card/30 p-6 rounded-xl border border-border hover:border-green-500/30 transition-colors group"
+              className="bg-card/30 p-6 rounded-xl border border-border hover:border-green-500/30 transition-colors group cursor-pointer"
+              whileHover={{
+                y: -10,
+                rotate: 5,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 20,
+                  duration: 0.6
+                }
+              }}
+              whileTap={{
+                scale: 0.98,
+                transition: {
+                  duration: 1.2,
+                  ease: bounceEase,
+                }
+              }}
             >
-              <div className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors">
+              <motion.div 
+                className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
+                whileHover={{
+                  rotate: 180,
+                  scale: 1.1,
+                  transition: {
+                    duration: 0.8,
+                    ease: bounceEase,
+                  }
+                }}
+              >
                 {skill.icon}
-              </div>
+              </motion.div>
               <h4 className="text-xl font-bold mb-2">{skill.title}</h4>
               <p className="text-muted-foreground">{skill.description}</p>
             </motion.div>
