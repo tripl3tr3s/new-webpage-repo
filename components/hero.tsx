@@ -2,8 +2,27 @@
 
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { useState, useEffect } from "react"
 
 export default function Hero() {
+  const [displayedText, setDisplayedText] = useState("")
+  const fullText = "Unlocking the Puzzle: "
+  const gradientText = "Insights Across Crypto and Blockchain"
+  
+  useEffect(() => {
+    let currentIndex = 0
+    const intervalId = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex))
+        currentIndex++
+      } else {
+        clearInterval(intervalId)
+      }
+    }, 80) // Adjust speed here (lower = faster)
+
+    return () => clearInterval(intervalId)
+  }, [])
+
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background grid effect */}
@@ -49,10 +68,26 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
             >
-              Unlocking the Puzzle:{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500">
-                Insights Across Crypto and Blockchain
-              </span>
+              {displayedText}
+              {displayedText.length < fullText.length && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="text-green-400"
+                >
+                  |
+                </motion.span>
+              )}
+              {displayedText === fullText && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500"
+                >
+                  {gradientText}
+                </motion.span>
+              )}
             </motion.h1>
 
             <motion.p
