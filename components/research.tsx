@@ -125,29 +125,126 @@ export default function Research() {
 
         {/* Interactive Tab Navigation */}
         <div className="flex justify-center mb-12">
-          <div className="bg-gray-900/50 p-1 rounded-xl border border-gray-800">
-            <button
+          <div className="bg-gray-900/60 backdrop-blur-sm p-2 rounded-2xl border border-gray-700/50 shadow-2xl">
+            <motion.button
               onClick={() => setActiveTab("projects")}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 25px rgba(34, 197, 94, 0.3)"
+              }}
+              whileTap={{ 
+                scale: 0.95,
+                boxShadow: "0 0 15px rgba(34, 197, 94, 0.5)"
+              }}
+              className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${
                 activeTab === "projects"
-                  ? "bg-green-500 text-white shadow-lg"
-                  : "text-gray-400 hover:text-white hover:bg-gray-800"
+                  ? "bg-gradient-to-r from-green-500 to-emerald-400 text-white shadow-lg shadow-green-500/25"
+                  : "text-gray-300 hover:text-white"
               }`}
             >
-              <Code className="w-4 h-4 inline mr-2" />
-              Development Projects
-            </button>
-            <button
+              {/* Background gradient animation for inactive state */}
+              {activeTab !== "projects" && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+                />
+              )}
+              
+              {/* Shimmer effect for active state */}
+              {activeTab === "projects" && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '100%' }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                />
+              )}
+              
+              <motion.div 
+                className="relative z-10 flex items-center gap-3"
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Code className="w-5 h-5" />
+                </motion.div>
+                Development Projects
+              </motion.div>
+              
+              {/* Glow border effect */}
+              <motion.div
+                className="absolute inset-0 rounded-xl border-2 border-green-400/0 group-hover:border-green-400/50 transition-all duration-300"
+                whileHover={{ 
+                  borderColor: "rgba(34, 197, 94, 0.7)",
+                  boxShadow: "inset 0 0 20px rgba(34, 197, 94, 0.1)"
+                }}
+              />
+            </motion.button>
+            
+            <motion.button
               onClick={() => setActiveTab("research")}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 25px rgba(34, 197, 94, 0.3)"
+              }}
+              whileTap={{ 
+                scale: 0.95,
+                boxShadow: "0 0 15px rgba(34, 197, 94, 0.5)"
+              }}
+              className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${
                 activeTab === "research"
-                  ? "bg-green-500 text-white shadow-lg"
-                  : "text-gray-400 hover:text-white hover:bg-gray-800"
+                  ? "bg-gradient-to-r from-green-500 to-emerald-400 text-white shadow-lg shadow-green-500/25"
+                  : "text-gray-300 hover:text-white"
               }`}
             >
-              <BarChart className="w-4 h-4 inline mr-2" />
-              Research Content
-            </button>
+              {/* Background gradient animation for inactive state */}
+              {activeTab !== "research" && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+                />
+              )}
+              
+              {/* Shimmer effect for active state */}
+              {activeTab === "research" && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '100%' }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                />
+              )}
+              
+              <motion.div 
+                className="relative z-10 flex items-center gap-3"
+                whileHover={{ x: 2 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <BarChart className="w-5 h-5" />
+                </motion.div>
+                Research Content
+              </motion.div>
+              
+              {/* Glow border effect */}
+              <motion.div
+                className="absolute inset-0 rounded-xl border-2 border-green-400/0 group-hover:border-green-400/50 transition-all duration-300"
+                whileHover={{ 
+                  borderColor: "rgba(34, 197, 94, 0.7)",
+                  boxShadow: "inset 0 0 20px rgba(34, 197, 94, 0.1)"
+                }}
+              />
+            </motion.button>
           </div>
         </div>
 

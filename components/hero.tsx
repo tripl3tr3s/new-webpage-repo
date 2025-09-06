@@ -15,11 +15,11 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
-          opacity: [0.1, 0.3, 0.1],
-          scale: [1, 1.1, 1],
+          opacity: [0.2, 0.4, 0.2],
+          scale: [1, 1.2, 1],
         }}
         transition={{
-          duration: 8,
+          duration: 9,
           repeat: Number.POSITIVE_INFINITY,
           repeatType: "reverse",
         }}
@@ -153,8 +153,7 @@ export default function Hero() {
         }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center">
-          <span className="text-gray-400 text-sm mb-2">Scroll Down</span>
+        <div className="flex flex-col items-center">          
           <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center p-1">
             <motion.div
               animate={{ y: [0, 12, 0] }}
