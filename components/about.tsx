@@ -90,8 +90,8 @@ export default function About() {
           >
             <h3 className="text-2xl font-bold mb-4">Background</h3>
             <p className="text-gray-400 mb-4">
-            I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis (SQL/pandas/ggplot2 entry level).
-            Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain.
+            I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis and Software development.
+            Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain and AI.
             </p>
             <p className="text-gray-400">
             Authored 20+ in-depth research briefs (~50 pages each), blending thematic storytelling with hardcore crypto analysis, fueling videos racking up thousands of views.
