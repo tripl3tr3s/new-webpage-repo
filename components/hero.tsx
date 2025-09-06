@@ -40,7 +40,7 @@ export default function Hero() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="mb-2 inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20"
             >
-              Crypto Researcher / Analyst
+              Junior Full-Stack Web3 Developer / Analyst
             </motion.div>
 
             <motion.h1

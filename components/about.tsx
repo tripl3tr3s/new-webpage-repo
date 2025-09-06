@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Shield, Brain, Cpu, Zap } from "lucide-react"
+import { Code2, Database, GitBranch, BarChart3, Cpu, Globe, Brain, TrendingUp } from "lucide-react"
 
 export default function About() {
   const ref = useRef(null)
@@ -11,24 +11,34 @@ export default function About() {
 
   const skills = [
     {
-      icon: <Shield className="w-6 h-6 text-green-400" />,
-      title: "Blockchain Fundamentals",
-      description: "You can’t analyze on-chain data or protocols without knowing what’s happening under the hood. It’s the foundation for interpreting everything else.",
+      icon: <Code2 className="w-6 h-6 text-blue-400" />,
+      title: "Frontend Development",
+      description: "React, TypeScript, Next.js, Tailwind CSS - Building responsive, interactive web applications with modern frameworks.",
     },
     {
-      icon: <Brain className="w-6 h-6 text-cyan-400" />,
-      title: "SQL & Visualization",
-      description: "On-chain analytics, tracking transactions, wallet activity, or token flows, relies on extracting and interpreting raw data. This turns numbers into insights.",
+      icon: <Database className="w-6 h-6 text-green-400" />,
+      title: "Data Analysis & Backend",
+      description: "Python, Pandas, SQL - Processing and analyzing large datasets, building APIs and data pipelines.",
     },
     {
-      icon: <Cpu className="w-6 h-6 text-purple-400" />,
-      title: "Programming Basics",
-      description: "Ability to read or write simple code, even basic coding unlocks deeper research capabilities.",
+      icon: <BarChart3 className="w-6 h-6 text-cyan-400" />,
+      title: "Visualization & Charts",
+      description: "ApexCharts, Matplotlib, Recharts - Creating interactive dashboards and data visualizations for insights.",
     },
     {
-      icon: <Zap className="w-6 h-6 text-yellow-400" />,
-      title: "Crypto-Economic Intuition",
-      description: "Blockchain systems are built on economic models. Without this, you'll miss why things happen.",
+      icon: <GitBranch className="w-6 h-6 text-purple-400" />,
+      title: "DevOps & Tools",
+      description: "Git/GitHub, Docker, CI/CD - Version control, deployment pipelines, and development workflow automation.",
+    },
+    {
+      icon: <Brain className="w-6 h-6 text-pink-400" />,
+      title: "Machine Learning",
+      description: "Deep Learning, AI algorithms, optimization techniques - Currently studying advanced ML concepts and applications.",
+    },
+    {
+      icon: <TrendingUp className="w-6 h-6 text-yellow-400" />,
+      title: "Web3 Analytics",
+      description: "On-chain data analysis, DeFi protocols, crypto-economic models - Bridging traditional analysis with blockchain insights.",
     },
   ]
 
@@ -97,14 +107,14 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
-            <h3 className="text-2xl font-bold mb-4">Research Focus</h3>
+            <h3 className="text-2xl font-bold mb-4">Current Focus</h3>
             <p className="text-gray-400 mb-4">
-              My current research focus is on dissecting market trends, Whitepapers, projects economic models, on-chain data, Technical & Macro Analysis tools and strategies, and more, 
-              to deliver bleeding-edge insights for a crypto-savvy audience. 
+              Transitioning into a <span className="text-green-400 font-semibold">Junior Full-Stack Web3 Developer/Analyst</span> while studying Machine Learning, Deep Learning and AI. 
+              Building practical applications that combine crypto research insights with modern web development.
             </p>
             <p className="text-gray-400">
-              I'm particularly interested in the intersection of AI x Crypto, where its headed, and how it can be leveraged to enhance the crypto experience.
-              I believe that the future of crypto lies in its ability to adapt and evolve, and I'm excited to be a part of that journey.
+              Currently mastering advanced algorithms for training and optimization, applied mathematics for computer science, 
+              and developing full-stack applications with React, TypeScript, and Python data analysis workflows.
             </p>
           </motion.div>
         </div>
@@ -115,7 +125,7 @@ export default function About() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {skills.map((skill, index) => (
             <motion.div
