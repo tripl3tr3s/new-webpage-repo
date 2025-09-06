@@ -13,48 +13,48 @@ export default function Research() {
 
   const projects = [
     {
-      title: "DeFi Analytics Dashboard",
+      title: "Crypto / TradFi Analytics Terminal",
       liveLink: "#", // Replace with actual link
       githubLink: "#", // Replace with actual link
-      description: "Real-time DeFi protocol analytics with ApexCharts visualizations, Python backend for data processing, and React frontend with TypeScript.",
-      image: "/placeholder.svg", // Replace with project screenshot
-      tags: ["React", "TypeScript", "Python", "ApexCharts", "DeFi"],
-      tech: ["Next.js", "Pandas", "Web3.py", "PostgreSQL"],
-      status: "Live",
-      type: "Full-Stack"
-    },
-    {
-      title: "Crypto Portfolio Tracker",
-      liveLink: "#", // Replace with actual link
-      githubLink: "#", // Replace with actual link
-      description: "Portfolio management app with real-time price feeds, P&L tracking, and interactive charts using Matplotlib and React.",
-      image: "/placeholder.svg", // Replace with project screenshot
-      tags: ["Python", "React", "Matplotlib", "Web3", "API"],
-      tech: ["FastAPI", "React", "CoinGecko API", "Chart.js"],
+      description: "Real-time crypto analytics with ApexCharts visualizations, JavaScript backend for data processing, and React frontend with TypeScript.",
+      image: "/RD_Terminal.png", // Replace with project screenshot
+      tags: ["React", "TypeScript", "Docker", "ApexCharts", "Crypto"],
+      tech: ["Next.js", "Docker", "Axios", "Redis", "Dual WebSocket", "Custom API"],
       status: "In Progress",
       type: "Full-Stack"
     },
     {
-      title: "ML Trading Algorithm",
-      liveLink: "#", // Replace with actual link
-      githubLink: "#", // Replace with actual link
-      description: "Machine learning model for crypto price prediction using deep learning algorithms and advanced optimization techniques.",
-      image: "/placeholder.svg", // Replace with project screenshot
-      tags: ["Machine Learning", "Python", "Deep Learning", "TensorFlow"],
-      tech: ["TensorFlow", "Pandas", "NumPy", "Sklearn"],
-      status: "Development",
-      type: "Data Science"
+      title: "Retail DAO Static Documentation Site",
+      liveLink: "https://retaildao.github.io/Docs/", // Replace with actual link
+      githubLink: "https://github.com/RetailDAO/Docs", // Replace with actual link
+      description: "Static documentation site for Retail DAO using Docusaurus, featuring markdown content, versioning, and custom theming.",
+      image: "/RD_Docs.png", // Replace with project screenshot
+      tags: ["React", "Matplotlib", "Docusaurus", "API"],
+      tech: ["TypeScript", "React", "Docusaurus", "GitHub Pages"],
+      status: "live",
+      type: "Full-Stack"
     },
     {
-      title: "Web3 Data Pipeline",
-      liveLink: "#", // Replace with actual link
-      githubLink: "#", // Replace with actual link
-      description: "Automated data pipeline for collecting and processing on-chain data with Docker deployment and CI/CD integration.",
-      image: "/placeholder.svg", // Replace with project screenshot
-      tags: ["DevOps", "Docker", "Python", "Blockchain"],
-      tech: ["Docker", "GitHub Actions", "PostgreSQL", "Web3.py"],
+      title: "Gradient Descent Golf",
+      liveLink: "https://scratch.mit.edu/projects/1197478584", // Replace with actual link
+      githubLink: "https://scratch.mit.edu/projects/1197478584", // Replace with actual link
+      description: "Scratch built 2D golf interactive tutorial for teaching machine learning concepts like gradient descent and cost functions.",
+      image: "G_D_G.png", // Replace with project screenshot
+      tags: ["Machine Learning", "Back Propagation", "Deep Learning", "]Loss Functions"],
+      tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
+      status: "Development",
+      type: "Interactive Tutorial"
+    },
+    {
+      title: "This very website",
+      liveLink: "https://researchooor.quest", // Replace with actual link
+      githubLink: "https://github.com/tripl3tr3s/new-webpage-repo", // Replace with actual link
+      description: "Personal portfolio and contact site built with Next.js and Tailwind CSS, showcasing projects and research.",
+      image: "/Portfolio.png", // Replace with project screenshot
+      tags: ["Portfolio", "Web3", "Analytics", "Blockchain", "Toolkit"],
+      tech: ["Tailwind CSS", "GitHub Actions", "GitHub Pages", "Framer Motion"],
       status: "Live",
-      type: "Infrastructure"
+      type: "Portfolio"
     },
   ]
 
