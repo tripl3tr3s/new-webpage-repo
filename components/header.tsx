@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { motion } from "framer-motion"
 import { useMediaQuery } from "@/hooks/use-mobile"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -30,13 +31,16 @@ export default function Header() {
 
           {isMobile ? (
             <>
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-white"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+              <div className="flex items-center space-x-3">
+                <ThemeToggle />
+                <button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-2 text-white"
+                  aria-label={isOpen ? "Close menu" : "Open menu"}
+                >
+                  {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+              </div>
 
               {isOpen && (
                 <motion.div
@@ -61,18 +65,21 @@ export default function Header() {
               )}
             </>
           ) : (
-            <nav className="flex items-center space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-300 hover:text-green-400 transition-colors relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-400 group-hover:w-full transition-all duration-300"></span>
-                </Link>
-              ))}
-            </nav>
+            <div className="flex items-center space-x-8">
+              <nav className="flex items-center space-x-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="text-gray-300 hover:text-green-400 transition-colors relative group"
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-400 group-hover:w-full transition-all duration-300"></span>
+                  </Link>
+                ))}
+              </nav>
+              <ThemeToggle />
+            </div>
           )}
         </div>
       </div>
