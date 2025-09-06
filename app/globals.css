@@ -27,6 +27,7 @@
   --foreground-rgb: 15, 15, 15;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 248, 248, 248;
+}
 
 .dark {
   --background: 0 0% 3.9%;
@@ -52,6 +53,7 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 10, 10, 10;
+}
 
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
