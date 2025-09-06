@@ -1,7 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import type { Variants } from "framer-motion"
+import { useInView } from "framer-motion"
+import { useRef } from "react"
 import { FileText, ExternalLink } from "lucide-react"
 
 interface PublicationCardProps {
@@ -21,90 +22,101 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
   const gradientBg = `linear-gradient(135deg, hsl(${hueA}, 70%, 15%), hsl(${hueB}, 70%, 10%))`
   const glowColor = `hsl(${hueA}, 80%, 50%)`
 
+  const bounceEase = (x: number) => {
+    const n1 = 7.5625
+    const d1 = 2.75
+
+    if (x < 1 / d1) {
+        return n1 * x * x
+    } else if (x < 2 / d1) {
+        return n1 * (x -= 1.5 / d1) * x + 0.75
+    } else if (x < 2.5 / d1) {
+        return n1 * (x -= 2.25 / d1) * x + 0.9375
+    } else {
+        return n1 * (x -= 2.625 / d1) * x + 0.984375
+    }
+  }
+
   return (
     <motion.div
-      className="publication-card-container relative"
-      initial="offscreen"
-      whileInView="onscreen"
-      viewport={{ amount: 0.3, once: true }}
+      className="bg-card/30 p-6 rounded-xl border border-border hover:border-green-500/30 transition-colors group cursor-pointer relative overflow-hidden"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{
+        y: -10,
+        rotate: -5, // Counter-clockwise rotation
+        transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 20,
+          duration: 0.6
+        }
+      }}
+      whileTap={{
+        scale: 0.98,
+        transition: {
+          duration: 1.2,
+          ease: bounceEase,
+        }
+      }}
+      style={{
+        boxShadow: `0 4px 20px -2px ${glowColor}20, 0 0 0 1px ${glowColor}10`
+      }}
     >
       <div 
-        className="absolute inset-0 rounded-xl opacity-20"
+        className="absolute inset-0 rounded-xl opacity-20 pointer-events-none"
         style={{ 
           background: gradientBg,
           filter: 'blur(1px)'
         }} 
       />
-      <motion.div
-        variants={cardVariants}
-        className="publication-card relative bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border hover:border-green-500/50 transition-all duration-300 group overflow-hidden"
-        style={{
-          boxShadow: `0 4px 20px -2px ${glowColor}20, 0 0 0 1px ${glowColor}10`
-        }}
-        whileHover={{
-          scale: 1.02,
-          boxShadow: `0 8px 30px -2px ${glowColor}30, 0 0 0 1px ${glowColor}30`,
-          transition: { duration: 0.2 }
-        }}
-      >
-        <div className="flex items-start gap-4 relative z-10">
-          <motion.div 
-            className="p-3 bg-gray-800/80 rounded-lg group-hover:bg-green-500/20 transition-all duration-300"
-            whileHover={{ rotate: 5 }}
+      <div className="relative z-10">
+        <motion.div 
+          className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
+          whileHover={{
+            rotate: -180, // Counter-clockwise icon rotation
+            scale: 1.1,
+            transition: {
+              duration: 0.8,
+              ease: bounceEase,
+            }
+          }}
+        >
+          <FileText className="w-6 h-6 text-green-400 group-hover:text-green-300 transition-colors" />
+        </motion.div>
+        <h4 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
+          <a
+            href={publication.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
           >
-            <FileText className="w-6 h-6 text-green-400 group-hover:text-green-300 transition-colors" />
-          </motion.div>
-          <div className="flex-1">
-            <h3 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
-              <a
-                href={publication.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline"
-              >
-                {publication.title}
-              </a>
-            </h3>
-            <p className="text-muted-foreground mb-2">
-              {publication.journal} • {publication.year}
-            </p>
-            <motion.a
-              href={publication.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors"
-              whileHover={{ x: 4 }}
-            >
-              Read Document <ExternalLink className="ml-1 w-4 h-4" />
-            </motion.a>
-          </div>
-        </div>
-      </motion.div>
+            {publication.title}
+          </a>
+        </h4>
+        <p className="text-muted-foreground mb-3 text-sm">
+          {publication.journal} • {publication.year}
+        </p>
+        <motion.a
+          href={publication.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors text-sm"
+          whileHover={{ x: 4 }}
+        >
+          Read Document <ExternalLink className="ml-1 w-4 h-4" />
+        </motion.a>
+      </div>
     </motion.div>
   )
 }
 
-const cardVariants: Variants = {
-  offscreen: {
-    y: 100,
-    opacity: 0,
-    rotateX: -15,
-    scale: 0.9,
-  },
-  onscreen: {
-    y: 0,
-    opacity: 1,
-    rotateX: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.3,
-      duration: 0.8,
-    },
-  },
-}
-
 export default function Publications() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
+
   const publications = [
     {
       title: "How to spot local market bottoms with Data.",
@@ -144,6 +156,25 @@ export default function Publications() {
     },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  }
+
   return (
     <section id="publications" className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4">
@@ -161,14 +192,22 @@ export default function Publications() {
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          {publications.map((publication, index) => (
-            <PublicationCard 
-              key={index} 
-              publication={publication} 
-              index={index} 
-            />
-          ))}
+        <div ref={ref} className="max-w-6xl mx-auto">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {publications.map((publication, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <PublicationCard 
+                  publication={publication} 
+                  index={index} 
+                />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
