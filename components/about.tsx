@@ -67,7 +67,7 @@ export default function About() {
       <div className="max-w-3xl mx-auto text-center mb-16">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
         <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
-        <p className="text-gray-400 text-lg">
+        <p className="text-muted-foreground text-lg">
           I'm a creative crypto researcher based in Mexico, crafting briefs for{" "}
           <a 
             href="https://www.youtube.com/@Coinsider" 
@@ -86,14 +86,14 @@ export default function About() {
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8 }}
-            className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
             <h3 className="text-2xl font-bold mb-4">Background</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-muted-foreground mb-4">
             I began my journey as a visual designer and have since expanded my expertise to encompass a blend of roles, from Crypto Research to Data Analysis and Software development.
             Previously tattooing and designing, I now focus on the intersection of data, design and technology, particularly in the realm of blockchain and AI.
             </p>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
             Authored 20+ in-depth research briefs (~50 pages each), blending thematic storytelling with hardcore crypto analysis, fueling videos racking up thousands of views.
             From 2020 to this date, I laid the groundwork for a seamless pivot into professional crypto research and community building. 
             
@@ -105,14 +105,14 @@ export default function About() {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
             <h3 className="text-2xl font-bold mb-4">Current Focus</h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-muted-foreground mb-4">
               Transitioning into a <span className="text-green-400 font-semibold">Junior Full-Stack Web3 Developer/Analyst</span> while studying Machine Learning, Deep Learning and AI. 
               Building practical applications that combine crypto research insights with modern web development.
             </p>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               Currently mastering advanced algorithms for training and optimization, applied mathematics for computer science, 
               and developing full-stack applications with React, TypeScript, and Python data analysis workflows.
             </p>
@@ -131,13 +131,13 @@ export default function About() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-gray-900/30 p-6 rounded-xl border border-gray-800 hover:border-green-500/30 transition-colors group"
+              className="bg-card/30 p-6 rounded-xl border border-border hover:border-green-500/30 transition-colors group"
             >
-              <div className="p-3 bg-gray-800 rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors">
+              <div className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors">
                 {skill.icon}
               </div>
               <h4 className="text-xl font-bold mb-2">{skill.title}</h4>
-              <p className="text-gray-400">{skill.description}</p>
+              <p className="text-muted-foreground">{skill.description}</p>
             </motion.div>
           ))}
         </motion.div>

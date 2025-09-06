@@ -109,7 +109,7 @@ export default function Research() {
   }
 
   return (
-    <section id="research" className="py-20 bg-gradient-to-b from-gray-900 to-black relative">
+    <section id="research" className="py-20 bg-gradient-to-b from-background to-background/90 relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
@@ -118,7 +118,7 @@ export default function Research() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Work & Projects</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg">
+          <p className="text-muted-foreground text-lg">
             Explore my development projects and research work in Web3 and data analysis.
           </p>
         </div>
@@ -374,7 +374,7 @@ export default function Research() {
                       {post.title}
                     </a>
                   </h3>
-                  <p className="text-gray-400 mb-4">{post.description}</p>
+                  <p className="text-muted-foreground mb-4">{post.description}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag, tagIndex) => (

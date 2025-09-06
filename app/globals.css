@@ -71,11 +71,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #111;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: hsl(var(--muted));
   border-radius: 4px;
 }
 

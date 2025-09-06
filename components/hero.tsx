@@ -59,7 +59,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-gray-400 text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0"
+              className="text-muted-foreground text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0"
             >
               Delivering sharp analysis on crypto trends, blockchain breakthroughs, and full-stack scalable apps with real-world impact.
             </motion.p>
@@ -78,7 +78,7 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                className="px-6 py-3 rounded-lg border border-green-500/50 text-white hover:bg-green-500/10 transition-colors"
+                className="px-6 py-3 rounded-lg border border-green-500/50 text-foreground hover:bg-green-500/10 transition-colors"
               >
                 Contact Me
               </a>
@@ -100,7 +100,7 @@ export default function Hero() {
                   height={400}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
               </div>
 
               {/* Animated code snippets */}
@@ -108,7 +108,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.5, duration: 1.2 }}
-                className="absolute -left-10 bottom-10 p-4 bg-gray-900/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
                   {"function transfer require(to != emit Transfer( return true);"}
@@ -125,7 +125,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 2, duration: 1.5 }}
-                className="absolute -right-10 top-10 p-4 bg-gray-900/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-cyan-400 font-mono text-xs">
                   {"async function signTransaction(tx) {"}
@@ -154,7 +154,7 @@ export default function Hero() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
         <div className="flex flex-col items-center">          
-          <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center p-1">
+          <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center p-1">
             <motion.div
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}

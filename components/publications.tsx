@@ -37,7 +37,7 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
       />
       <motion.div
         variants={cardVariants}
-        className="publication-card relative bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-gray-800 hover:border-green-500/50 transition-all duration-300 group overflow-hidden"
+        className="publication-card relative bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-border hover:border-green-500/50 transition-all duration-300 group overflow-hidden"
         style={{
           boxShadow: `0 4px 20px -2px ${glowColor}20, 0 0 0 1px ${glowColor}10`
         }}
@@ -65,7 +65,7 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
                 {publication.title}
               </a>
             </h3>
-            <p className="text-gray-400 mb-2">
+            <p className="text-muted-foreground mb-2">
               {publication.journal} • {publication.year}
             </p>
             <motion.a
@@ -156,7 +156,7 @@ export default function Publications() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Reports</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg">
+          <p className="text-muted-foreground text-lg">
             Fully reviewed research reports published via Google Documents.
           </p>
         </motion.div>

@@ -26,7 +26,7 @@ export default function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-black to-gray-900 relative">
+    <section id="contact" className="py-20 bg-gradient-to-b from-background to-background/90 relative">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
 
@@ -34,7 +34,7 @@ export default function Contact() {
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
-          <p className="text-gray-400 text-lg">
+          <p className="text-muted-foreground text-lg">
             Interested in collaborating on research or have questions about my work? Feel free to reach out.
           </p>
         </div>
@@ -44,13 +44,13 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
-            className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
             <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">
                   Name
                 </label>
                 <input
@@ -58,12 +58,12 @@ export default function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-white"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">
                   Email
                 </label>
                 <input
@@ -71,12 +71,12 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-white"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground"
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">
                   Message
                 </label>
                 <textarea
@@ -84,7 +84,7 @@ export default function Contact() {
                   name="message"
                   rows={4}
                   required
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-white resize-none"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground resize-none"
                 ></textarea>
               </div>
 
@@ -112,14 +112,14 @@ export default function Contact() {
           >
             <div className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] mb-8">
               <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-800 rounded-lg">
+                <div className="p-3 bg-muted rounded-lg">
                   <Mail className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
                   <h4 className="text-xl font-bold mb-2">Email</h4>
                   <a
                     href="mailto:contact@cryptoresearcher.com"
-                    className="text-gray-400 hover:text-green-400 transition-colors"
+                    className="text-muted-foreground hover:text-green-400 transition-colors"
                   >
                     contact@researchooor.xyz
                   </a>
@@ -135,12 +135,12 @@ export default function Contact() {
                   <a
                     key={index}
                     href={link.href}
-                    className="flex items-center gap-4 p-3 bg-gray-800/50 rounded-lg hover:bg-green-500/10 transition-colors group"
+                    className="flex items-center gap-4 p-3 bg-input/50 rounded-lg hover:bg-green-500/10 transition-colors group"
                   >
-                    <div className="p-2 bg-gray-700 rounded-lg group-hover:bg-green-500/20 transition-colors">
+                    <div className="p-2 bg-muted rounded-lg group-hover:bg-green-500/20 transition-colors">
                       {link.icon}
                     </div>
-                    <span className="text-gray-300 group-hover:text-green-400 transition-colors">{link.label}</span>
+                    <span className="text-muted-foreground group-hover:text-green-400 transition-colors">{link.label}</span>
                   </a>
                 ))}
               </div>
