@@ -7,22 +7,36 @@ import { useState, useEffect } from "react"
 export default function Hero() {
   const [displayedText, setDisplayedText] = useState("")
   const [typingComplete, setTypingComplete] = useState(false)
+  const [showCursor, setShowCursor] = useState(false)
+  const [typingStarted, setTypingStarted] = useState(false)
   const fullText = "Unlocking the Puzzle: "
   const gradientText = "Insights Across Crypto and Blockchain"
   
   useEffect(() => {
-    let currentIndex = 0
-    const intervalId = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(intervalId)
-        setTypingComplete(true)
-      }
-    }, 80) // Adjust speed here (lower = faster)
+    // Show cursor first for 1.5 seconds before typing starts
+    const cursorTimeout = setTimeout(() => {
+      setShowCursor(true)
+    }, 800) // Small delay after component mounts
 
-    return () => clearInterval(intervalId)
+    // Start typing after cursor has been visible for a bit
+    const typingTimeout = setTimeout(() => {
+      setTypingStarted(true)
+      let currentIndex = 0
+      const intervalId = setInterval(() => {
+        if (currentIndex <= fullText.length) {
+          setDisplayedText(fullText.slice(0, currentIndex))
+          currentIndex++
+        } else {
+          clearInterval(intervalId)
+          setTypingComplete(true)
+        }
+      }, 80) // Adjust speed here (lower = faster)
+    }, 2300) // 800ms + 1500ms cursor blink time
+
+    return () => {
+      clearTimeout(cursorTimeout)
+      clearTimeout(typingTimeout)
+    }
   }, [])
 
   return (
@@ -71,7 +85,18 @@ export default function Hero() {
               className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
             >
               {displayedText}
-              {displayedText.length < fullText.length && (
+              {/* Show initial blinking cursor before typing starts */}
+              {showCursor && !typingStarted && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="text-green-400"
+                >
+                  |
+                </motion.span>
+              )}
+              {/* Show cursor during typing */}
+              {typingStarted && displayedText.length < fullText.length && (
                 <motion.span
                   animate={{ opacity: [1, 0, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
@@ -84,7 +109,7 @@ export default function Hero() {
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
+                  transition={{ delay: 0.3 }}
                   className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500"
                 >
                   {gradientText}
@@ -95,7 +120,7 @@ export default function Hero() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? 0 : 20 }}
-              transition={{ delay: 2.4, duration: 0.8 }}
+              transition={{ delay: 3.9, duration: 0.8 }}
               className="text-muted-foreground text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0"
             >
               Delivering sharp analysis on crypto trends, blockchain breakthroughs, and full-stack scalable apps with real-world impact.
@@ -104,7 +129,7 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? 0 : 20 }}
-              transition={{ delay: 2.6, duration: 0.8 }}
+              transition={{ delay: 4.1, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
               <a
@@ -184,7 +209,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? [0, 10, 0] : 10 }}
         transition={{
-          delay: 0.8,
+          delay: 1.3,
           y: { duration: 1.5, repeat: Number.POSITIVE_INFINITY },
           opacity: { duration: 1 },
         }}
