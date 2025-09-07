@@ -32,10 +32,10 @@ export default function Contact() {
 
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Connect!</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
-            Interested in collaborating on research or have questions about my work? Feel free to reach out.
+            Want to work together or just say hello? Go ahead, I'd love to hear from you! 🚀
           </p>
         </div>
 
@@ -58,7 +58,8 @@ export default function Contact() {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground"
+                  placeholder="Satoshi Nakamoto"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground placeholder:text-muted-foreground/60"
                 />
               </div>
 
@@ -71,7 +72,8 @@ export default function Contact() {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground"
+                  placeholder="satoshi@bitcoin.org"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground placeholder:text-muted-foreground/60"
                 />
               </div>
 
@@ -84,7 +86,8 @@ export default function Contact() {
                   name="message"
                   rows={4}
                   required
-                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground resize-none"
+                  placeholder="Hey Triple Tres! I've been following your research on DeFi protocols and would love to discuss a potential collaboration. When you have Bitcoin, you have freedom! 💎"
+                  className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground resize-none placeholder:text-muted-foreground/60"
                 ></textarea>
               </div>
 
