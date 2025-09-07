@@ -1,15 +1,58 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
+import Image from "next/image"
 import { useMediaQuery } from "@/hooks/use-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [displayedText, setDisplayedText] = useState("")
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [isTyping, setIsTyping] = useState(true)
   const isMobile = useMediaQuery("(max-width: 768px)")
+  const { theme } = useTheme()
+
+  const words = ["RESEARCH", "DEVELOPMENT", "DESIGN", "ILLUSTRATION", "ANALYSIS", "VISUALIZATIONS"]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
+    const currentWord = words[currentWordIndex]
+    let timeoutId: NodeJS.Timeout
+
+    if (isTyping) {
+      if (displayedText.length < currentWord.length) {
+        timeoutId = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1))
+        }, 100)
+      } else {
+        timeoutId = setTimeout(() => {
+          setIsTyping(false)
+        }, 2000) // Pause before erasing
+      }
+    } else {
+      if (displayedText.length > 0) {
+        timeoutId = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1))
+        }, 50)
+      } else {
+        setCurrentWordIndex((prev) => (prev + 1) % words.length)
+        setIsTyping(true)
+      }
+    }
+
+    return () => clearTimeout(timeoutId)
+  }, [displayedText, currentWordIndex, isTyping, mounted, words])
 
   const navItems = [
     { name: "About", href: "#about" },
@@ -22,11 +65,50 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-primary/20">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary/80"
-          >
-            333<span className="text-foreground">RESEARCH</span>
+          <Link href="/" className="flex items-center space-x-2">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 20,
+                delay: 0.1,
+              }}
+              className="relative w-8 h-8"
+            >
+              {mounted && (
+                <Image
+                  src={theme === "dark" ? "/dado_333_amarillo_sin fondo.png" : "/dado_333_negro_sin fondo.png"}
+                  alt="333 Research Logo"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain"
+                />
+              )}
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 10,
+                delay: 0.3,
+              }}
+              className="text-2xl font-bold font-mono"
+            >
+              <span className="text-foreground">
+                {displayedText}
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="text-primary"
+                >
+                  |
+                </motion.span>
+              </span>
+            </motion.div>
           </Link>
 
           {isMobile ? (
