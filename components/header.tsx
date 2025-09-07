@@ -99,6 +99,7 @@ export default function Header() {
               className="text-2xl font-bold font-mono"
             >
               <span className="text-foreground">
+                <span className="text-primary">TRIPLE-TRES/</span>
                 {displayedText}
                 <motion.span
                   animate={{ opacity: [1, 0, 1] }}
