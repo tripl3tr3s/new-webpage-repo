@@ -6,8 +6,10 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import { Mail, Github, Twitter, Linkedin } from "lucide-react"
+import { useTranslation } from "@/lib/use-translation"
 
 export default function Contact() {
+  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
   const [formStatus, setFormStatus] = useState<null | "success" | "error">(null)
@@ -32,10 +34,10 @@ export default function Contact() {
 
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Connect!</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
-            Want to work together or just say hello? Go ahead, I'd love to hear from you! 🚀
+            {t('contact.subtitle')}
           </p>
         </div>
 

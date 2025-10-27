@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import { FileText, ExternalLink } from "lucide-react"
+import { useTranslation } from "@/lib/use-translation"
 
 interface PublicationCardProps {
   publication: {
@@ -13,9 +14,10 @@ interface PublicationCardProps {
     link: string
   }
   index: number
+  t: (key: string) => string
 }
 
-function PublicationCard({ publication, index }: PublicationCardProps) {
+function PublicationCard({ publication, index, t }: PublicationCardProps) {
   const hueA = 120 + (index * 40) % 240 // Green to cyan range
   const hueB = 180 + (index * 60) % 240 // Cyan to blue range
   
@@ -105,7 +107,7 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
           className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors text-sm"
           whileHover={{ x: 4 }}
         >
-          Read Document <ExternalLink className="ml-1 w-4 h-4" />
+          {t('publications.readMore')} <ExternalLink className="ml-1 w-4 h-4" />
         </motion.a>
       </div>
     </motion.div>
@@ -113,6 +115,7 @@ function PublicationCard({ publication, index }: PublicationCardProps) {
 }
 
 export default function Publications() {
+  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
@@ -184,10 +187,10 @@ export default function Publications() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Research Reports</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('publications.title')}</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
-            Fully reviewed research reports published via Google Documents.
+            {t('publications.subtitle')}
           </p>
         </motion.div>
 
@@ -200,9 +203,10 @@ export default function Publications() {
           >
             {publications.map((publication, index) => (
               <motion.div key={index} variants={itemVariants}>
-                <PublicationCard 
-                  publication={publication} 
-                  index={index} 
+                <PublicationCard
+                  publication={publication}
+                  index={index}
+                  t={t}
                 />
               </motion.div>
             ))}

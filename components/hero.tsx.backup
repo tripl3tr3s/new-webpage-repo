@@ -3,39 +3,41 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { useState, useEffect } from "react"
-import { useTranslation } from "@/lib/use-translation"
 
 export default function Hero() {
-  const { t } = useTranslation()
-  const [currentCatchphrase, setCurrentCatchphrase] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  const catchphrases = [
-    t('hero.catchphrase1'),
-    t('hero.catchphrase2'),
-    t('hero.catchphrase3')
-  ]
-
+  const [displayedText, setDisplayedText] = useState("")
+  const [typingComplete, setTypingComplete] = useState(false)
+  const [showCursor, setShowCursor] = useState(false)
+  const [typingStarted, setTypingStarted] = useState(false)
+  const fullText = "Unlocking the Puzzle: "
+  const gradientText = "Insights Across Crypto and Blockchain"
+  
   useEffect(() => {
-    setMounted(true)
+    // Show cursor first for 1.5 seconds before typing starts
+    const cursorTimeout = setTimeout(() => {
+      setShowCursor(true)
+    }, 800) // Small delay after component mounts
+
+    // Start typing after cursor has been visible for a bit
+    const typingTimeout = setTimeout(() => {
+      setTypingStarted(true)
+      let currentIndex = 0
+      const intervalId = setInterval(() => {
+        if (currentIndex <= fullText.length) {
+          setDisplayedText(fullText.slice(0, currentIndex))
+          currentIndex++
+        } else {
+          clearInterval(intervalId)
+          setTypingComplete(true)
+        }
+      }, 80) // Adjust speed here (lower = faster)
+    }, 2300) // 800ms + 1500ms cursor blink time
+
+    return () => {
+      clearTimeout(cursorTimeout)
+      clearTimeout(typingTimeout)
+    }
   }, [])
-
-  // Cycling catchphrase effect
-  useEffect(() => {
-    if (!mounted) return
-
-    const cycleInterval = setInterval(() => {
-      setIsTransitioning(true)
-
-      setTimeout(() => {
-        setCurrentCatchphrase((prev) => (prev + 1) % catchphrases.length)
-        setIsTransitioning(false)
-      }, 400) // Half of transition time
-    }, 6000) // Change every 6 seconds
-
-    return () => clearInterval(cycleInterval)
-  }, [mounted, catchphrases.length])
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
@@ -71,113 +73,91 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-6 inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20"
+              className="mb-2 inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20"
             >
-              AI Automation Specialist for PyMEs
+              Junior Full-Stack Web3 Developer / Analyst
             </motion.div>
 
-            {/* Dynamic Catchphrase with Electric Effect - MAIN HEADLINE */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="relative mb-8 max-w-2xl mx-auto md:mx-0"
+              className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
             >
-              <motion.div
-                key={currentCatchphrase}
-                initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-                animate={{
-                  opacity: isTransitioning ? 0 : 1,
-                  scale: isTransitioning ? 0.95 : 1,
-                  filter: isTransitioning ? "blur(4px)" : "blur(0px)"
-                }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="relative"
-              >
-                {/* Electric glow effect */}
-                <motion.div
-                  animate={{
-                    boxShadow: [
-                      "0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
-                      "0 0 30px rgba(34, 197, 94, 0.4), 0 0 50px rgba(6, 182, 212, 0.3)",
-                      "0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
-                    ]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="absolute inset-0 rounded-lg blur-xl opacity-50"
-                />
-
-                {/* Main headline text with gradient */}
-                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 bg-clip-text text-transparent leading-tight">
-                  {catchphrases[currentCatchphrase]}
-                </h1>
-
-                {/* Electric border flash on transition */}
-                {isTransitioning && (
-                  <motion.div
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0 border-2 border-cyan-400 rounded-lg"
-                    style={{
-                      boxShadow: "0 0 20px rgba(6, 182, 212, 0.8), inset 0 0 20px rgba(6, 182, 212, 0.3)"
-                    }}
-                  />
-                )}
-              </motion.div>
-
-              {/* Tech scanline effect */}
-              <motion.div
-                animate={{
-                  y: ["-100%", "200%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className="absolute inset-0 pointer-events-none overflow-hidden"
-              >
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-              </motion.div>
+              {displayedText}
+              {/* Show initial blinking cursor before typing starts */}
+              {showCursor && !typingStarted && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="text-green-400"
+                >
+                  |
+                </motion.span>
+              )}
+              {/* Show cursor during typing */}
+              {typingStarted && displayedText.length < fullText.length && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="text-green-400"
+                >
+                  |
+                </motion.span>
+              )}
+              {displayedText === fullText && (
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.0 }}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500"
+                >
+                  {gradientText}
+                </motion.span>
+              )}
             </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? 0 : 20 }}
+              transition={{ delay: 2.5, duration: 0.8 }}
+              className="text-muted-foreground text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0"
+            >
+              Delivering sharp analysis on crypto trends, blockchain breakthroughs, and full-stack scalable apps with real-world impact.
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
+              animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? 0 : 20 }}
+              transition={{ delay: 2.7, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
               <a
                 href="#research"
                 className="px-6 py-3 rounded-lg bg-gradient-to-r from-green-500 to-cyan-500 text-black font-medium hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-shadow"
               >
-                {t('hero.cta')}
+                View Reports
               </a>
               <a
                 href="#contact"
                 className="px-6 py-3 rounded-lg border border-green-500/50 text-foreground hover:bg-green-500/10 transition-colors"
               >
-                {t('hero.contact')}
+                Contact Me
               </a>
             </motion.div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
+            animate={{ opacity: typingComplete ? 1 : 0, scale: typingComplete ? 1 : 0.9 }}
+            transition={{ delay: 0.1, duration: 1 }}
             className="relative hidden md:block"
           >
             <div className="relative w-full h-[400px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
                   src="/img_hero.jpg"
-                  alt="AI Automation visualization"
+                  alt="Blockchain visualization"
                   width={500}
                   height={400}
                   className="w-full h-full object-cover"
@@ -188,16 +168,16 @@ export default function Hero() {
               {/* Animated code snippets */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1, duration: 1.2 }}
+                animate={{ opacity: typingComplete ? 1 : 0, x: typingComplete ? 0 : -20 }}
+                transition={{ delay: 0.3, duration: 1.2 }}
                 className="absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
-                  {"async function automate() {"}
+                  {"function transfer require(to != emit Transfer( return true);"}
                   <br />
-                  {"  const workflow = await n8n.execute();"}
+                  {"  // Transfer Function verification"}
                   <br />
-                  {"  return workflow.success;"}
+                  {"  // ..."}
                   <br />
                   {"}"}
                 </div>
@@ -205,16 +185,18 @@ export default function Hero() {
 
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.2, duration: 1.5 }}
+                animate={{ opacity: typingComplete ? 1 : 0, x: typingComplete ? 0 : 20 }}
+                transition={{ delay: 0.5, duration: 1.5 }}
                 className="absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-cyan-400 font-mono text-xs">
-                  {"// AI-powered automation"}
+                  {"async function signTransaction(tx) {"}
                   <br />
-                  {"const ai = new OpenAI();"}
+                  {"  const signature = await wallet.sign(tx);"}
                   <br />
-                  {"const response = await ai.process(data);"}
+                  {"  return { ...tx, signature };"}
+                  <br />
+                  {"}"}
                 </div>
               </motion.div>
             </div>
@@ -225,7 +207,7 @@ export default function Hero() {
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: [0, 10, 0] }}
+        animate={{ opacity: typingComplete ? 1 : 0, y: typingComplete ? [0, 10, 0] : 10 }}
         transition={{
           delay: 1.3,
           y: { duration: 1.5, repeat: Number.POSITIVE_INFINITY },
@@ -233,7 +215,7 @@ export default function Hero() {
         }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center">          
           <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center p-1">
             <motion.div
               animate={{ y: [0, 12, 0] }}
@@ -246,3 +228,4 @@ export default function Hero() {
     </section>
   )
 }
+

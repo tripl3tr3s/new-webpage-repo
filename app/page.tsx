@@ -1,6 +1,7 @@
 import Header from "@/components/header"
 import Hero from "@/components/hero"
 import About from "@/components/about"
+import Certifications from "@/components/certifications"
 import Research from "@/components/research"
 import Publications from "@/components/publications"
 import Contact from "@/components/contact"
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
+      <Certifications />
       <Research />
       <Publications />
       <Contact />

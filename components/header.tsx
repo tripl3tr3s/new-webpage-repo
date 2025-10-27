@@ -8,6 +8,9 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import { useMediaQuery } from "@/hooks/use-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { LanguageToggle } from "@/components/language-toggle"
+import { useI18n } from "@/lib/i18n-context"
+import { translations } from "@/lib/translations"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,6 +20,7 @@ export default function Header() {
   const [isTyping, setIsTyping] = useState(true)
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { theme } = useTheme()
+  const { language } = useI18n()
 
   const words = ["RESEARCH", "DEVELOPMENT", "DESIGN", "ILLUSTRATION", "ANALYSIS", "VISUALIZATIONS"]
 
@@ -55,10 +59,11 @@ export default function Header() {
   }, [displayedText, currentWordIndex, isTyping, mounted, words])
 
   const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Scope", href: "#research" },
-    { name: "Reports", href: "#publications" },
-    { name: "Contact", href: "#contact" },
+    { name: translations.nav.about[language], href: "#about" },
+    { name: translations.nav.credentials[language], href: "#certifications" },
+    { name: translations.nav.scope[language], href: "#research" },
+    { name: translations.nav.reports[language], href: "#publications" },
+    { name: translations.nav.contact[language], href: "#contact" },
   ]
 
   return (
@@ -114,7 +119,8 @@ export default function Header() {
 
           {isMobile ? (
             <>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-2">
+                <LanguageToggle />
                 <ThemeToggle />
                 <button
                   onClick={() => setIsOpen(!isOpen)}
@@ -148,7 +154,7 @@ export default function Header() {
               )}
             </>
           ) : (
-            <div className="flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
               <nav className="flex items-center space-x-8">
                 {navItems.map((item) => (
                   <Link
@@ -161,6 +167,7 @@ export default function Header() {
                   </Link>
                 ))}
               </nav>
+              <LanguageToggle />
               <ThemeToggle />
             </div>
           )}
