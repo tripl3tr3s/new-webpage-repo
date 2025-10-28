@@ -51,12 +51,20 @@ export const translations = {
     },
     focusTitle: { en: "Current Focus", es: "Enfoque Actual" },
     focusRole: {
-      en: "AI Automation Consultant | Helping PyMEs Scale Smart",
-      es: "Consultor de Automatización IA | Ayudando a PyMEs a Escalar Inteligente"
+      en: "AI Automation Consultant for Mexican PyMEs",
+      es: "Consultor de Automatización IA para PyMEs Mexicanas"
     },
-    focusText: {
-      en: "Every week, Mexican businesses lose thousands of pesos and countless hours to manual work that could run on autopilot. I fix that. Combining n8n workflow automation, AI integration, and full-stack development, I design systems that free your team from busywork and let them focus on what actually grows your business—winning customers, not wrestling spreadsheets.",
-      es: "Cada semana, negocios mexicanos pierden miles de pesos e incontables horas en trabajo manual que podría correr en piloto automático. Yo arreglo eso. Combinando automatización de flujos n8n, integración de IA, y desarrollo full-stack, diseño sistemas que liberan a tu equipo del trabajo tedioso y les permiten enfocarse en lo que realmente hace crecer tu negocio—ganar clientes, no luchar con hojas de cálculo."
+    focusText1: {
+      en: "Today, I specialize as an",
+      es: "Hoy, me especializo como"
+    },
+    focusText2: {
+      en: "—turning business chaos into streamlined systems that run themselves.",
+      es: "—convirtiendo el caos empresarial en sistemas optimizados que se ejecutan solos."
+    },
+    focusText3: {
+      en: "Using n8n workflow automation, custom AI integrations, and full-stack development, I build solutions that eliminate repetitive tasks, reduce operational costs, and free your team to focus on growth. Whether it's automating customer follow-ups, syncing data across platforms, or deploying AI agents that handle routine inquiries—I create systems that work 24/7 so your people don't have to.",
+      es: "Usando automatización de flujos n8n, integraciones personalizadas de IA, y desarrollo full-stack, construyo soluciones que eliminan tareas repetitivas, reducen costos operativos y liberan a tu equipo para enfocarse en el crecimiento. Ya sea automatizando seguimientos de clientes, sincronizando datos entre plataformas, o desplegando agentes de IA que manejan consultas rutinarias—creo sistemas que trabajan 24/7 para que tu gente no tenga que hacerlo."
     },
     toolkitTitle: { en: "Toolkit", es: "Herramientas" },
     skills: {

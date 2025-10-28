@@ -85,16 +85,7 @@ export default function About() {
         <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
         <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
         <p className="text-muted-foreground text-lg">
-          {t('about.intro')}{" "}
-          <a
-            href="https://www.youtube.com/@Coinsider"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-500 font-semibold hover:underline hover:text-cyan-300 transition-colors"
-          >
-            Coinsider
-          </a>,
-          {t('about.intro2')}
+          {t('about.intro')}
         </p>
       </div>
 
