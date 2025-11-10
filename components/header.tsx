@@ -80,7 +80,7 @@ export default function Header() {
                 damping: 20,
                 delay: 0.1,
               }}
-              className="relative w-8 h-8"
+              className="relative w-6 h-6 md:w-8 md:h-8"
             >
               {mounted && (
                 <Image
@@ -101,25 +101,30 @@ export default function Header() {
                 damping: 10,
                 delay: 0.3,
               }}
-              className="text-2xl font-bold font-mono"
+              className="text-lg md:text-2xl font-bold font-mono"
             >
               <span className="text-foreground">
-                <span className="text-primary">TRIPLE-TRES/</span>
-                {displayedText}
-                <motion.span
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="text-primary"
-                >
-                  |
-                </motion.span>
+                <span className="text-primary">TRIPLE-TRES</span>
+                {!isMobile && (
+                  <>
+                    <span className="text-primary">/</span>
+                    {displayedText}
+                    <motion.span
+                      animate={{ opacity: [1, 0, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                      className="text-primary"
+                    >
+                      |
+                    </motion.span>
+                  </>
+                )}
               </span>
             </motion.div>
           </Link>
 
           {isMobile ? (
             <>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1">
                 <LanguageToggle />
                 <ThemeToggle />
                 <button
@@ -127,7 +132,7 @@ export default function Header() {
                   className="p-2 text-foreground"
                   aria-label={isOpen ? "Close menu" : "Open menu"}
                 >
-                  {isOpen ? <X size={24} /> : <Menu size={24} />}
+                  {isOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
               </div>
 
