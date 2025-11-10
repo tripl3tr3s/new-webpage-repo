@@ -9,10 +9,19 @@ import MouseTrail from "@/components/mouse-trail"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Triple Tres Crypto Research Portfolio",
-  description: "Portfolio of a blockchain and cryptocurrency researcher / analyst.",
-    generator: 'Triple Tres',
-  applicationName: 'Triple Tres Crypto Research Portfolio',
+  title: "Triple Tres - AI Automation Consultant for Mexican PyMEs",
+  description: "n8n-certified automation specialist helping Mexican businesses unlock growth through intelligent AI workflows. From manual chaos to streamlined systems that deliver ROI.",
+  generator: 'Triple Tres',
+  applicationName: 'Triple Tres AI Automation',
+  keywords: ['AI automation', 'n8n', 'workflow automation', 'Mexican PyMEs', 'business automation', 'AI consultant', 'intelligent workflows', 'process automation'],
+  authors: [{ name: 'Triple Tres' }],
+  openGraph: {
+    title: 'Triple Tres - AI Automation Consultant',
+    description: 'n8n-certified automation specialist transforming Mexican businesses with intelligent AI workflows',
+    type: 'website',
+    locale: 'es_MX',
+    alternateLocale: 'en_US',
+  },
 }
 
 export default function RootLayout({
