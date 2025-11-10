@@ -5,85 +5,75 @@ import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import Image from "next/image"
 import { ExternalLink, GitBranch, Play, Code, BarChart } from "lucide-react"
+import { useTranslation } from "@/lib/use-translation"
 
 export default function Research() {
+  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
   const [activeTab, setActiveTab] = useState("projects")
 
   const projects = [
     {
-      title: "Crypto / TradFi Analytics Terminal",
-      liveLink: "#", // Replace with actual link
-      githubLink: "#", // Replace with actual link
-      description: "Real-time crypto analytics with ApexCharts visualizations, JavaScript backend for data processing, and React frontend with TypeScript.",
-      image: "/RD_Terminal.png", // Replace with project screenshot
+      id: "terminal",
+      liveLink: "https://retaildao-terminal.vercel.app/",
+      githubLink: "https://github.com/RetailDAO/website",
+      image: "/RD_Terminal.png",
       tags: ["React", "TypeScript", "Docker", "ApexCharts", "Crypto"],
       tech: ["Next.js", "Docker", "Axios", "Redis", "Dual WebSocket", "Custom API"],
-      status: "In Progress",
-      type: "Full-Stack"
+      status: "inProgress"
     },
     {
-      title: "Retail DAO Static Documentation Site",
-      liveLink: "https://retaildao.github.io/Docs/", // Replace with actual link
-      githubLink: "https://github.com/RetailDAO/Docs", // Replace with actual link
-      description: "Static documentation site for Retail DAO using Docusaurus, featuring markdown content, versioning, and custom theming.",
-      image: "/RD_Docs.png", // Replace with project screenshot
+      id: "retailDocs",
+      liveLink: "https://retaildao.github.io/Docs/",
+      githubLink: "https://github.com/RetailDAO/Docs",
+      image: "/RD_Docs.png",
       tags: ["React", "Matplotlib", "Docusaurus", "API"],
       tech: ["TypeScript", "React", "Docusaurus", "GitHub Pages"],
-      status: "live",
-      type: "Full-Stack"
+      status: "live"
     },
     {
-      title: "Gradient Descent Golf",
-      liveLink: "https://scratch.mit.edu/projects/1197478584", // Replace with actual link
-      githubLink: "https://scratch.mit.edu/projects/1197478584", // Replace with actual link
-      description: "Scratch built 2D golf interactive tutorial for teaching machine learning concepts like gradient descent and cost functions.",
-      image: "G_D_G.png", // Replace with project screenshot
+      id: "gradientGolf",
+      liveLink: "https://scratch.mit.edu/projects/1197478584",
+      githubLink: "https://scratch.mit.edu/projects/1197478584",
+      image: "G_D_G.png",
       tags: ["Machine Learning", "Back Propagation", "Deep Learning", "]Loss Functions"],
       tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
-      status: "Development",
-      type: "Interactive Tutorial"
+      status: "development"
     },
     {
-      title: "This very website",
-      liveLink: "https://researchooor.quest", // Replace with actual link
-      githubLink: "https://github.com/tripl3tr3s/new-webpage-repo", // Replace with actual link
-      description: "Personal portfolio and contact site built with Next.js and Tailwind CSS, showcasing projects and research.",
-      image: "/Portfolio.png", // Replace with project screenshot
+      id: "thisWebsite",
+      liveLink: "https://researchooor.quest",
+      githubLink: "https://github.com/tripl3tr3s/new-webpage-repo",
+      image: "/Portfolio.png",
       tags: ["Portfolio", "Web3", "Analytics", "Blockchain", "Toolkit"],
       tech: ["Tailwind CSS", "GitHub Actions", "GitHub Pages", "Framer Motion"],
-      status: "Live",
-      type: "Portfolio"
+      status: "live"
     },
   ]
 
   const researchPosts = [
     {
-      title: "Low Float-High FDV Issues & VC's Selling Rewards",
-      youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L", 
-      description: "Diving into Low float-High FDV issues & exposing VC's selling rewards of staked Vested tokens.",
+      id: "lowFloat",
+      youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L",
       image: "/VCsHighFDV_img.jpg",
       tags: ["FDV", "Staking Rewards", "VC's"],
     },
     {
-      title: "Is Ethena the Next Luna?",
-      youtubeLink: "https://youtu.be/wKtFMFTwpTM?si=cZRCe4ZBDrKYlJ2F", 
-      description: "Understanding Luna Crash to predict Ethena's future. Analyzing the similarities and differences.",
+      id: "ethena",
+      youtubeLink: "https://youtu.be/wKtFMFTwpTM?si=cZRCe4ZBDrKYlJ2F",
       image: "/ethena_img.jpg",
       tags: ["Algorithmic Stablecoin", "Tokenized Bonds", "Hedging"],
     },
     {
-      title: "Are NFTs Dead Forever?",
-      youtubeLink: "https://youtu.be/c8AbMPubzBA?si=HqoDiybuS4KzXYmt", 
-      description: "Deep dive into the NFTs history, exploring the reasons behind their rise and fall, and the potential for future growth.",
+      id: "nfts",
+      youtubeLink: "https://youtu.be/c8AbMPubzBA?si=HqoDiybuS4KzXYmt",
       image: "/nfts_dead.jpg",
       tags: ["NFT's", "History", "Trend Assessment"],
     },
     {
-      title: "The Ultimate Puppets Master: BlackRock's CEO.",
-      youtubeLink: "https://youtu.be/GuHb_IZlZis?si=KPmKqCFSABtV8CTN", 
-      description: "Analysis of Larry Fink's influence on the crypto market and the impact of BlackRock venturing into Bitcoin.",
+      id: "blackrock",
+      youtubeLink: "https://youtu.be/GuHb_IZlZis?si=KPmKqCFSABtV8CTN",
       image: "/LFink.jpg",
       tags: ["BlackRock", "Bitcoin", "ETF"],
     },
@@ -116,10 +106,10 @@ export default function Research() {
 
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Work & Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('research.title')}</h2>
           <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
-            Explore my development projects and research work in Web3 and data analysis.
+            {t('research.subtitle')}
           </p>
         </div>
 
@@ -173,7 +163,7 @@ export default function Research() {
                 >
                   <Code className="w-5 h-5" />
                 </motion.div>
-                Development Projects
+                {t('research.tabs.projects')}
               </motion.div>
               
               {/* Glow border effect */}
@@ -233,7 +223,7 @@ export default function Research() {
                 >
                   <BarChart className="w-5 h-5" />
                 </motion.div>
-                Research Content
+                {t('research.tabs.research')}
               </motion.div>
               
               {/* Glow border effect */}
@@ -265,7 +255,7 @@ export default function Research() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={t(`research.projects.${project.id}.title`)}
                     width={500}
                     height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -273,29 +263,29 @@ export default function Research() {
                   <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
                   <div className="absolute top-4 left-4">
                     <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-                      project.status === "Live" ? "bg-primary/20 text-primary border border-primary/40" :
-                      project.status === "In Progress" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40" :
+                      project.status === "live" ? "bg-primary/20 text-primary border border-primary/40" :
+                      project.status === "inProgress" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40" :
                       "bg-blue-500/20 text-blue-400 border border-blue-500/40"
                     }`}>
-                      {project.status}
+                      {t(`research.status.${project.status}`)}
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
                     <span className="px-3 py-1 text-xs font-medium rounded-full bg-muted/80 text-muted-foreground border border-border">
-                      {project.type}
+                      {t(`research.projects.${project.id}.type`)}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                    {project.title}
+                    {t(`research.projects.${project.id}.title`)}
                   </h3>
-                  <p className="text-muted-foreground mb-4">{project.description}</p>
+                  <p className="text-muted-foreground mb-4">{t(`research.projects.${project.id}.desc`)}</p>
 
                   {/* Tech Stack */}
                   <div className="mb-4">
-                    <p className="text-sm text-muted-foreground mb-2">Tech Stack:</p>
+                    <p className="text-sm text-muted-foreground mb-2">{t('research.techStack')}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tech.map((tech, techIndex) => (
                         <span
@@ -329,7 +319,7 @@ export default function Research() {
                       className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all"
                     >
                       <ExternalLink className="w-4 h-4" />
-                      Live Demo
+                      {t('research.liveDemo')}
                     </a>
                     <a
                       href={project.githubLink}
@@ -338,7 +328,7 @@ export default function Research() {
                       className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
                     >
                       <GitBranch className="w-4 h-4" />
-                      Code
+                      {t('research.code')}
                     </a>
                   </div>
                 </div>
@@ -354,7 +344,7 @@ export default function Research() {
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={post.image || "/placeholder.svg"}
-                    alt={post.title}
+                    alt={t(`research.researchPosts.${post.id}.title`)}
                     width={500}
                     height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -371,10 +361,10 @@ export default function Research() {
                       className="hover:underline flex items-center gap-2"
                     >
                       <Play className="w-4 h-4 text-red-500" />
-                      {post.title}
+                      {t(`research.researchPosts.${post.id}.title`)}
                     </a>
                   </h3>
-                  <p className="text-muted-foreground mb-4">{post.description}</p>
+                  <p className="text-muted-foreground mb-4">{t(`research.researchPosts.${post.id}.desc`)}</p>
 
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag, tagIndex) => (

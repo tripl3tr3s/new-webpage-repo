@@ -99,8 +99,8 @@ export const translations = {
   certifications: {
     title: { en: "Certifications & Credentials", es: "Certificaciones y Credenciales" },
     subtitle: {
-      en: "14 certifications across AI tools, software engineering, and data analysis",
-      es: "14 certificaciones en herramientas de IA, ingeniería de software y análisis de datos"
+      en: "18 certifications across AI tools, automation, software engineering, and data analysis",
+      es: "18 certificaciones en herramientas de IA, automatización, ingeniería de software y análisis de datos"
     },
     featured: { en: "FEATURED CERTIFICATION", es: "CERTIFICACIÓN DESTACADA" },
     featuredBadge: {
@@ -126,6 +126,26 @@ export const translations = {
       foundations: { en: "Programming Foundations", es: "Fundamentos de Programación" },
       logic: { en: "Logical Thinking Series", es: "Serie de Pensamiento Lógico" },
       tools: { en: "Developer Tools", es: "Herramientas para Desarrolladores" }
+    },
+    certs: {
+      "n8n-level-1": { en: "n8n Course Level 1 Certified", es: "Certificado Curso n8n Nivel 1" },
+      "mcp-advanced": { en: "Model Context Protocol: Advanced Topics", es: "Protocolo de Contexto de Modelos: Temas Avanzados" },
+      "claude-code": { en: "Claude Code in Action", es: "Claude Code en Acción" },
+      "mcp-intro": { en: "Introduction to Model Context Protocol", es: "Introducción al Protocolo de Contexto de Modelos" },
+      "ai-fluency": { en: "AI Fluency: Framework & Foundations", es: "Fluidez en IA: Marco y Fundamentos" },
+      "data-literacy": { en: "Data Literacy Fundamentals", es: "Fundamentos de Alfabetización en Datos" },
+      "software-eng": { en: "Software Engineering Fundamentals", es: "Fundamentos de Ingeniería de Software" },
+      "prog-history": { en: "Programming History: Languages & Paradigms", es: "Historia de la Programación: Lenguajes y Paradigmas" },
+      "web-intro": { en: "Web Introduction: Internet History & Functionality", es: "Introducción Web: Historia y Funcionalidad de Internet" },
+      "logic-algorithms": { en: "Logical Thinking: Algorithms & Flowcharts", es: "Pensamiento Lógico: Algoritmos y Diagramas de Flujo" },
+      "logic-structures": { en: "Logical Thinking: Data Structures & Functions", es: "Pensamiento Lógico: Estructuras de Datos y Funciones" },
+      "logic-languages": { en: "Logical Thinking: Programming Languages", es: "Pensamiento Lógico: Lenguajes de Programación" },
+      "ethereum-fundamentals": { en: "Ethereum Fundamentals", es: "Fundamentos de Ethereum" },
+      "blockchain-prework": { en: "Blockchain Development Prework", es: "Preparación para Desarrollo Blockchain" },
+      "git-github": { en: "Git & GitHub", es: "Git & GitHub" },
+      "linux-admin": { en: "Linux Server Administration Introduction", es: "Introducción a Administración de Servidores Linux" },
+      "n8n-lowcode": { en: "Low-Code Automation with n8n", es: "Automatización Low-Code con n8n" },
+      "terminal": { en: "Terminal & Command Line Introduction", es: "Introducción a Terminal y Línea de Comandos" }
     }
   },
 
@@ -136,21 +156,56 @@ export const translations = {
       en: "Some of my featured work in crypto research and data analysis",
       es: "Algunos de mis trabajos destacados en investigación cripto y análisis de datos"
     },
+    tabs: {
+      projects: { en: "Development Projects", es: "Proyectos de Desarrollo" },
+      research: { en: "Research Content", es: "Contenido de Investigación" }
+    },
+    status: {
+      live: { en: "Live", es: "En Vivo" },
+      inProgress: { en: "In Progress", es: "En Progreso" },
+      development: { en: "Development", es: "Desarrollo" }
+    },
+    techStack: { en: "Tech Stack:", es: "Tecnologías:" },
+    liveDemo: { en: "Live Demo", es: "Demo en Vivo" },
+    code: { en: "Code", es: "Código" },
     projects: {
-      dashboard: {
-        title: { en: "Retail DAO Analytics Dashboard", es: "Dashboard de Análisis Retail DAO" },
-        desc: { en: "Real-time crypto market analysis combining BTC dominance, ETF flows, and funding rates. Built with Streamlit and Python.", es: "Análisis de mercado cripto en tiempo real combinando dominancia de BTC, flujos de ETF y tasas de funding. Construido con Streamlit y Python." },
-        tech: { en: "Python, Streamlit, Plotly, Pandas", es: "Python, Streamlit, Plotly, Pandas" }
+      terminal: {
+        title: { en: "Crypto / TradFi Analytics Terminal", es: "Terminal de Análisis Crypto / TradFi" },
+        desc: { en: "Real-time crypto analytics with ApexCharts visualizations, JavaScript backend for data processing, and React frontend with TypeScript.", es: "Análisis cripto en tiempo real con visualizaciones ApexCharts, backend JavaScript para procesamiento de datos y frontend React con TypeScript." },
+        type: { en: "Full-Stack", es: "Full-Stack" }
       },
-      portfolio: {
-        title: { en: "Personal Portfolio Website", es: "Sitio Web de Portfolio Personal" },
-        desc: { en: "Modern, responsive portfolio showcasing research work and technical skills. Built with Next.js and TypeScript.", es: "Portfolio moderno y responsivo mostrando trabajo de investigación y habilidades técnicas. Construido con Next.js y TypeScript." },
-        tech: { en: "Next.js, TypeScript, Tailwind CSS", es: "Next.js, TypeScript, Tailwind CSS" }
+      retailDocs: {
+        title: { en: "Retail DAO Static Documentation Site", es: "Sitio de Documentación Estática Retail DAO" },
+        desc: { en: "Static documentation site for Retail DAO using Docusaurus, featuring markdown content, versioning, and custom theming.", es: "Sitio de documentación estática para Retail DAO usando Docusaurus, con contenido markdown, versionado y temas personalizados." },
+        type: { en: "Full-Stack", es: "Full-Stack" }
       },
-      docs: {
-        title: { en: "Research Documentation", es: "Documentación de Investigación" },
-        desc: { en: "Comprehensive research briefs on crypto markets, DeFi protocols, and blockchain analysis. Over 1000 pages of content.", es: "Briefs de investigación completos sobre mercados cripto, protocolos DeFi y análisis blockchain. Más de 1000 páginas de contenido." },
-        tech: { en: "Google Docs, Data Analysis", es: "Google Docs, Análisis de Datos" }
+      gradientGolf: {
+        title: { en: "Gradient Descent Golf", es: "Golf de Descenso de Gradiente" },
+        desc: { en: "Scratch built 2D golf interactive tutorial for teaching machine learning concepts like gradient descent and cost functions.", es: "Tutorial interactivo de golf 2D construido en Scratch para enseñar conceptos de machine learning como descenso de gradiente y funciones de costo." },
+        type: { en: "Interactive Tutorial", es: "Tutorial Interactivo" }
+      },
+      thisWebsite: {
+        title: { en: "This very website", es: "Este mismo sitio web" },
+        desc: { en: "Personal portfolio and contact site built with Next.js and Tailwind CSS, showcasing projects and research.", es: "Portfolio personal y sitio de contacto construido con Next.js y Tailwind CSS, mostrando proyectos e investigación." },
+        type: { en: "Portfolio", es: "Portfolio" }
+      }
+    },
+    researchPosts: {
+      lowFloat: {
+        title: { en: "Low Float-High FDV Issues & VC's Selling Rewards", es: "Problemas de Bajo Float-Alto FDV y VCs Vendiendo Recompensas" },
+        desc: { en: "Diving into Low float-High FDV issues & exposing VC's selling rewards of staked Vested tokens.", es: "Profundizando en problemas de bajo float-alto FDV y exponiendo VCs vendiendo recompensas de tokens stakeados en vesting." }
+      },
+      ethena: {
+        title: { en: "Is Ethena the Next Luna?", es: "¿Es Ethena el Próximo Luna?" },
+        desc: { en: "Understanding Luna Crash to predict Ethena's future. Analyzing the similarities and differences.", es: "Entendiendo el colapso de Luna para predecir el futuro de Ethena. Analizando similitudes y diferencias." }
+      },
+      nfts: {
+        title: { en: "Are NFTs Dead Forever?", es: "¿Están los NFTs Muertos Para Siempre?" },
+        desc: { en: "Deep dive into the NFTs history, exploring the reasons behind their rise and fall, and the potential for future growth.", es: "Inmersión profunda en la historia de los NFTs, explorando las razones detrás de su auge y caída, y el potencial de crecimiento futuro." }
+      },
+      blackrock: {
+        title: { en: "The Ultimate Puppets Master: BlackRock's CEO.", es: "El Maestro de Títeres Definitivo: El CEO de BlackRock." },
+        desc: { en: "Analysis of Larry Fink's influence on the crypto market and the impact of BlackRock venturing into Bitcoin.", es: "Análisis de la influencia de Larry Fink en el mercado cripto y el impacto de BlackRock incursionando en Bitcoin." }
       }
     }
   },
@@ -167,23 +222,25 @@ export const translations = {
 
   // Contact Section
   contact: {
-    title: { en: "Let's Work Together", es: "Trabajemos Juntos" },
+    title: { en: "Ready to Transform Your Business?", es: "¿Listo para Transformar Tu Negocio?" },
     subtitle: {
-      en: "Got a research project or need help with data analysis? I'm here to assist with crypto research, development, or data-driven insights.",
-      es: "¿Tienes un proyecto de investigación o necesitas ayuda con análisis de datos? Estoy aquí para asistir con investigación cripto, desarrollo o insights basados en datos."
+      en: "Don't know how to correctly implement AI into your business? Book a free 30-minute discovery call and let's unlock your business potential with intelligent automation that actually delivers results.",
+      es: "¿No sabes cómo implementar correctamente IA en tu negocio? Agenda una llamada de descubrimiento gratuita de 30 minutos y desbloqueemos el potencial de tu negocio con automatización inteligente que realmente da resultados."
     },
     form: {
       name: { en: "Your Name", es: "Tu Nombre" },
-      namePlaceholder: { en: "Satoshi Nakamoto (or close enough)", es: "Satoshi Nakamoto (o algo similar)" },
+      namePlaceholder: { en: "Juan Pérez", es: "Juan Pérez" },
       email: { en: "Email Address", es: "Correo Electrónico" },
-      emailPlaceholder: { en: "your.email@example.com (no scams please)", es: "tu.email@ejemplo.com (sin scams por favor)" },
+      emailPlaceholder: { en: "juan@mipyme.mx", es: "juan@mipyme.mx" },
       subject: { en: "Subject", es: "Asunto" },
       subjectPlaceholder: { en: "What's on your mind? Research? Dev? Just vibes?", es: "¿Qué tienes en mente? ¿Investigación? ¿Dev? ¿Solo vibras?" },
       message: { en: "Message", es: "Mensaje" },
-      messagePlaceholder: { en: "Tell me about your project, idea, or if you just want to talk about the latest degen plays...", es: "Cuéntame sobre tu proyecto, idea, o si solo quieres hablar sobre las últimas jugadas degen..." },
+      messagePlaceholder: { en: "Tell me about your business challenges... What processes are eating your time? What growth are you missing?", es: "Cuéntame sobre los retos de tu negocio... ¿Qué procesos te quitan tiempo? ¿Qué crecimiento estás perdiendo?" },
       send: { en: "Send Message", es: "Enviar Mensaje" },
       sending: { en: "Sending...", es: "Enviando..." }
     },
+    bookCall: { en: "📅 Book Free Discovery Call", es: "📅 Agendar Llamada Gratuita" },
+    orSendMessage: { en: "Or send me a message", es: "O envíame un mensaje" },
     info: {
       email: { en: "Email Me", es: "Envíame un Email" },
       social: { en: "Social Media", es: "Redes Sociales" },

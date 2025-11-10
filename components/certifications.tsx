@@ -1,9 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
-import { Award, ExternalLink, Download, X, Brain, Code2, Database, Workflow } from "lucide-react"
+import { useState } from "react"
+import { ExternalLink, Download, X, Brain, Code2, Database, Workflow } from "lucide-react"
 import { useTranslation } from "@/lib/use-translation"
 
 // Certificate data structure
@@ -132,7 +131,16 @@ const certificates: Certificate[] = [
     category: "Logic",
     file: "diploma-pensamiento-logico-lenguajes-2022.pdf"
   },
-  // Platzi - Tools
+  // Platzi - Tools & Blockchain
+  {
+    id: "ethereum-fundamentals",
+    title: "Ethereum Fundamentals",
+    date: "October 29, 2024",
+    hours: "16h",
+    platform: "Platzi",
+    category: "Blockchain",
+    file: "diploma-ethereum-ecosistema.pdf"
+  },
   {
     id: "blockchain-prework",
     title: "Blockchain Development Prework",
@@ -141,6 +149,33 @@ const certificates: Certificate[] = [
     platform: "Platzi",
     category: "Blockchain",
     file: "diploma-prework-ethereum.pdf"
+  },
+  {
+    id: "git-github",
+    title: "Git & GitHub",
+    date: "October 27, 2024",
+    hours: "24h",
+    platform: "Platzi",
+    category: "Tools",
+    file: "diploma-gitgithub.pdf"
+  },
+  {
+    id: "linux-admin",
+    title: "Linux Server Administration Introduction",
+    date: "November 5, 2024",
+    hours: "14h",
+    platform: "Platzi",
+    category: "Tools",
+    file: "diploma-linux.pdf"
+  },
+  {
+    id: "n8n-lowcode",
+    title: "Low-Code Automation with n8n",
+    date: "October 30, 2024",
+    hours: "7h",
+    platform: "Platzi",
+    category: "Automation",
+    file: "diploma-n8n-lowcode.pdf"
   },
   {
     id: "terminal",
@@ -224,7 +259,7 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
 
         {/* Title */}
         <h4 className="text-lg font-bold mb-2 group-hover:text-green-400 transition-colors line-clamp-2">
-          {cert.title}
+          {t(`certifications.certs.${cert.id}`)}
         </h4>
 
         {/* Platform badge */}
@@ -297,7 +332,7 @@ function FeaturedBadge({ cert, onClick, t }: { cert: Certificate; onClick: () =>
 
         <div className="flex-1 text-center md:text-left">
           <div className="text-orange-500 font-bold text-sm mb-2">🏆 {t('certifications.featured')}</div>
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">{cert.title}</h3>
+          <h3 className="text-2xl md:text-3xl font-bold mb-2">{t(`certifications.certs.${cert.id}`)}</h3>
           <p className="text-muted-foreground mb-4">
             {t('certifications.featuredBadge.desc')} • {cert.date}
           </p>
@@ -314,7 +349,7 @@ function FeaturedBadge({ cert, onClick, t }: { cert: Certificate; onClick: () =>
   )
 }
 
-function CertificateModal({ cert, onClose }: { cert: Certificate; onClose: () => void }) {
+function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: () => void; t: (key: string) => string }) {
   const isImage = cert.file.endsWith('.png') || cert.file.endsWith('.jpg')
 
   return (
@@ -335,7 +370,7 @@ function CertificateModal({ cert, onClose }: { cert: Certificate; onClose: () =>
         {/* Header */}
         <div className="p-6 border-b border-border flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold mb-1">{cert.title}</h3>
+            <h3 className="text-xl font-bold mb-1">{t(`certifications.certs.${cert.id}`)}</h3>
             <p className="text-sm text-muted-foreground">{cert.platform} • {cert.date}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -372,14 +407,14 @@ function CertificateModal({ cert, onClose }: { cert: Certificate; onClose: () =>
           {isImage ? (
             <img
               src={`/${cert.file}`}
-              alt={cert.title}
+              alt={t(`certifications.certs.${cert.id}`)}
               className="w-full h-auto rounded-lg"
             />
           ) : (
             <iframe
               src={`/${cert.file}`}
               className="w-full h-[600px] rounded-lg"
-              title={cert.title}
+              title={t(`certifications.certs.${cert.id}`)}
             />
           )}
         </div>
@@ -390,8 +425,6 @@ function CertificateModal({ cert, onClose }: { cert: Certificate; onClose: () =>
 
 export default function Certifications() {
   const { t } = useTranslation()
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null)
 
   // Organize certificates by category
@@ -400,7 +433,7 @@ export default function Certifications() {
   const dataCert = certificates.find(c => c.category === "Data")
   const devCerts = certificates.filter(c => c.category === "Development")
   const logicCerts = certificates.filter(c => c.category === "Logic")
-  const toolsCerts = certificates.filter(c => ["Blockchain", "Tools"].includes(c.category))
+  const toolsCerts = certificates.filter(c => ["Blockchain", "Tools", "Automation"].includes(c.category) && c.id !== "n8n-level-1")
 
   return (
     <>
@@ -421,7 +454,7 @@ export default function Certifications() {
             </p>
           </motion.div>
 
-          <div ref={ref} className="max-w-7xl mx-auto space-y-16">
+          <div className="max-w-7xl mx-auto space-y-16">
             {/* Featured n8n Badge */}
             <div>
               <FeaturedBadge cert={featured} onClick={() => setSelectedCert(featured)} t={t} />
@@ -430,7 +463,8 @@ export default function Certifications() {
             {/* AI & Development Tools */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: 0.2 }}
             >
               <div className="flex items-center gap-3 mb-6">
@@ -440,7 +474,7 @@ export default function Certifications() {
                   <p className="text-muted-foreground text-sm">{t('certifications.categories.ai.subtitle')}</p>
                 </div>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {aiCerts.map((cert, idx) => (
                   <CertificateCard
                     key={cert.id}
@@ -457,7 +491,8 @@ export default function Certifications() {
             {dataCert && (
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: 0.3 }}
               >
                 <div className="flex items-center gap-3 mb-6">
@@ -467,7 +502,7 @@ export default function Certifications() {
                     <p className="text-muted-foreground text-sm">{t('certifications.categories.data.subtitle')}</p>
                   </div>
                 </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   <CertificateCard
                     cert={dataCert}
                     index={0}
@@ -481,7 +516,8 @@ export default function Certifications() {
             {/* Computer Science Fundamentals */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: 0.4 }}
             >
               <div className="flex items-center gap-3 mb-6">
@@ -495,7 +531,7 @@ export default function Certifications() {
               {/* Programming Foundations */}
               <div className="mb-8">
                 <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.foundations')}</h4>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {devCerts.map((cert, idx) => (
                     <CertificateCard
                       key={cert.id}
@@ -511,7 +547,7 @@ export default function Certifications() {
               {/* Logical Thinking Series */}
               <div className="mb-8">
                 <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.logic')}</h4>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {logicCerts.map((cert, idx) => (
                     <CertificateCard
                       key={cert.id}
@@ -527,7 +563,7 @@ export default function Certifications() {
               {/* Developer Tools */}
               <div>
                 <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.tools')}</h4>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {toolsCerts.map((cert, idx) => (
                     <CertificateCard
                       key={cert.id}
@@ -549,6 +585,7 @@ export default function Certifications() {
         <CertificateModal
           cert={selectedCert}
           onClose={() => setSelectedCert(null)}
+          t={t}
         />
       )}
     </>

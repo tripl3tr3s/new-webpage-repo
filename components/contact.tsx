@@ -41,6 +41,30 @@ export default function Contact() {
           </p>
         </div>
 
+        {/* Primary CTA - Book Call */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-3xl mx-auto mb-12 text-center"
+        >
+          <a
+            href="https://calendly.com/tripl3tr3s/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-8 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300 transform hover:scale-105"
+          >
+            {t('contact.bookCall')}
+          </a>
+        </motion.div>
+
+        {/* Divider with text */}
+        <div className="max-w-3xl mx-auto mb-12 flex items-center gap-4">
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent"></div>
+          <span className="text-muted-foreground text-sm">{t('contact.orSendMessage')}</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-green-500/30 to-transparent"></div>
+        </div>
+
         <div ref={ref} className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -48,47 +72,47 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
-            <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+            <h3 className="text-2xl font-bold mb-6">{t('contact.form.send')}</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">
-                  Name
+                  {t('contact.form.name')}
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   required
-                  placeholder="Satoshi Nakamoto"
+                  placeholder={t('contact.form.namePlaceholder')}
                   className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground placeholder:text-muted-foreground/60"
                 />
               </div>
 
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-muted-foreground mb-1">
-                  Email
+                  {t('contact.form.email')}
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
-                  placeholder="satoshi@bitcoin.org"
+                  placeholder={t('contact.form.emailPlaceholder')}
                   className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground placeholder:text-muted-foreground/60"
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-muted-foreground mb-1">
-                  Message
+                  {t('contact.form.message')}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={4}
                   required
-                  placeholder="Hey Triple Tres! I've been following your research on DeFi protocols and would love to discuss a potential collaboration. When you have Bitcoin, you have freedom! 💎"
+                  placeholder={t('contact.form.messagePlaceholder')}
                   className="w-full px-4 py-3 bg-input/50 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 text-foreground resize-none placeholder:text-muted-foreground/60"
                 ></textarea>
               </div>
@@ -97,7 +121,7 @@ export default function Contact() {
                 type="submit"
                 className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-green-500 to-cyan-500 text-black font-medium hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-shadow"
               >
-                Send Message
+                {t('contact.form.send')}
               </button>
 
               {formStatus === "success" && (
@@ -121,9 +145,9 @@ export default function Contact() {
                   <Mail className="w-6 h-6 text-green-400" />
                 </div>
                 <div>
-                  <h4 className="text-xl font-bold mb-2">Email</h4>
+                  <h4 className="text-xl font-bold mb-2">{t('contact.info.email')}</h4>
                   <a
-                    href="mailto:contact@cryptoresearcher.com"
+                    href="mailto:contact@researchooor.xyz"
                     className="text-muted-foreground hover:text-green-400 transition-colors"
                   >
                     contact@researchooor.xyz
@@ -133,7 +157,7 @@ export default function Contact() {
             </div>
 
             <div className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
-              <h4 className="text-xl font-bold mb-6">Connect on Social Media</h4>
+              <h4 className="text-xl font-bold mb-6">{t('contact.info.social')}</h4>
 
               <div className="space-y-4">
                 {socialLinks.map((link, index) => (
