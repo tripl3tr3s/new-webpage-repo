@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static portfolio website for Triple Tres (333-RESEARCH) built with Next.js 15.2.4, React 18, and TypeScript. The site showcases cryptocurrency/blockchain research and analysis work and is deployed to GitHub Pages via static export.
+This is a static portfolio website for Triple Tres (333-RESEARCH) built with Next.js 15.2.4, React 18, and TypeScript. The site showcases AI Automation, Cryptocurrency and research work and is deployed to GitHub Pages via static export.
 
 ## Development Commands
 
@@ -84,4 +84,4 @@ Complete shadcn/ui implementation with 40+ Radix UI-based components available i
 
 ## Content Focus
 
-This portfolio website targets the crypto/blockchain community and potential research clients. Content sections emphasize analytical expertise, research publications, and professional services in the Web3 space.
+This portfolio website targets the Mexican SMEs community and potential AI Automation clients. Content sections emphasize n8n, MCP expertise, full-stack development, and AI Integration systems.

@@ -99,17 +99,19 @@ export const translations = {
   certifications: {
     title: { en: "Certifications & Credentials", es: "Certificaciones y Credenciales" },
     subtitle: {
-      en: "18 certifications across AI tools, automation, software engineering, and data analysis",
-      es: "18 certificaciones en herramientas de IA, automatización, ingeniería de software y análisis de datos"
+      en: "19 certifications across AI tools, automation, software engineering, and data analysis",
+      es: "19 certificaciones en herramientas de IA, automatización, ingeniería de software y análisis de datos"
     },
     featured: { en: "FEATURED CERTIFICATION", es: "CERTIFICACIÓN DESTACADA" },
     featuredBadge: {
-      desc: { en: "Workflow Automation Expert", es: "Experto en Automatización de Flujos" }
+      desc: { en: "Enterprise n8n Self-Hosted Specialist", es: "Especialista en n8n Self-Hosted Empresarial" }
     },
     viewBadge: { en: "View Badge", es: "Ver Insignia" },
     viewCert: { en: "View Certificate", es: "Ver Certificado" },
     download: { en: "Download", es: "Descargar" },
     verify: { en: "Verify", es: "Verificar" },
+    allCerts: { en: "All Certifications", es: "Todas las Certificaciones" },
+    browseCerts: { en: "Browse through my complete certification portfolio", es: "Explora mi portafolio completo de certificaciones" },
     categories: {
       ai: {
         title: { en: "AI & Development Tools", es: "IA & Herramientas de Desarrollo" },
@@ -128,6 +130,7 @@ export const translations = {
       tools: { en: "Developer Tools", es: "Herramientas para Desarrolladores" }
     },
     certs: {
+      "n8n-selfhosted": { en: "n8n Self-Hosted for Enterprises", es: "n8n Self-Hosted para Empresas" },
       "n8n-level-1": { en: "n8n Course Level 1 Certified", es: "Certificado Curso n8n Nivel 1" },
       "mcp-advanced": { en: "Model Context Protocol: Advanced Topics", es: "Protocolo de Contexto de Modelos: Temas Avanzados" },
       "claude-code": { en: "Claude Code in Action", es: "Claude Code en Acción" },

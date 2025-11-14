@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { ExternalLink, Download, X, Brain, Code2, Database, Workflow } from "lucide-react"
 import { useTranslation } from "@/lib/use-translation"
 
@@ -20,7 +20,16 @@ interface Certificate {
 
 // Organized certificate data
 const certificates: Certificate[] = [
-  // n8n Featured
+  // n8n Featured - Enterprise Self-Hosted
+  {
+    id: "n8n-selfhosted",
+    title: "n8n Self-Hosted for Enterprises",
+    date: "November 2025",
+    platform: "n8n",
+    category: "Automation",
+    file: "diploma-n8n-selfhosted.pdf",
+    description: "Enterprise-level n8n deployment and self-hosted infrastructure management"
+  },
   {
     id: "n8n-level-1",
     title: "n8n Course Level 1 Certified",
@@ -207,6 +216,52 @@ const categoryIcons = {
   Automation: Workflow
 }
 
+// Category colors for visual grouping
+const categoryColors = {
+  AI: {
+    border: "border-purple-500/30",
+    glow: "shadow-[0_0_20px_rgba(168,85,247,0.15)]",
+    hover: "hover:border-purple-500/50",
+    bg: "bg-purple-500/5"
+  },
+  Automation: {
+    border: "border-orange-500/30",
+    glow: "shadow-[0_0_20px_rgba(249,115,22,0.15)]",
+    hover: "hover:border-orange-500/50",
+    bg: "bg-orange-500/5"
+  },
+  Development: {
+    border: "border-green-500/30",
+    glow: "shadow-[0_0_20px_rgba(34,197,94,0.15)]",
+    hover: "hover:border-green-500/50",
+    bg: "bg-green-500/5"
+  },
+  Logic: {
+    border: "border-blue-500/30",
+    glow: "shadow-[0_0_20px_rgba(59,130,246,0.15)]",
+    hover: "hover:border-blue-500/50",
+    bg: "bg-blue-500/5"
+  },
+  Blockchain: {
+    border: "border-cyan-500/30",
+    glow: "shadow-[0_0_20px_rgba(6,182,212,0.15)]",
+    hover: "hover:border-cyan-500/50",
+    bg: "bg-cyan-500/5"
+  },
+  Tools: {
+    border: "border-yellow-500/30",
+    glow: "shadow-[0_0_20px_rgba(234,179,8,0.15)]",
+    hover: "hover:border-yellow-500/50",
+    bg: "bg-yellow-500/5"
+  },
+  Data: {
+    border: "border-pink-500/30",
+    glow: "shadow-[0_0_20px_rgba(236,72,153,0.15)]",
+    hover: "hover:border-pink-500/50",
+    bg: "bg-pink-500/5"
+  }
+}
+
 interface CertificateCardProps {
   cert: Certificate
   index: number
@@ -217,10 +272,11 @@ interface CertificateCardProps {
 function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
   const Icon = categoryIcons[cert.category]
   const color = platformColors[cert.platform]
+  const categoryColor = categoryColors[cert.category]
 
   return (
     <motion.div
-      className="bg-card/30 p-6 rounded-xl border border-border hover:border-green-500/30 transition-colors group cursor-pointer relative overflow-hidden"
+      className={`bg-card/30 p-6 rounded-xl border ${categoryColor.border} ${categoryColor.hover} ${categoryColor.glow} transition-all group cursor-pointer relative overflow-hidden ${categoryColor.bg}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -235,9 +291,6 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
         }
       }}
       onClick={onClick}
-      style={{
-        boxShadow: `0 4px 20px -2px ${color.glow}`
-      }}
     >
       {/* Hover gradient */}
       <div
@@ -423,17 +476,79 @@ function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: ()
   )
 }
 
+// Continuous auto-scrolling carousel component
+function CertificateCarousel({ certificates, onSelectCert, t }: {
+  certificates: Certificate[]
+  onSelectCert: (cert: Certificate) => void
+  t: (key: string) => string
+}) {
+  const [isPaused, setIsPaused] = useState(false)
+
+  // Duplicate certificates for seamless infinite loop
+  const duplicatedCerts = useMemo(() => {
+    return [...certificates, ...certificates, ...certificates]
+  }, [certificates])
+
+  return (
+    <div className="relative overflow-hidden py-4">
+      {/* Gradient overlays for fade effect */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+      <motion.div
+        className="flex gap-6"
+        animate={{
+          x: isPaused ? undefined : [0, -certificates.length * 320], // 320px per card (280px + 40px gap)
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: certificates.length * 8, // 8 seconds per certificate
+            ease: "linear",
+          },
+        }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        style={{ width: 'fit-content' }}
+      >
+        {duplicatedCerts.map((cert, idx) => (
+          <div
+            key={`${cert.id}-${idx}`}
+            className="flex-shrink-0"
+            style={{ width: '280px' }}
+          >
+            <CertificateCard
+              cert={cert}
+              index={idx}
+              onClick={() => onSelectCert(cert)}
+              t={t}
+            />
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Pause indicator */}
+      {isPaused && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card/90 px-4 py-2 rounded-full border border-border text-sm z-20"
+        >
+          ⏸️ Paused - Move cursor away to resume
+        </motion.div>
+      )}
+    </div>
+  )
+}
+
 export default function Certifications() {
   const { t } = useTranslation()
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null)
 
-  // Organize certificates by category
-  const featured = certificates.find(c => c.platform === "n8n")!
-  const aiCerts = certificates.filter(c => c.category === "AI")
-  const dataCert = certificates.find(c => c.category === "Data")
-  const devCerts = certificates.filter(c => c.category === "Development")
-  const logicCerts = certificates.filter(c => c.category === "Logic")
-  const toolsCerts = certificates.filter(c => ["Blockchain", "Tools", "Automation"].includes(c.category) && c.id !== "n8n-level-1")
+  // Featured is the new n8n-selfhosted cert
+  const featured = certificates[0] // n8n-selfhosted is first
+  const otherCerts = certificates.slice(1) // All others in carousel
 
   return (
     <>
@@ -454,127 +569,28 @@ export default function Certifications() {
             </p>
           </motion.div>
 
-          <div className="max-w-7xl mx-auto space-y-16">
-            {/* Featured n8n Badge */}
+          <div className="max-w-7xl mx-auto space-y-12">
+            {/* Featured n8n Self-Hosted Badge */}
             <div>
               <FeaturedBadge cert={featured} onClick={() => setSelectedCert(featured)} t={t} />
             </div>
 
-            {/* AI & Development Tools */}
+            {/* All Other Certifications - Infinite Carousel */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="flex items-center gap-3 mb-6">
-                <Brain className="w-8 h-8 text-purple-400" />
-                <div>
-                  <h3 className="text-2xl font-bold">{t('certifications.categories.ai.title')}</h3>
-                  <p className="text-muted-foreground text-sm">{t('certifications.categories.ai.subtitle')}</p>
-                </div>
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-2">{t('certifications.allCerts')}</h3>
+                <p className="text-muted-foreground">{t('certifications.browseCerts')}</p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {aiCerts.map((cert, idx) => (
-                  <CertificateCard
-                    key={cert.id}
-                    cert={cert}
-                    index={idx}
-                    onClick={() => setSelectedCert(cert)}
-                    t={t}
-                  />
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Data & Analytics */}
-            {dataCert && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <Database className="w-8 h-8 text-cyan-400" />
-                  <div>
-                    <h3 className="text-2xl font-bold">{t('certifications.categories.data.title')}</h3>
-                    <p className="text-muted-foreground text-sm">{t('certifications.categories.data.subtitle')}</p>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  <CertificateCard
-                    cert={dataCert}
-                    index={0}
-                    onClick={() => setSelectedCert(dataCert)}
-                    t={t}
-                  />
-                </div>
-              </motion.div>
-            )}
-
-            {/* Computer Science Fundamentals */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <Code2 className="w-8 h-8 text-green-400" />
-                <div>
-                  <h3 className="text-2xl font-bold">{t('certifications.categories.cs.title')}</h3>
-                  <p className="text-muted-foreground text-sm">{t('certifications.categories.cs.subtitle')}</p>
-                </div>
-              </div>
-
-              {/* Programming Foundations */}
-              <div className="mb-8">
-                <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.foundations')}</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {devCerts.map((cert, idx) => (
-                    <CertificateCard
-                      key={cert.id}
-                      cert={cert}
-                      index={idx}
-                      onClick={() => setSelectedCert(cert)}
-                      t={t}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Logical Thinking Series */}
-              <div className="mb-8">
-                <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.logic')}</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {logicCerts.map((cert, idx) => (
-                    <CertificateCard
-                      key={cert.id}
-                      cert={cert}
-                      index={idx}
-                      onClick={() => setSelectedCert(cert)}
-                      t={t}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Developer Tools */}
-              <div>
-                <h4 className="text-lg font-semibold mb-4 text-muted-foreground">{t('certifications.categories.tools')}</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {toolsCerts.map((cert, idx) => (
-                    <CertificateCard
-                      key={cert.id}
-                      cert={cert}
-                      index={idx}
-                      onClick={() => setSelectedCert(cert)}
-                      t={t}
-                    />
-                  ))}
-                </div>
-              </div>
+              <CertificateCarousel
+                certificates={otherCerts}
+                onSelectCert={setSelectedCert}
+                t={t}
+              />
             </motion.div>
           </div>
         </div>
