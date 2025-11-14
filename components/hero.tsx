@@ -38,7 +38,7 @@ export default function Hero() {
   }, [mounted, catchphrases.length])
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
       {/* Background grid effect */}
       <div className="absolute inset-0 z-0">
         <div className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>

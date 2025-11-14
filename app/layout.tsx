@@ -6,6 +6,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/lib/i18n-context"
 import MouseTrail from "@/components/mouse-trail"
+import { AnalyticsTracker } from "@/components/analytics-tracker"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -41,6 +42,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} disableTransitionOnChange={false}>
           <I18nProvider>
             <MouseTrail />
+            <AnalyticsTracker />
             {children}
           </I18nProvider>
         </ThemeProvider>
