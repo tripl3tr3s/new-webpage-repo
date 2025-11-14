@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/lib/i18n-context"
@@ -32,6 +33,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="a2eb1721-bfa8-40ef-b6e4-0a4605124678"
+        />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true} disableTransitionOnChange={false}>
           <I18nProvider>
             <MouseTrail />
