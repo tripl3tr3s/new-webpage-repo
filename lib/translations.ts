@@ -4,7 +4,7 @@ export const translations = {
     about: { en: "About", es: "Acerca" },
     credentials: { en: "Credentials", es: "Certificaciones" },
     scope: { en: "Scope", es: "Alcance" },
-    reports: { en: "Reports", es: "Reportes" },
+    reports: { en: "Projects", es: "Proyectos" },
     contact: { en: "Contact", es: "Contacto" },
   },
 
@@ -13,8 +13,8 @@ export const translations = {
     greeting: { en: "Hey! I'm", es: "¡Hola! Soy" },
     name: { en: "Triple Tres", es: "Triple Tres" },
     tagline: {
-      en: "Crypto researcher, data analyst, and junior full-stack developer turning insights into action.",
-      es: "Investigador cripto, analista de datos y desarrollador full-stack junior convirtiendo insights en acción."
+      en: "AI Automation Consultant, n8n Specialist, and Solutions Architect turning chaos into streamlined systems.",
+      es: "Consultor de Automatización IA, Especialista en n8n y Arquitecto de Soluciones convirtiendo el caos en sistemas optimizados."
     },
     // Dynamic rotating catchphrases
     catchphrase1: {
@@ -42,12 +42,12 @@ export const translations = {
     },
     backgroundTitle: { en: "Background", es: "Trayectoria" },
     backgroundText1: {
-      en: "My path to automation wasn't conventional—it was earned through fire. I started as a graphic designer and tattoo artist, mastering visual storytelling and precision under pressure. Then crypto pulled me in: I authored 20+ deep-dive research reports (50+ pages each) analyzing blockchain protocols, on-chain patterns, and market psychology. Thousands learned from my work.",
-      es: "Mi camino a la automatización no fue convencional—se ganó a través del fuego. Comencé como diseñador gráfico y tatuador, dominando narrativa visual y precisión bajo presión. Luego crypto me atrapó: escribí más de 20 reportes de investigación profundos (50+ páginas cada uno) analizando protocolos blockchain, patrones on-chain y psicología de mercado. Miles aprendieron de mi trabajo."
+      en: "My path to automation wasn't conventional—it was earned through fire. I started as a graphic designer and tattoo artist, mastering visual storytelling and precision under pressure. Then I dove into complex systems analysis: I authored 20+ deep-dive technical reports (50+ pages each) analyzing decentralized protocols, on-chain data patterns, and market behaviors. Thousands relied on my analysis.",
+      es: "Mi camino a la automatización no fue convencional—se ganó a través del fuego. Comencé como diseñador gráfico y tatuador, dominando narrativa visual y precisión bajo presión. Luego me sumergí en el análisis de sistemas complejos: escribí más de 20 reportes técnicos profundos (50+ páginas cada uno) analizando protocolos descentralizados, patrones de datos on-chain y comportamientos de mercado. Miles confiaron en mi análisis."
     },
     backgroundText2: {
-      en: "But research revealed a pattern: businesses drowning in manual work, losing opportunities to inefficiency. So I learned to code—Python, TypeScript, React. Then I discovered n8n and AI agents. Now I combine my designer's eye for user experience, my analyst's obsession with optimization, and my developer's technical precision to build automation systems that Mexican PyMEs actually need.",
-      es: "Pero la investigación reveló un patrón: negocios ahogándose en trabajo manual, perdiendo oportunidades por ineficiencia. Así que aprendí a programar—Python, TypeScript, React. Luego descubrí n8n y agentes de IA. Ahora combino mi ojo de diseñador para experiencia de usuario, mi obsesión de analista por la optimización, y mi precisión técnica de desarrollador para construir sistemas de automatización que las PyMEs mexicanas realmente necesitan."
+      en: "But this analysis revealed a pattern: businesses drowning in manual work, losing opportunities to inefficiency. So I pivoted to building solutions—Python, TypeScript, React. Then I discovered n8n and AI agents. Now I combine my designer's eye for user experience, my analyst's obsession with optimization, and my developer's technical precision to build automation systems that Mexican PyMEs actually need.",
+      es: "Pero este análisis reveló un patrón: negocios ahogándose en trabajo manual, perdiendo oportunidades por ineficiencia. Así que pivoté a construir soluciones—Python, TypeScript, React. Luego descubrí n8n y agentes de IA. Ahora combino mi ojo de diseñador para experiencia de usuario, mi obsesión de analista por la optimización, y mi precisión técnica de desarrollador para construir sistemas de automatización que las PyMEs mexicanas realmente necesitan."
     },
     focusTitle: { en: "Current Focus", es: "Enfoque Actual" },
     focusRole: {
@@ -89,8 +89,8 @@ export const translations = {
         desc: { en: "Deep Learning, AI algorithms, optimization techniques - Currently studying advanced ML concepts and applications.", es: "Deep Learning, algoritmos de IA, técnicas de optimización - Actualmente estudiando conceptos avanzados de ML y aplicaciones." }
       },
       web3: {
-        title: { en: "Web3 Analytics", es: "Análisis Web3" },
-        desc: { en: "On-chain data analysis, DeFi protocols, crypto-economic models - Bridging traditional analysis with blockchain insights.", es: "Análisis de datos on-chain, protocolos DeFi, modelos cripto-económicos - Conectando análisis tradicional con insights blockchain." }
+        title: { en: "Complex Systems Analysis", es: "Análisis de Sistemas Complejos" },
+        desc: { en: "Pattern recognition, protocol auditing, economic modeling - Applying deep analytical skills to business logic.", es: "Reconocimiento de patrones, auditoría de protocolos, modelado económico - Aplicando habilidades analíticas profundas a la lógica de negocios." }
       }
     }
   },
@@ -148,20 +148,24 @@ export const translations = {
       "git-github": { en: "Git & GitHub", es: "Git & GitHub" },
       "linux-admin": { en: "Linux Server Administration Introduction", es: "Introducción a Administración de Servidores Linux" },
       "n8n-lowcode": { en: "Low-Code Automation with n8n", es: "Automatización Low-Code con n8n" },
-      "terminal": { en: "Terminal & Command Line Introduction", es: "Introducción a Terminal y Línea de Comandos" }
+      "terminal": { en: "Terminal & Command Line Introduction", es: "Introducción a Terminal y Línea de Comandos" },
+      "scalable-agents": { en: "Building Scalable Agentic Systems", es: "Construyendo Sistemas Agénticos Escalables" },
+      "ai-ethics": { en: "AI Ethics: Global Perspectives", es: "Ética en IA: Perspectivas Globales" },
+      "pandas-manipulation": { en: "Data Manipulation with Pandas", es: "Manipulación de Datos con Pandas" },
+      "ai-fundamentals": { en: "AI Fundamentals", es: "Fundamentos de IA" }
     }
   },
 
   // Research Section
   research: {
-    title: { en: "Research & Projects", es: "Investigación & Proyectos" },
+    title: { en: "Projects & Analysis", es: "Proyectos y Análisis" },
     subtitle: {
-      en: "Some of my featured work in crypto research and data analysis",
-      es: "Algunos de mis trabajos destacados en investigación cripto y análisis de datos"
+      en: "Featured development projects and economic system analysis",
+      es: "Proyectos de desarrollo destacados y análisis de sistemas económicos"
     },
     tabs: {
       projects: { en: "Development Projects", es: "Proyectos de Desarrollo" },
-      research: { en: "Research Content", es: "Contenido de Investigación" }
+      research: { en: "System Analysis", es: "Análisis de Sistemas" }
     },
     status: {
       live: { en: "Live", es: "En Vivo" },
@@ -191,24 +195,34 @@ export const translations = {
         title: { en: "This very website", es: "Este mismo sitio web" },
         desc: { en: "Personal portfolio and contact site built with Next.js and Tailwind CSS, showcasing projects and research.", es: "Portfolio personal y sitio de contacto construido con Next.js y Tailwind CSS, mostrando proyectos e investigación." },
         type: { en: "Portfolio", es: "Portfolio" }
+      },
+      n8nStarter: {
+        title: { en: "n8n Freelancer Starter", es: "n8n Iniciador para Freelancers" },
+        desc: { en: "Ready-to-deploy n8n template for $3-5/month. Self-hosted on Railway with SQLite, replacing expensive SaaS like Zapier ($20-30/mo). Handles 10 workflows and 1K executions/day.", es: "Plantilla n8n lista para desplegar por $3-5/mes. Auto-hospedada en Railway con SQLite, reemplazando SaaS costosos como Zapier. Maneja 10 flujos y 1K ejecuciones/día." },
+        type: { en: "Automation Infrastructure", es: "Infraestructura de Automatización" }
+      },
+      satMcp: {
+        title: { en: "SAT-MCP: Tax Compliance Assistant", es: "SAT-MCP: Asistente de Cumplimiento Fiscal" },
+        desc: { en: "Digital assistant for Mexican tax compliance (CFDI). Automates invoicing, validation, and stamping using an MCP server architecture. Supports 5 PACs and handles complex tax logic.", es: "Asistente digital para cumplimiento fiscal mexicano (CFDI). Automatiza facturación, validación y timbrado usando arquitectura de servidor MCP. Soporta 5 PACs y lógica fiscal compleja." },
+        type: { en: "AI Agent Tool", es: "Herramienta de Agente IA" }
       }
     },
     researchPosts: {
       lowFloat: {
-        title: { en: "Low Float-High FDV Issues & VC's Selling Rewards", es: "Problemas de Bajo Float-Alto FDV y VCs Vendiendo Recompensas" },
-        desc: { en: "Diving into Low float-High FDV issues & exposing VC's selling rewards of staked Vested tokens.", es: "Profundizando en problemas de bajo float-alto FDV y exponiendo VCs vendiendo recompensas de tokens stakeados en vesting." }
+        title: { en: "Market Structure Analysis: Low Float/High FDV", es: "Análisis de Estructura de Mercado: Low Float/High FDV" },
+        desc: { en: "Economic analysis of token emission schedules and their impact on retail market participants. Quantitative assessment of supply shock vectors.", es: "Análisis económico de calendarios de emisión de tokens y su impacto en participantes del mercado retail. Evaluación cuantitativa de vectores de shock de oferta." }
       },
       ethena: {
-        title: { en: "Is Ethena the Next Luna?", es: "¿Es Ethena el Próximo Luna?" },
-        desc: { en: "Understanding Luna Crash to predict Ethena's future. Analyzing the similarities and differences.", es: "Entendiendo el colapso de Luna para predecir el futuro de Ethena. Analizando similitudes y diferencias." }
+        title: { en: "Algorithmic Stability Models: Ethena vs Luna", es: "Modelos de Estabilidad Algorítmica: Ethena vs Luna" },
+        desc: { en: "Comparative risk analysis of algorithmic stablecoin models. Stress-testing hedging mechanisms against historical volatility data.", es: "Análisis de riesgo comparativo de modelos de stablecoins algorítmicas. Pruebas de estrés de mecanismos de cobertura contra datos históricos de volatilidad." }
       },
       nfts: {
-        title: { en: "Are NFTs Dead Forever?", es: "¿Están los NFTs Muertos Para Siempre?" },
-        desc: { en: "Deep dive into the NFTs history, exploring the reasons behind their rise and fall, and the potential for future growth.", es: "Inmersión profunda en la historia de los NFTs, explorando las razones detrás de su auge y caída, y el potencial de crecimiento futuro." }
+        title: { en: "Market Cycle Analysis: Digital Assets", es: "Análisis de Ciclos de Mercado: Activos Digitales" },
+        desc: { en: "Data-driven post-mortem of the NFT market cycle. Identifying retention metrics and speculative volume correlations.", es: "Post-mortem basado en datos del ciclo de mercado NFT. Identificando métricas de retención y correlaciones de volumen especulativo." }
       },
       blackrock: {
-        title: { en: "The Ultimate Puppets Master: BlackRock's CEO.", es: "El Maestro de Títeres Definitivo: El CEO de BlackRock." },
-        desc: { en: "Analysis of Larry Fink's influence on the crypto market and the impact of BlackRock venturing into Bitcoin.", es: "Análisis de la influencia de Larry Fink en el mercado cripto y el impacto de BlackRock incursionando en Bitcoin." }
+        title: { en: "Institutional Flows: ETF Impact Analysis", es: "Flujos Institucionales: Análisis de Impacto ETF" },
+        desc: { en: "Analyzing the correlation between institutional entry (BlackRock) and market liquidity structure changes.", es: "Analizando la correlación entre la entrada institucional (BlackRock) y los cambios en la estructura de liquidez del mercado." }
       }
     }
   },

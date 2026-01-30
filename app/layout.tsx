@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: "n8n-certified automation specialist helping Mexican businesses unlock growth through intelligent AI workflows. From manual chaos to streamlined systems that deliver ROI.",
   generator: 'Triple Tres',
   applicationName: 'Triple Tres AI Automation',
-  keywords: ['AI automation', 'n8n', 'workflow automation', 'Mexican PyMEs', 'business automation', 'AI consultant', 'intelligent workflows', 'process automation'],
+  keywords: ['AI automation', 'n8n', 'workflow automation', 'Mexican PyMEs', 'business automation', 'AI consultant', 'intelligent workflows', 'process automation', 'AI Agents', 'LLM Integration'],
   authors: [{ name: 'Triple Tres' }],
   openGraph: {
     title: 'Triple Tres - AI Automation Consultant',

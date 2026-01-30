@@ -176,8 +176,8 @@ export default function Hero() {
             <div className="relative w-full h-[400px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
-                  src="/img_hero.jpg"
-                  alt="AI Automation visualization"
+                  src="/architect-anchor.png"
+                  alt="AI Automation Architect"
                   width={500}
                   height={400}
                   className="w-full h-full object-cover"

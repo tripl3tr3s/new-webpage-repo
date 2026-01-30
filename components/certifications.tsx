@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState, useMemo } from "react"
+import { motion, useAnimation, useMotionValue, useTransform, useAnimationFrame } from "framer-motion"
+import { useState, useMemo, useRef, useEffect, useCallback } from "react"
 import { ExternalLink, Download, X, Brain, Code2, Database, Workflow } from "lucide-react"
 import { useTranslation } from "@/lib/use-translation"
 
@@ -38,6 +38,43 @@ const certificates: Certificate[] = [
     category: "Automation",
     file: "Captura de pantalla 2025-09-30 211337.png",
     description: "Workflow automation and n8n fundamentals"
+  },
+  // New AI Certifications
+  {
+    id: "scalable-agents",
+    title: "Building Scalable Agentic Systems",
+    date: "2025",
+    platform: "DataCamp",
+    category: "AI",
+    file: "building_scalable_agentic_systems.pdf",
+    description: "Architecture patterns for scalable multi-agent systems"
+  },
+  {
+    id: "ai-ethics",
+    title: "AI Ethics: Global Perspectives",
+    date: "2025",
+    platform: "DataCamp",
+    category: "AI",
+    file: "AI_Ethics.pdf",
+    description: "Ethical frameworks for AI deployment"
+  },
+  {
+    id: "ai-fundamentals",
+    title: "AI Fundamentals",
+    date: "2025",
+    platform: "DataCamp",
+    category: "AI",
+    file: "AIF0027739594254.pdf",
+    description: "Core concepts of Artificial Intelligence"
+  },
+  {
+    id: "pandas-manipulation",
+    title: "Data Manipulation with Pandas",
+    date: "2025",
+    platform: "DataCamp",
+    category: "Data",
+    file: "certificate (data_manip_with_pandas).pdf",
+    description: "Advanced data processing with Python/Pandas"
   },
   // Anthropic - AI & Tools (2025)
   {
@@ -276,7 +313,7 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
 
   return (
     <motion.div
-      className={`bg-card/30 p-6 rounded-xl border ${categoryColor.border} ${categoryColor.hover} ${categoryColor.glow} transition-all group cursor-pointer relative overflow-hidden ${categoryColor.bg}`}
+      className={`bg-card/30 p-6 rounded-xl border ${categoryColor.border} ${categoryColor.hover} ${categoryColor.glow} transition-all group cursor-grab active:cursor-grabbing relative overflow-hidden ${categoryColor.bg}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -290,7 +327,6 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
           damping: 20
         }
       }}
-      onClick={onClick}
     >
       {/* Hover gradient */}
       <div
@@ -330,14 +366,18 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
           {cert.date} {cert.hours && `• ${cert.hours}`}
         </p>
 
-        {/* Actions */}
-        <div className="flex items-center gap-2 text-sm">
-          <motion.span
-            className="inline-flex items-center text-green-400 hover:text-green-300"
+        {/* Actions - Only this part is clickable */}
+        <div className="flex items-center gap-2 text-sm z-50 relative pointer-events-auto">
+          <motion.button
+            className="inline-flex items-center text-green-400 hover:text-green-300 font-medium"
             whileHover={{ x: 4 }}
+            onClick={(e) => {
+              e.stopPropagation()
+              onClick()
+            }}
           >
             {t('certifications.viewCert')} <ExternalLink className="ml-1 w-3 h-3" />
-          </motion.span>
+          </motion.button>
         </div>
       </div>
     </motion.div>
@@ -476,68 +516,135 @@ function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: ()
   )
 }
 
-// Continuous auto-scrolling carousel component
+// Physics-based infinite carousel
 function CertificateCarousel({ certificates, onSelectCert, t }: {
   certificates: Certificate[]
   onSelectCert: (cert: Certificate) => void
   t: (key: string) => string
 }) {
-  const [isPaused, setIsPaused] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  // Duplicate certificates for seamless infinite loop
-  const duplicatedCerts = useMemo(() => {
-    return [...certificates, ...certificates, ...certificates]
-  }, [certificates])
+  // Physics parameters - "Game feel" customization
+  const baseVelocity = -0.5 // Auto-scroll speed (pixels per frame)
+  const friction = 0.95     // Deceleration factor (0-1) - Higher means slides longer
+  const dragFactor = 1.2    // Multiplier for throws
+
+  // Motion values
+  const x = useMotionValue(0)
+  const velocity = useRef(0)
+  const isDragging = useRef(false)
+  const lastX = useRef(0)
+  const lastTime = useRef(0)
+
+  // Triplicate cards for infinite loop
+  const displayCerts = useMemo(() => [...certificates, ...certificates, ...certificates], [certificates])
+  const cardWidth = 280 + 24 // Card + Gap
+  const totalWidth = certificates.length * cardWidth
+
+  // Manual wrap with motion value
+  const xWrapped = useTransform(x, (v) => {
+    // Wrap logic: when v < -totalWidth, it jumps back by adding totalWidth
+    const wrapped = ((v % totalWidth) - totalWidth) % totalWidth
+    return wrapped
+  })
+
+  // Physics Loop
+  useAnimationFrame((t, delta) => {
+    const timeNow = performance.now()
+    const dt = timeNow - lastTime.current
+    lastTime.current = timeNow
+
+    let moveBy = 0
+
+    if (!isDragging.current) {
+      // If not dragging, apply inertia + base velocity
+
+      // Decay velocity towards base velocity
+      if (Math.abs(velocity.current - baseVelocity) > 0.01) {
+        velocity.current = velocity.current * friction + baseVelocity * (1 - friction)
+      } else {
+        velocity.current = baseVelocity
+      }
+
+      moveBy = velocity.current * (delta / 16) // Approx 60fps normalization
+    }
+
+    // Apply movement
+    x.set(x.get() + moveBy)
+  })
+
+  // Drag Handlers
+  const handleDragStart = () => {
+    isDragging.current = true
+    lastX.current = x.get()
+  }
+
+  const handleDrag = (_: any, info: any) => {
+    // Direct velocity tracking could be jittery, Framer's info.velocity is better
+    // But we need to sync our manual 'x' with the drag 'x' if we used a draggable element.
+    // Instead of using `drag="x"` which fights with our manual x control, 
+    // we can use a simpler approach: Let Framer handle drag on a transparent overlay or 
+    // use `drag` but sync state on DragEnd.
+
+    // Actually, simpler approach for "infinite":
+    // We update velocity based on drag delta
+    const currentX = x.get() + info.delta.x
+    x.set(currentX)
+
+    // Track velocity manually for "throw" release
+    // Simple EWMA for smoothing
+    velocity.current = info.delta.x * dragFactor
+  }
+
+  const handleDragEnd = () => {
+    isDragging.current = false
+    // Velocity is already set in handleDrag, physics loop takes over
+  }
 
   return (
-    <div className="relative overflow-hidden py-4">
-      {/* Gradient overlays for fade effect */}
+    <div className="relative overflow-hidden py-10" ref={containerRef}>
+      {/* Gradient overlays */}
       <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
+      {/* 
+        We use a motion.div for the DRAG interactions, but we don't let it move itself.
+        Instead, we capture drag events to drive our `x` motion value.
+      */}
       <motion.div
-        className="flex gap-6"
-        animate={{
-          x: isPaused ? undefined : [0, -certificates.length * 320], // 320px per card (280px + 40px gap)
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: certificates.length * 8, // 8 seconds per certificate
-            ease: "linear",
-          },
-        }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        style={{ width: 'fit-content' }}
+        className="flex gap-6 pl-4 cursor-grab active:cursor-grabbing"
+        style={{ x: xWrapped, width: 'max-content' }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }} // Constraints 0 forces 'elastic' drag if we didn't override onDrag
+        dragElastic={0} // No elasticity, we handle movement
+        dragMomentum={false} // We handle momentum
+        onDragStart={handleDragStart}
+        onDrag={handleDrag}
+        onDragEnd={handleDragEnd}
       >
-        {duplicatedCerts.map((cert, idx) => (
-          <div
+        {displayCerts.map((cert, idx) => (
+          <motion.div
             key={`${cert.id}-${idx}`}
             className="flex-shrink-0"
             style={{ width: '280px' }}
+            // Prevent drag from triggering click
+            onClick={(e) => {
+              if (isDragging.current) e.stopPropagation()
+            }}
           >
             <CertificateCard
               cert={cert}
-              index={idx}
+              index={idx % certificates.length} // Use mod for index to avoid animation delay gaps or use flat index
               onClick={() => onSelectCert(cert)}
               t={t}
             />
-          </div>
+          </motion.div>
         ))}
       </motion.div>
 
-      {/* Pause indicator */}
-      {isPaused && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-card/90 px-4 py-2 rounded-full border border-border text-sm z-20"
-        >
-          ⏸️ Paused - Move cursor away to resume
-        </motion.div>
-      )}
+      <div className="text-center mt-6 text-sm text-muted-foreground opacity-50 select-none">
+        <p>← Drag to explore →</p>
+      </div>
     </div>
   )
 }
@@ -575,7 +682,7 @@ export default function Certifications() {
               <FeaturedBadge cert={featured} onClick={() => setSelectedCert(featured)} t={t} />
             </div>
 
-            {/* All Other Certifications - Infinite Carousel */}
+            {/* All Other Certifications - Infinite Physics Carousel */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}

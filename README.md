@@ -1,14 +1,15 @@
 Hi ![](https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif)I'm known as Triple Tres
 ===================================================================================================================================
 
-Web3 Researcher / Graphic Designer-Illustrator / Tattooer
+AI Automation Consultant / n8n Specialist / Solutions Architect
 ---------------------------------------------------------
 
-Welcome to **333-RESEARCH**, my personal website and portfolio showcasing insights and analysis in the crypto and blockchain space. This site features a sleek hero section along with sections for my publications and more.
+Welcome to **333-RESEARCH**, my personal website and portfolio showcasing specialized AI Automation solutions and system analysis. This site features a sleek hero section along with sections for my projects and more.
 
 This project is a static website built with modern web technologies, designed to be fast, responsive, and easy to customize. Feel free to use it as a template for your own portfolio!
 
 ## Tech Stack
+
 - **Next.js (15.2.4)**: React framework for building the site.
 - **React**: UI library for creating interactive components.
 - **TypeScript**: For type-safe JavaScript development.
@@ -16,19 +17,24 @@ This project is a static website built with modern web technologies, designed to
 - **Node.js**: Runtime for managing dependencies and scripts.
 
 ## Features
+
 - Static site generation for fast loading and easy hosting.
 - Hero, About, Header, Publications, Research, contact, and footer sections for complete customization.
 - Responsive design with Tailwind CSS.
 
 ## Getting Started
+
 Follow these steps to run the site locally or use it as a template for your own portfolio.
 
 ### Prerequisites
+
 - **Node.js**: Ensure you have Node.js installed (v18 or later recommended). Download it from [nodejs.org](https://nodejs.org/).
 - **Git**: To clone the repository.
 
 ### Steps
+
 1. **Clone the Repository**:
+
    ```bash
    git clone https://github.com/tripl3tr3s/333web.git
    cd 333web/webpage
@@ -39,7 +45,7 @@ Follow these steps to run the site locally or use it as a template for your own 
 3. **Run the Development Server**:
    '''bash
    npm run dev
-   //Open Local Host in your Browser to see the site live. 
+   //Open Local Host in your Browser to see the site live.
    //Edit files in /app, /components, and/or /public to customize the site, changes wil hot-reload.
 4. **Build for Production**:
    '''bash
@@ -50,8 +56,8 @@ Follow these steps to run the site locally or use it as a template for your own 
    npx serve out
    //Visit localhost to preview the production build.
 
-
 ## Using as a Template
+
 - To customize this site for your own portfolio:
 
 1. **Update Content**:
@@ -68,13 +74,14 @@ Follow these steps to run the site locally or use it as a template for your own 
 4. **Deploy**:
    - Push your changes to GitHub.
    - Deploy to Vercel, Netfly, or Github Pages:
-	- Vercel: Import your repo and depoly, it auto-handles the build.
-	- Netlify: Drag the out/ folder into Netlify's dropzone.
-	- GitHub Pages: Use the out/ folder for static hosting.
+
+- Vercel: Import your repo and depoly, it auto-handles the build.
+- Netlify: Drag the out/ folder into Netlify's dropzone.
+- GitHub Pages: Use the out/ folder for static hosting.
 
 ## Licence
 
-**MIT Licence** - Feel free to use an modify thsi template for your own projects. 
+**MIT Licence** - Feel free to use an modify thsi template for your own projects.
 
 ### Thanks
 

@@ -22,7 +22,7 @@ export default function Header() {
   const { theme } = useTheme()
   const { language } = useI18n()
 
-  const words = ["RESEARCH", "DEVELOPMENT", "DESIGN", "ILLUSTRATION", "ANALYSIS", "VISUALIZATIONS"]
+  const words = ["AI AUTOMATION", "SYSTEMS ARCHITECTURE", "N8N WORKFLOWS", "LLM INTEGRATIONS", "BUSINESS OPTIMIZATIONS", "SCALABLE ENGINEERING", "INTELLIGENT AGENTS"]
 
   useEffect(() => {
     setMounted(true)

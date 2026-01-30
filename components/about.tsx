@@ -68,26 +68,26 @@ export default function About() {
     const d1 = 2.75
 
     if (x < 1 / d1) {
-        return n1 * x * x
+      return n1 * x * x
     } else if (x < 2 / d1) {
-        return n1 * (x -= 1.5 / d1) * x + 0.75
+      return n1 * (x -= 1.5 / d1) * x + 0.75
     } else if (x < 2.5 / d1) {
-        return n1 * (x -= 2.25 / d1) * x + 0.9375
+      return n1 * (x -= 2.25 / d1) * x + 0.9375
     } else {
-        return n1 * (x -= 2.625 / d1) * x + 0.984375
+      return n1 * (x -= 2.625 / d1) * x + 0.984375
     }
   }
 
   return (
     <section id="about" className="py-20 relative">
-    <div className="container mx-auto px-4">
-      <div className="max-w-3xl mx-auto text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
-        <p className="text-muted-foreground text-lg">
-          {t('about.intro')}
-        </p>
-      </div>
+      <div className="container mx-auto px-4">
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
+          <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
+          <p className="text-muted-foreground text-lg">
+            {t('about.intro')}
+          </p>
+        </div>
 
         <div ref={ref} className="grid md:grid-cols-2 gap-8 mb-16">
           <motion.div
@@ -105,15 +105,15 @@ export default function About() {
               }
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative z-10">
               <h3 className="text-2xl font-bold mb-4">{t('about.backgroundTitle')}</h3>
               <p className="text-muted-foreground mb-4">
-              {t('about.backgroundText1')}
+                {t('about.backgroundText1')}
               </p>
               <p className="text-muted-foreground">
-              {t('about.backgroundText2')}
+                {t('about.backgroundText2')}
               </p>
             </div>
           </motion.div>
@@ -133,7 +133,7 @@ export default function About() {
               }
             }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative z-10">
               <h3 className="text-2xl font-bold mb-4">{t('about.focusTitle')}</h3>
@@ -178,7 +178,7 @@ export default function About() {
                 }
               }}
             >
-              <motion.div 
+              <motion.div
                 className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
                 whileHover={{
                   rotate: 180,

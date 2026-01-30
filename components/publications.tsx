@@ -20,7 +20,7 @@ interface PublicationCardProps {
 function PublicationCard({ publication, index, t }: PublicationCardProps) {
   const hueA = 120 + (index * 40) % 240 // Green to cyan range
   const hueB = 180 + (index * 60) % 240 // Cyan to blue range
-  
+
   const gradientBg = `linear-gradient(135deg, hsl(${hueA}, 70%, 15%), hsl(${hueB}, 70%, 10%))`
   const glowColor = `hsl(${hueA}, 80%, 50%)`
 
@@ -29,13 +29,13 @@ function PublicationCard({ publication, index, t }: PublicationCardProps) {
     const d1 = 2.75
 
     if (x < 1 / d1) {
-        return n1 * x * x
+      return n1 * x * x
     } else if (x < 2 / d1) {
-        return n1 * (x -= 1.5 / d1) * x + 0.75
+      return n1 * (x -= 1.5 / d1) * x + 0.75
     } else if (x < 2.5 / d1) {
-        return n1 * (x -= 2.25 / d1) * x + 0.9375
+      return n1 * (x -= 2.25 / d1) * x + 0.9375
     } else {
-        return n1 * (x -= 2.625 / d1) * x + 0.984375
+      return n1 * (x -= 2.625 / d1) * x + 0.984375
     }
   }
 
@@ -66,15 +66,15 @@ function PublicationCard({ publication, index, t }: PublicationCardProps) {
         boxShadow: `0 4px 20px -2px ${glowColor}20, 0 0 0 1px ${glowColor}10`
       }}
     >
-      <div 
+      <div
         className="absolute inset-0 rounded-xl opacity-20 pointer-events-none"
-        style={{ 
+        style={{
           background: gradientBg,
           filter: 'blur(1px)'
-        }} 
+        }}
       />
       <div className="relative z-10">
-        <motion.div 
+        <motion.div
           className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
           whileHover={{
             rotate: -180, // Counter-clockwise icon rotation
@@ -140,7 +140,7 @@ export default function Publications() {
     },
     {
       title: "Larry Fink (BlackRock) Never Loses.",
-      journal: "Analysis of the history and influence of Larry Fink in the crypto market.",
+      journal: "Analysis of the history and influence of Larry Fink in digital asset markets.",
       year: 2024,
       link: "https://docs.google.com/document/d/e/2PACX-1vQECKZHvd8iOw5y8LYNDEVgQP50xMQzC7oIFlOfK1lMPpWJfYB2aR2qDEpIMfOekgUUR2cDYd_tu0Dm/pub",
     },
@@ -180,7 +180,7 @@ export default function Publications() {
   return (
     <section id="publications" className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-4">
-        <motion.div 
+        <motion.div
           className="max-w-3xl mx-auto text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
