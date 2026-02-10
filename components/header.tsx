@@ -124,34 +124,37 @@ export default function Header() {
 
           {isMobile ? (
             <>
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center gap-2">
                 <LanguageToggle />
                 <ThemeToggle />
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="p-2 text-foreground"
+                  className="p-3 text-foreground active:scale-95 transition-transform"
                   aria-label={isOpen ? "Close menu" : "Open menu"}
                 >
-                  {isOpen ? <X size={20} /> : <Menu size={20} />}
+                  {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
               </div>
 
               {isOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  className="absolute top-16 left-0 right-0 bg-card border-b border-primary/20"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="absolute top-16 left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-primary/20 shadow-2xl overflow-hidden"
                 >
-                  <nav className="flex flex-col py-4">
+                  <nav className="flex flex-col p-4 space-y-2">
                     {navItems.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="px-4 py-3 hover:bg-muted text-muted-foreground hover:text-primary transition-colors"
+                        className="px-4 py-4 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all text-lg font-medium flex items-center justify-between group"
                         onClick={() => setIsOpen(false)}
+                        data-umami-event={`Mobile Nav - ${item.name}`}
                       >
                         {item.name}
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
                       </Link>
                     ))}
                   </nav>
@@ -166,6 +169,7 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     className="text-muted-foreground hover:text-primary transition-colors relative group"
+                    data-umami-event={`Nav - ${item.name}`}
                   >
                     {item.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>

@@ -38,10 +38,10 @@ export default function Hero() {
   }, [mounted, catchphrases.length])
 
   return (
-    <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+    <section id="hero" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 md:pt-16">
       {/* Background grid effect */}
       <div className="absolute inset-0 z-0">
-        <div className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] mask-gradient-to-b"></div>
       </div>
 
       {/* Animated glow orb */}
@@ -65,7 +65,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left order-2 md:order-1"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -112,7 +112,7 @@ export default function Hero() {
                 />
 
                 {/* Main headline text with gradient */}
-                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 bg-clip-text text-transparent leading-tight">
+                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 bg-clip-text text-transparent leading-tight min-h-[80px] md:min-h-auto flex items-center justify-center md:justify-start">
                   {catchphrases[currentCatchphrase]}
                 </h1>
 
@@ -150,19 +150,23 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto px-4 sm:px-0"
             >
               <a
-                href="#research"
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-green-500 to-cyan-500 text-black font-medium hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-shadow"
+                href="https://calendly.com/tripl3tr3s/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold text-center hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all transform hover:scale-105"
+                data-umami-event="Hero CTA - Book Call"
               >
-                {t('hero.cta')}
+                {t('contact.bookCall')}
               </a>
               <a
-                href="#contact"
-                className="px-6 py-3 rounded-lg border border-green-500/50 text-foreground hover:bg-green-500/10 transition-colors"
+                href="#research"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-green-500/30 text-foreground font-semibold text-center hover:bg-green-500/10 hover:border-green-500/50 transition-all"
+                data-umami-event="Hero CTA - View Work"
               >
-                {t('hero.contact')}
+                {t('hero.cta')}
               </a>
             </motion.div>
           </motion.div>
@@ -171,9 +175,9 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="relative hidden md:block"
+            className="relative block order-1 md:order-2"
           >
-            <div className="relative w-full h-[400px]">
+            <div className="relative w-full h-[280px] md:h-[400px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
                   src="/architect-anchor.png"
@@ -185,12 +189,12 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
               </div>
 
-              {/* Animated code snippets */}
+              {/* Animated code snippets - Hidden on very small screens to reduce clutter */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 1.2 }}
-                className="absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="hidden sm:block absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
                   {"async function automate() {"}
@@ -207,7 +211,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 1.5 }}
-                className="absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="hidden sm:block absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-cyan-400 font-mono text-xs">
                   {"// AI-powered automation"}

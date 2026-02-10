@@ -375,6 +375,7 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
               e.stopPropagation()
               onClick()
             }}
+            data-umami-event={`View Certificate - ${cert.id}`}
           >
             {t('certifications.viewCert')} <ExternalLink className="ml-1 w-3 h-3" />
           </motion.button>
@@ -433,6 +434,7 @@ function FeaturedBadge({ cert, onClick, t }: { cert: Certificate; onClick: () =>
             className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:shadow-lg transition-shadow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            data-umami-event={`View Featured Badge - ${cert.id}`}
           >
             {t('certifications.viewBadge')}
           </motion.button>

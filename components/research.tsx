@@ -339,6 +339,7 @@ export default function Research() {
                           <TooltipTrigger asChild>
                             <button
                               className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all cursor-help"
+                              data-umami-event={`Project Live Demo (WIP) - ${project.id}`}
                             >
                               <ExternalLink className="w-4 h-4" />
                               {t('research.liveDemo')}
@@ -354,6 +355,7 @@ export default function Research() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all"
+                          data-umami-event={`Project Live Demo - ${project.id}`}
                         >
                           <ExternalLink className="w-4 h-4" />
                           {t('research.liveDemo')}
@@ -364,6 +366,7 @@ export default function Research() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
+                        data-umami-event={`Project Code - ${project.id}`}
                       >
                         <GitBranch className="w-4 h-4" />
                         {t('research.code')}

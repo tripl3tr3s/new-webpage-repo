@@ -53,6 +53,7 @@ export default function Contact() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all duration-300 transform hover:scale-105"
+            data-umami-event="Contact - Book Call"
           >
             {t('contact.bookCall')}
           </a>
@@ -149,6 +150,7 @@ export default function Contact() {
                   <a
                     href="mailto:contact@researchooor.xyz"
                     className="text-muted-foreground hover:text-green-400 transition-colors"
+                    data-umami-event="Contact - Email Click"
                   >
                     contact@researchooor.xyz
                   </a>
@@ -165,6 +167,7 @@ export default function Contact() {
                     key={index}
                     href={link.href}
                     className="flex items-center gap-4 p-3 bg-input/50 rounded-lg hover:bg-green-500/10 transition-colors group"
+                    data-umami-event={`Contact - Social ${link.label}`}
                   >
                     <div className="p-2 bg-muted rounded-lg group-hover:bg-green-500/20 transition-colors">
                       {link.icon}
