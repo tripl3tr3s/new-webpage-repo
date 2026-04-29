@@ -24,7 +24,7 @@ export default function Research() {
       id: "disaiConta",
       liveLink: "#",
       githubLink: "#",
-      image: "/architect-anchor.png",
+      image: "/DISAI-Conta.png",
       tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
       tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],
       status: "development"
@@ -73,15 +73,6 @@ export default function Research() {
       tags: ["Machine Learning", "Back Propagation", "Deep Learning", "Loss Functions"],
       tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
       status: "development"
-    },
-    {
-      id: "thisWebsite",
-      liveLink: "https://tripl3.dev",
-      githubLink: "https://github.com/tripl3tr3s/new-webpage-repo",
-      image: "/Portfolio.png",
-      tags: ["Portfolio", "Web3", "Analytics", "Blockchain", "Toolkit"],
-      tech: ["Tailwind CSS", "GitHub Actions", "GitHub Pages", "Framer Motion"],
-      status: "live"
     },
   ]
 

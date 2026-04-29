@@ -1,6 +1,7 @@
 "use client"
 
-import { motion, useAnimation, useMotionValue, useTransform, useAnimationFrame } from "framer-motion"
+import React from "react"
+import { motion, AnimatePresence, useAnimation, useMotionValue, useTransform, useAnimationFrame } from "framer-motion"
 import { useState, useMemo, useRef, useEffect, useCallback } from "react"
 import { ExternalLink, Download, X, Brain, Code2, Database, Workflow } from "lucide-react"
 import { useTranslation } from "@/lib/use-translation"
@@ -385,61 +386,124 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
   )
 }
 
-function FeaturedBadge({ cert, onClick, t }: { cert: Certificate; onClick: () => void; t: (key: string) => string }) {
+const featuredStyle: Record<string, {
+  gradient: string; border: string; glow: string; text: string; button: string; iconBg: string; icon: React.ReactNode
+}> = {
+  n8n: {
+    gradient: "from-orange-500/10 via-red-500/10 to-pink-500/10",
+    border: "border-orange-500/30",
+    glow: "from-orange-500/20 to-pink-500/20",
+    text: "text-orange-500",
+    button: "from-orange-500 to-red-500",
+    iconBg: "bg-orange-500/20",
+    icon: <Workflow className="w-16 h-16 text-orange-500" />,
+  },
+  Anthropic: {
+    gradient: "from-amber-500/10 via-yellow-600/10 to-orange-400/10",
+    border: "border-amber-500/30",
+    glow: "from-amber-500/20 to-yellow-500/20",
+    text: "text-amber-400",
+    button: "from-amber-500 to-yellow-500",
+    iconBg: "bg-amber-500/20",
+    icon: <Brain className="w-16 h-16 text-amber-400" />,
+  },
+}
+
+const slideVariants = {
+  enter: { y: "60%", scaleY: 1.08, opacity: 0 },
+  center: { y: 0, scaleY: 1, opacity: 1 },
+  exit: { y: "-60%", scaleY: 0.92, opacity: 0 },
+}
+
+function FeaturedCarousel({ certs, onSelect, t }: {
+  certs: Certificate[]
+  onSelect: (cert: Certificate) => void
+  t: (key: string) => string
+}) {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % certs.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [certs.length])
+
+  const cert = certs[index]
+  const style = featuredStyle[cert.platform] ?? featuredStyle.n8n
+
   return (
     <motion.div
-      className="relative bg-gradient-to-br from-orange-500/10 via-red-500/10 to-pink-500/10 p-8 rounded-2xl border-2 border-orange-500/30 overflow-hidden cursor-pointer group"
-      initial={{ opacity: 0, scale: 0.9 }}
+      className="relative overflow-hidden rounded-2xl border-2 cursor-pointer group"
+      initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      whileHover={{ scale: 1.02 }}
-      onClick={onClick}
+      whileHover={{ scale: 1.01 }}
+      onClick={() => onSelect(cert)}
+      style={{ minHeight: "180px" }}
     >
-      {/* Ribbon */}
-      <div className="absolute top-6 -right-12 bg-gradient-to-r from-orange-500 to-red-500 text-white px-12 py-2 rotate-45 text-sm font-bold shadow-lg">
-        {t('certifications.featured').split(' ')[0]}
-      </div>
-
-      {/* Animated glow */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        animate={{
-          opacity: [0.5, 0.8, 0.5],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-        {/* Icon/Logo placeholder */}
+      <AnimatePresence mode="wait">
         <motion.div
-          className="p-6 bg-orange-500/20 rounded-2xl"
-          whileHover={{ rotate: [0, -5, 5, -5, 0] }}
-          transition={{ duration: 0.5 }}
+          key={cert.id}
+          className={`absolute inset-0 bg-gradient-to-br ${style.gradient} p-8`}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
         >
-          <Workflow className="w-16 h-16 text-orange-500" />
-        </motion.div>
+          {/* Ribbon */}
+          <div className={`absolute top-6 -right-12 bg-gradient-to-r ${style.button} text-white px-12 py-2 rotate-45 text-sm font-bold shadow-lg`}>
+            {t('certifications.featured').split(' ')[0]}
+          </div>
 
-        <div className="flex-1 text-center md:text-left">
-          <div className="text-orange-500 font-bold text-sm mb-2">🏆 {t('certifications.featured')}</div>
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">{t(`certifications.certs.${cert.id}`)}</h3>
-          <p className="text-muted-foreground mb-4">
-            {t('certifications.featuredBadge.desc')} • {cert.date}
-          </p>
-          <motion.button
-            className="px-6 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold hover:shadow-lg transition-shadow"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            data-umami-event={`View Featured Badge - ${cert.id}`}
-          >
-            {t('certifications.viewBadge')}
-          </motion.button>
-        </div>
-      </div>
+          {/* Pulse glow */}
+          <motion.div
+            className={`absolute inset-0 bg-gradient-to-r ${style.glow} pointer-events-none`}
+            animate={{ opacity: [0.3, 0.6, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
+            <motion.div
+              className={`p-6 ${style.iconBg} rounded-2xl shrink-0`}
+              whileHover={{ rotate: [0, -5, 5, -5, 0] }}
+              transition={{ duration: 0.5 }}
+            >
+              {style.icon}
+            </motion.div>
+
+            <div className="flex-1 text-center md:text-left">
+              <div className={`${style.text} font-bold text-sm mb-2`}>🏆 {t('certifications.featured')}</div>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2">{t(`certifications.certs.${cert.id}`)}</h3>
+              <p className="text-muted-foreground mb-4">
+                {cert.platform} • {cert.date}
+              </p>
+              <motion.button
+                className={`px-6 py-2 bg-gradient-to-r ${style.button} text-white rounded-lg font-semibold hover:shadow-lg transition-shadow`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={e => { e.stopPropagation(); onSelect(cert) }}
+                data-umami-event={`View Featured Badge - ${cert.id}`}
+              >
+                {t('certifications.viewBadge')}
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Dot indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {certs.map((_, i) => (
+              <button
+                key={i}
+                onClick={e => { e.stopPropagation(); setIndex(i) }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${i === index ? `bg-white scale-125` : "bg-white/30"}`}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   )
 }
@@ -656,9 +720,9 @@ export default function Certifications() {
   const { t } = useTranslation()
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null)
 
-  // Featured is the new n8n-selfhosted cert
-  const featured = certificates[0] // n8n-selfhosted is first
-  const otherCerts = certificates.slice(1) // All others in carousel
+  const featuredIds = ["mcp-advanced", "n8n-selfhosted"]
+  const featuredCerts = featuredIds.map(id => certificates.find(c => c.id === id)!).filter(Boolean)
+  const otherCerts = certificates.filter(c => !featuredIds.includes(c.id))
 
   return (
     <>
@@ -680,10 +744,8 @@ export default function Certifications() {
           </motion.div>
 
           <div className="max-w-7xl mx-auto space-y-12">
-            {/* Featured n8n Self-Hosted Badge */}
-            <div>
-              <FeaturedBadge cert={featured} onClick={() => setSelectedCert(featured)} t={t} />
-            </div>
+            {/* Featured carousel — MCP Advanced ↔ n8n Self-Hosted */}
+            <FeaturedCarousel certs={featuredCerts} onSelect={setSelectedCert} t={t} />
 
             {/* All Other Certifications - Infinite Physics Carousel */}
             <motion.div
