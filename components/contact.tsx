@@ -80,7 +80,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6 }}
-            className="bg-card/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
+            className="bg-card p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]"
           >
             <h3 className="text-2xl font-bold mb-6">{t('contact.form.send')}</h3>
 
@@ -153,7 +153,7 @@ export default function Contact() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] mb-8">
+            <div className="bg-muted/70 dark:bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] mb-8">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-muted rounded-lg">
                   <Mail className="w-6 h-6 text-green-400" />
@@ -171,7 +171,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+            <div className="bg-muted/70 dark:bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)]">
               <h4 className="text-xl font-bold mb-6">{t('contact.info.social')}</h4>
 
               <div className="space-y-4">

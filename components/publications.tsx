@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 import { FileText, ExternalLink } from "lucide-react"
+import { useTheme } from "next-themes"
 import { useTranslation } from "@/lib/use-translation"
 
 interface PublicationCardProps {
@@ -18,10 +19,14 @@ interface PublicationCardProps {
 }
 
 function PublicationCard({ publication, index, t }: PublicationCardProps) {
-  const hueA = 120 + (index * 40) % 240 // Green to cyan range
-  const hueB = 180 + (index * 60) % 240 // Cyan to blue range
+  const { resolvedTheme } = useTheme()
+  const hueA = 120 + (index * 40) % 240
+  const hueB = 180 + (index * 60) % 240
 
-  const gradientBg = `linear-gradient(135deg, hsl(${hueA}, 70%, 15%), hsl(${hueB}, 70%, 10%))`
+  const isDark = resolvedTheme === "dark"
+  const gradientBg = isDark
+    ? `linear-gradient(135deg, hsl(${hueA}, 70%, 15%), hsl(${hueB}, 70%, 10%))`
+    : `linear-gradient(135deg, hsl(${hueA}, 45%, 72%), hsl(${hueB}, 45%, 68%))`
   const glowColor = `hsl(${hueA}, 80%, 50%)`
 
   const bounceEase = (x: number) => {

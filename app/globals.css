@@ -3,41 +3,40 @@
 @tailwind utilities;
 
 :root {
-  /* Soft Mint/Off-White Background */
-  --background: 140 15% 97%;
-  /* Deep Jungle Green for Text (High Contrast but softer than black) */
+  /* Sage mint — clearly colored, not white */
+  --background: 145 30% 88%;
   --foreground: 160 50% 10%;
-  
-  /* Pure White Cards for depth against off-white bg */
-  --card: 0 0% 100%;
+
+  /* Near-white cards with faint mint tint — pop against background */
+  --card: 140 12% 96%;
   --card-foreground: 160 50% 10%;
-  
-  --popover: 0 0% 100%;
+
+  --popover: 140 12% 96%;
   --popover-foreground: 160 50% 10%;
-  
-  --primary: 142 71% 40%; /* Slightly darker green for light mode visibility */
+
+  --primary: 142 71% 34%;
   --primary-foreground: 0 0% 98%;
-  
-  --secondary: 140 15% 94%;
+
+  --secondary: 140 22% 83%;
   --secondary-foreground: 160 50% 10%;
-  
-  --muted: 140 15% 92%;
-  --muted-foreground: 160 30% 40%;
-  
-  --accent: 142 71% 40%;
+
+  --muted: 140 22% 82%;
+  --muted-foreground: 160 35% 33%;
+
+  --accent: 142 71% 34%;
   --accent-foreground: 0 0% 98%;
-  
+
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  
-  --border: 140 20% 85%;
-  --input: 140 20% 85%;
-  --ring: 142 71% 40%;
+
+  --border: 140 28% 71%;
+  --input: 140 22% 82%;
+  --ring: 142 71% 34%;
   --radius: 0.5rem;
-  
+
   --foreground-rgb: 10, 35, 25;
-  --background-start-rgb: 248, 250, 249;
-  --background-end-rgb: 240, 245, 242;
+  --background-start-rgb: 215, 233, 223;
+  --background-end-rgb: 198, 220, 208;
 }
 
 .dark {

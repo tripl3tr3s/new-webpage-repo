@@ -186,7 +186,7 @@ export default function Hero() {
                   height={400}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
               </div>
 
               {/* Animated code snippets - Hidden on very small screens to reduce clutter */}
@@ -194,7 +194,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 1.2 }}
-                className="hidden sm:block absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="hidden sm:block absolute -left-10 bottom-10 p-4 bg-gray-950/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
                   {"// MCP tool execution"}
@@ -211,7 +211,7 @@ export default function Hero() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 1.5 }}
-                className="hidden sm:block absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
+                className="hidden sm:block absolute -right-10 top-10 p-4 bg-gray-950/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-cyan-400 font-mono text-xs">
                   {"// Claude API — Anthropic"}
