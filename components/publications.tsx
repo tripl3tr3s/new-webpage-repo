@@ -90,7 +90,7 @@ function PublicationCard({ publication, index, t }: PublicationCardProps) {
             }
           }}
         >
-          <FileText className="w-6 h-6 text-green-400 group-hover:text-green-300 transition-colors" />
+          <FileText className="w-6 h-6 text-green-700 dark:text-green-400 group-hover:text-green-600 dark:group-hover:text-green-300 transition-colors" />
         </motion.div>
         <h4 className="text-xl font-bold mb-2 group-hover:text-green-400 transition-colors">
           <a
@@ -109,7 +109,7 @@ function PublicationCard({ publication, index, t }: PublicationCardProps) {
           href={publication.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors text-sm"
+          className="inline-flex items-center text-green-700 dark:text-green-400 hover:text-green-600 dark:hover:text-green-300 transition-colors text-sm"
           whileHover={{ x: 4 }}
         >
           {t('publications.readMore')} <ExternalLink className="ml-1 w-4 h-4" />
@@ -193,7 +193,7 @@ export default function Publications() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('publications.title')}</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
+          <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
             {t('publications.subtitle')}
           </p>

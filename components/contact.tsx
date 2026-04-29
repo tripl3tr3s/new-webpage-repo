@@ -44,7 +44,7 @@ export default function Contact() {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contact.title')}</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
+          <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto mb-8"></div>
           <p className="text-muted-foreground text-lg">
             {t('contact.subtitle')}
           </p>
@@ -139,7 +139,7 @@ export default function Contact() {
               </button>
 
               {formStatus === "success" && (
-                <p className="text-green-400 text-sm">Message sent — I will reply to hola@tripl3.dev shortly.</p>
+                <p className="text-green-700 dark:text-green-400 text-sm">Message sent — I will reply to hola@tripl3.dev shortly.</p>
               )}
 
               {formStatus === "error" && (
@@ -156,7 +156,7 @@ export default function Contact() {
             <div className="bg-muted/70 dark:bg-gray-900/50 p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.1)] mb-8">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-muted rounded-lg">
-                  <Mail className="w-6 h-6 text-green-400" />
+                  <Mail className="w-6 h-6 text-green-700 dark:text-green-400" />
                 </div>
                 <div>
                   <h4 className="text-xl font-bold mb-2">{t('contact.info.email')}</h4>

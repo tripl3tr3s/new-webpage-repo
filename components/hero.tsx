@@ -71,7 +71,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-6 inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20"
+              className="mb-6 inline-block px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-green-400 text-sm font-medium border border-primary/20 dark:border-green-500/20"
             >
               AI Software Engineer · MCP Protocol · LLM Systems
             </motion.div>
@@ -112,7 +112,7 @@ export default function Hero() {
                 />
 
                 {/* Main headline text with gradient */}
-                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 bg-clip-text text-transparent leading-tight min-h-[80px] md:min-h-auto flex items-center justify-center md:justify-start">
+                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-700 via-teal-600 to-green-700 dark:from-green-400 dark:via-cyan-400 dark:to-green-400 bg-clip-text text-transparent leading-tight min-h-[80px] md:min-h-auto flex items-center justify-center md:justify-start">
                   {catchphrases[currentCatchphrase]}
                 </h1>
 

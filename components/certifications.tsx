@@ -370,7 +370,7 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
         {/* Actions - Only this part is clickable */}
         <div className="flex items-center gap-2 text-sm z-50 relative pointer-events-auto">
           <motion.button
-            className="inline-flex items-center text-green-400 hover:text-green-300 font-medium"
+            className="inline-flex items-center text-green-700 dark:text-green-400 hover:text-green-600 dark:hover:text-green-300 font-medium"
             whileHover={{ x: 4 }}
             onClick={(e) => {
               e.stopPropagation()
@@ -737,7 +737,7 @@ export default function Certifications() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('certifications.title')}</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-green-400 to-cyan-500 mx-auto mb-8"></div>
+            <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto mb-8"></div>
             <p className="text-muted-foreground text-lg">
               {t('certifications.subtitle')}
             </p>
