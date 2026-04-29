@@ -332,17 +332,24 @@
         border-radius: 2px;
       }
 
+      @page {
+        size: 210mm 297mm;
+        margin: 0mm;
+      }
+
       @media print {
+        html {
+          zoom: 0.92;
+        }
         body {
-          width: 210mm;
-          height: 297mm;
-          max-height: 297mm;
-          overflow: hidden;
+          width: 228mm;
+          min-height: 0;
+          overflow: visible;
         }
         .page {
-          height: 297mm;
-          max-height: 297mm;
-          overflow: hidden;
+          min-height: 0;
+          height: auto;
+          overflow: visible;
         }
       }
     </style>
