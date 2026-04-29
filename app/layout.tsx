@@ -11,15 +11,15 @@ import { AnalyticsTracker } from "@/components/analytics-tracker"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Triple Tres - AI Automation Consultant for Mexican PyMEs",
-  description: "n8n-certified automation specialist helping Mexican businesses unlock growth through intelligent AI workflows. From manual chaos to streamlined systems that deliver ROI.",
+  title: "Triple Tres — AI Software Engineer · MCP Protocol · LLM Systems",
+  description: "AI Software Engineer shipping production LLM systems — 43-tool MCP servers, 3-tier multi-agent orchestration with Claude API, and n8n automation for Mexican businesses.",
   generator: 'Triple Tres',
-  applicationName: 'Triple Tres AI Automation',
-  keywords: ['AI automation', 'n8n', 'workflow automation', 'Mexican PyMEs', 'business automation', 'AI consultant', 'intelligent workflows', 'process automation', 'AI Agents', 'LLM Integration'],
+  applicationName: 'Triple Tres',
+  keywords: ['MCP Protocol', 'Model Context Protocol', 'AI Software Engineer', 'LLM Orchestration', 'Multi-Agent Systems', 'Claude API', 'Anthropic', 'n8n', 'AI automation', 'agentic systems', 'CFDI', 'Mexican PyMEs', 'TypeScript', 'Next.js'],
   authors: [{ name: 'Triple Tres' }],
   openGraph: {
-    title: 'Triple Tres - AI Automation Consultant',
-    description: 'n8n-certified automation specialist transforming Mexican businesses with intelligent AI workflows',
+    title: 'Triple Tres — AI Software Engineer · MCP Protocol · LLM Systems',
+    description: 'Building production MCP servers, 3-tier agentic orchestration, and AI-first SaaS for Mexican tax compliance',
     type: 'website',
     locale: 'es_MX',
     alternateLocale: 'en_US',

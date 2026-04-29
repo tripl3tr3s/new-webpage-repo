@@ -12,13 +12,22 @@ export default function Contact() {
   const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
-  const [formStatus, setFormStatus] = useState<null | "success" | "error">(null)
+  const [formStatus, setFormStatus] = useState<null | "success" | "error" | "sending">(null)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // In a real implementation, you would send the form data to your backend
-    // For this demo, we'll just simulate a successful submission
-    setFormStatus("success")
+    setFormStatus("sending")
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(e.currentTarget))),
+      })
+      const data = await res.json()
+      setFormStatus(data.success ? "success" : "error")
+    } catch {
+      setFormStatus("error")
+    }
   }
 
   const socialLinks = [
@@ -76,6 +85,9 @@ export default function Contact() {
             <h3 className="text-2xl font-bold mb-6">{t('contact.form.send')}</h3>
 
             <form onSubmit={handleSubmit} className="space-y-6">
+              <input type="hidden" name="access_key" value="7df330bb-3ecd-4539-a7ad-a2b35a60d14c" />
+              <input type="hidden" name="subject" value="New message from tripl3.dev" />
+              <input type="checkbox" name="botcheck" className="hidden" />
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-muted-foreground mb-1">
                   {t('contact.form.name')}
@@ -120,17 +132,18 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-green-500 to-cyan-500 text-black font-medium hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-shadow"
+                disabled={formStatus === "sending"}
+                className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-green-500 to-cyan-500 text-black font-medium hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-shadow disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {t('contact.form.send')}
+                {formStatus === "sending" ? "Sending..." : t('contact.form.send')}
               </button>
 
               {formStatus === "success" && (
-                <p className="text-green-400 text-sm">Your message has been sent successfully!</p>
+                <p className="text-green-400 text-sm">Message sent — I will reply to hola@tripl3.dev shortly.</p>
               )}
 
               {formStatus === "error" && (
-                <p className="text-red-400 text-sm">There was an error sending your message. Please try again.</p>
+                <p className="text-red-400 text-sm">Something went wrong. Try emailing hola@tripl3.dev directly.</p>
               )}
             </form>
           </motion.div>
@@ -148,11 +161,11 @@ export default function Contact() {
                 <div>
                   <h4 className="text-xl font-bold mb-2">{t('contact.info.email')}</h4>
                   <a
-                    href="mailto:contact@researchooor.xyz"
+                    href="mailto:hola@tripl3.dev"
                     className="text-muted-foreground hover:text-green-400 transition-colors"
                     data-umami-event="Contact - Email Click"
                   >
-                    contact@researchooor.xyz
+                    hola@tripl3.dev
                   </a>
                 </div>
               </div>

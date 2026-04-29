@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Code2, Database, GitBranch, BarChart3, Cpu, Globe, Brain, TrendingUp } from "lucide-react"
+import { Code2, Database, GitBranch, Cpu, Brain, TrendingUp, Network } from "lucide-react"
 import { useTranslation } from "@/lib/use-translation"
 
 export default function About() {
@@ -23,7 +23,7 @@ export default function About() {
       description: t('about.skills.backend.desc'),
     },
     {
-      icon: <BarChart3 className="w-6 h-6 text-cyan-400" />,
+      icon: <Cpu className="w-6 h-6 text-cyan-400" />,
       title: t('about.skills.visualization.title'),
       description: t('about.skills.visualization.desc'),
     },
@@ -33,7 +33,7 @@ export default function About() {
       description: t('about.skills.devops.desc'),
     },
     {
-      icon: <Brain className="w-6 h-6 text-pink-400" />,
+      icon: <Network className="w-6 h-6 text-pink-400" />,
       title: t('about.skills.ml.title'),
       description: t('about.skills.ml.desc'),
     },

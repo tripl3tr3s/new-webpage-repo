@@ -19,7 +19,6 @@ export function AnalyticsTracker() {
   const isUserActive = useRef<boolean>(true)
 
   useEffect(() => {
-    // Wait for Umami to load
     const checkUmami = setInterval(() => {
       if (window.umami) {
         clearInterval(checkUmami)
@@ -58,6 +57,7 @@ export function AnalyticsTracker() {
       activityEvents.forEach(event => window.removeEventListener(event, handleActivity))
       observerRef.current?.disconnect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const trackEngagement = (trigger: string) => {

@@ -26,8 +26,8 @@ export const translations = {
       es: "Escala Inteligente: Soluciones de Automatización IA para PyMEs Mexicanas"
     },
     catchphrase3: {
-      en: "Empowering PyMEs: Smart Automation for Modern Business",
-      es: "Empoderando PyMEs: Automatización Inteligente para Negocios Modernos"
+      en: "Production MCP Servers & Agentic LLM Systems, Shipped",
+      es: "Servidores MCP en Producción y Sistemas LLM Agénticos, Entregados"
     },
     cta: { en: "View My Work", es: "Ver Mi Trabajo" },
     contact: { en: "Get In Touch", es: "Contáctame" },
@@ -37,8 +37,8 @@ export const translations = {
   about: {
     title: { en: "About Me", es: "Acerca de Mí" },
     intro: {
-      en: "I transform how Mexican businesses work. As an n8n-certified automation specialist, I help PyMEs break free from manual bottlenecks and unlock growth through intelligent AI workflows that actually deliver ROI.",
-      es: "Transformo cómo trabajan los negocios mexicanos. Como especialista certificado en automatización n8n, ayudo a PyMEs a liberarse de cuellos de botella manuales y desbloquear crecimiento con flujos de IA inteligentes que realmente dan ROI."
+      en: "I build production AI systems — from ground-up MCP server design to 3-tier agentic orchestration with domain-specialized agents. I also help Mexican businesses eliminate manual bottlenecks with n8n automation and intelligent AI workflows that deliver real ROI.",
+      es: "Construyo sistemas de IA en producción — desde el diseño de servidores MCP hasta orquestación agéntica de 3 niveles con agentes especializados por dominio. También ayudo a negocios mexicanos a eliminar cuellos de botella manuales con automatización n8n y flujos de IA que generan ROI real."
     },
     backgroundTitle: { en: "Background", es: "Trayectoria" },
     backgroundText1: {
@@ -46,13 +46,13 @@ export const translations = {
       es: "Mi camino a la automatización no fue convencional—se ganó a través del fuego. Comencé como diseñador gráfico y tatuador, dominando narrativa visual y precisión bajo presión. Luego me sumergí en el análisis de sistemas complejos: escribí más de 20 reportes técnicos profundos (50+ páginas cada uno) analizando protocolos descentralizados, patrones de datos on-chain y comportamientos de mercado. Miles confiaron en mi análisis."
     },
     backgroundText2: {
-      en: "But this analysis revealed a pattern: businesses drowning in manual work, losing opportunities to inefficiency. So I pivoted to building solutions—Python, TypeScript, React. Then I discovered n8n and AI agents. Now I combine my designer's eye for user experience, my analyst's obsession with optimization, and my developer's technical precision to build automation systems that Mexican PyMEs actually need.",
-      es: "Pero este análisis reveló un patrón: negocios ahogándose en trabajo manual, perdiendo oportunidades por ineficiencia. Así que pivoté a construir soluciones—Python, TypeScript, React. Luego descubrí n8n y agentes de IA. Ahora combino mi ojo de diseñador para experiencia de usuario, mi obsesión de analista por la optimización, y mi precisión técnica de desarrollador para construir sistemas de automatización que las PyMEs mexicanas realmente necesitan."
+      en: "But this analysis revealed a pattern: businesses drowning in manual work, losing opportunities to inefficiency. So I pivoted to building solutions — Python, TypeScript, React. Then I discovered n8n, the Anthropic Claude API, and the Model Context Protocol. Now I combine my designer's eye for UX, my analyst's obsession with optimization, and my developer's technical precision to build production LLM systems and AI automation that actually ship.",
+      es: "Pero este análisis reveló un patrón: negocios ahogándose en trabajo manual, perdiendo oportunidades por ineficiencia. Así que pivoté a construir soluciones — Python, TypeScript, React. Luego descubrí n8n, la API Claude de Anthropic y el Model Context Protocol. Ahora combino mi ojo de diseñador para UX, mi obsesión de analista por la optimización y mi precisión técnica de desarrollador para construir sistemas LLM en producción y automatización de IA que realmente se entregan."
     },
     focusTitle: { en: "Current Focus", es: "Enfoque Actual" },
     focusRole: {
-      en: "AI Automation Consultant for Mexican PyMEs",
-      es: "Consultor de Automatización IA para PyMEs Mexicanas"
+      en: "AI Software Engineer & MCP Protocol Architect",
+      es: "Ingeniero de Software IA y Arquitecto MCP"
     },
     focusText1: {
       en: "Today, I specialize as an",
@@ -63,8 +63,8 @@ export const translations = {
       es: "—convirtiendo el caos empresarial en sistemas optimizados que se ejecutan solos."
     },
     focusText3: {
-      en: "Using n8n workflow automation, custom AI integrations, and full-stack development, I build solutions that eliminate repetitive tasks, reduce operational costs, and free your team to focus on growth. Whether it's automating customer follow-ups, syncing data across platforms, or deploying AI agents that handle routine inquiries—I create systems that work 24/7 so your people don't have to.",
-      es: "Usando automatización de flujos n8n, integraciones personalizadas de IA, y desarrollo full-stack, construyo soluciones que eliminan tareas repetitivas, reducen costos operativos y liberan a tu equipo para enfocarse en el crecimiento. Ya sea automatizando seguimientos de clientes, sincronizando datos entre plataformas, o desplegando agentes de IA que manejan consultas rutinarias—creo sistemas que trabajan 24/7 para que tu gente no tenga que hacerlo."
+      en: "I architect multi-agent LLM systems with the Anthropic Claude API — 43-tool MCP servers covering tools, resources, and prompts primitives (SSE + HTTP Streamable transport), 3-tier domain-specialized agent orchestration, and production-grade streaming frontends. For clients, I deploy n8n automation that eliminates repetitive tasks and delivers ROI without the enterprise price tag.",
+      es: "Arquitecto sistemas LLM multi-agente con la API Claude de Anthropic — servidores MCP de 43 herramientas cubriendo primitivas de tools, resources y prompts (transporte SSE + HTTP Streamable), orquestación agéntica de 3 niveles especializada por dominio, y frontends de streaming para producción. Para clientes, despliego automatización n8n que elimina tareas repetitivas y genera ROI sin el costo empresarial."
     },
     toolkitTitle: { en: "Toolkit", es: "Herramientas" },
     skills: {
@@ -77,16 +77,16 @@ export const translations = {
         desc: { en: "Python, Pandas, SQL - Processing and analyzing large datasets, building APIs and data pipelines.", es: "Python, Pandas, SQL - Procesando y analizando grandes conjuntos de datos, construyendo APIs y pipelines de datos." }
       },
       visualization: {
-        title: { en: "Visualization & Charts", es: "Visualización & Gráficas" },
-        desc: { en: "ApexCharts, Matplotlib, Recharts - Creating interactive dashboards and data visualizations for insights.", es: "ApexCharts, Matplotlib, Recharts - Creando dashboards interactivos y visualizaciones de datos para insights." }
+        title: { en: "LLM Orchestration & Agents", es: "Orquestación LLM y Agentes" },
+        desc: { en: "Multi-tier agent systems with Anthropic Claude API — Haiku routing, Sonnet domain agents with native tool_use, Expert Registry with scoped tool allowlists and live MCP resource injection.", es: "Sistemas de agentes multi-nivel con Claude API — enrutamiento Haiku, agentes Sonnet con tool_use nativo, Registro de Expertos con allowlists acotadas e inyección de recursos MCP en tiempo real." }
       },
       devops: {
         title: { en: "DevOps & Tools", es: "DevOps & Herramientas" },
         desc: { en: "Git/GitHub, Docker, CI/CD - Version control, deployment pipelines, and development workflow automation.", es: "Git/GitHub, Docker, CI/CD - Control de versiones, pipelines de deployment y automatización de flujos de desarrollo." }
       },
       ml: {
-        title: { en: "Machine Learning", es: "Machine Learning" },
-        desc: { en: "Deep Learning, AI algorithms, optimization techniques - Currently studying advanced ML concepts and applications.", es: "Deep Learning, algoritmos de IA, técnicas de optimización - Actualmente estudiando conceptos avanzados de ML y aplicaciones." }
+        title: { en: "MCP Protocol Design", es: "Diseño de Protocolo MCP" },
+        desc: { en: "Full MCP primitive set: tools, resources, prompts, elicitations, tasks, and 8 fiscal MCP-UI mini-apps for in-chat document rendering. SSE & HTTP Streamable transport, multi-tenant design — exploring new primitives ahead of SDK support.", es: "Set completo de primitivas MCP: tools, resources, prompts, elicitations, tasks y 8 mini-apps MCP-UI fiscales para renderizado de documentos en chat. Transporte SSE & HTTP Streamable, diseño multi-tenant — explorando nuevas primitivas por delante del soporte en SDK." }
       },
       web3: {
         title: { en: "Complex Systems Analysis", es: "Análisis de Sistemas Complejos" },
@@ -196,15 +196,20 @@ export const translations = {
         desc: { en: "Personal portfolio and contact site built with Next.js and Tailwind CSS, showcasing projects and research.", es: "Portfolio personal y sitio de contacto construido con Next.js y Tailwind CSS, mostrando proyectos e investigación." },
         type: { en: "Portfolio", es: "Portfolio" }
       },
+      disaiConta: {
+        title: { en: "DISAI_Conta — AI-First Accounting Platform", es: "DISAI_Conta — Plataforma Contable AI-First" },
+        desc: { en: "3-tier agentic orchestration: Haiku domain router → 10 domain DomainAgents (Sonnet, native tool_use, 6-iteration loops, parallel tool calls, self-correction) → Expert Registry with scoped allowlists and live MCP Resource injection. Streaming SSE chat UI for Mexican SME tax compliance.", es: "Orquestación agéntica de 3 niveles: router de dominio Haiku → 10 DomainAgents (Sonnet, tool_use nativo, loops de 6 iteraciones, llamadas paralelas, autocorrección) → Registro de Expertos con allowlists acotadas e inyección de recursos MCP. UI de chat streaming SSE para cumplimiento fiscal de PyMEs mexicanas." },
+        type: { en: "SaaS Platform", es: "Plataforma SaaS" }
+      },
       n8nStarter: {
         title: { en: "n8n Freelancer Starter", es: "n8n Iniciador para Freelancers" },
         desc: { en: "Ready-to-deploy n8n template for $3-5/month. Self-hosted on Railway with SQLite, replacing expensive SaaS like Zapier ($20-30/mo). Handles 10 workflows and 1K executions/day.", es: "Plantilla n8n lista para desplegar por $3-5/mes. Auto-hospedada en Railway con SQLite, reemplazando SaaS costosos como Zapier. Maneja 10 flujos y 1K ejecuciones/día." },
         type: { en: "Automation Infrastructure", es: "Infraestructura de Automatización" }
       },
       satMcp: {
-        title: { en: "SAT-MCP: Tax Compliance Assistant", es: "SAT-MCP: Asistente de Cumplimiento Fiscal" },
-        desc: { en: "Digital assistant for Mexican tax compliance (CFDI). Automates invoicing, validation, and stamping using an MCP server architecture. Supports 5 PACs and handles complex tax logic.", es: "Asistente digital para cumplimiento fiscal mexicano (CFDI). Automatiza facturación, validación y timbrado usando arquitectura de servidor MCP. Soporta 5 PACs y lógica fiscal compleja." },
-        type: { en: "AI Agent Tool", es: "Herramienta de Agente IA" }
+        title: { en: "SAT-MCP: 43-Tool Fiscal MCP Server", es: "SAT-MCP: Servidor MCP Fiscal de 43 Herramientas" },
+        desc: { en: "Full MCP primitive set in production: tools (CFDI 4.0 ops), resources (live SAT catalog injection), prompts, elicitations, tasks, and 8 fiscal MCP-UI mini-apps for in-chat document rendering. SSE + HTTP Streamable transport, multi-tenant CSD, PAC stamping. 3,960 passing tests · 91%+ coverage.", es: "Set completo de primitivas MCP en producción: tools (operaciones CFDI 4.0), resources (inyección de catálogo SAT), prompts, elicitations, tasks y 8 mini-apps MCP-UI fiscales para renderizado en chat. Transporte SSE + HTTP Streamable, CSD multi-tenant, timbrado PAC. 3,960 tests pasando · 91%+ cobertura." },
+        type: { en: "MCP Server", es: "Servidor MCP" }
       }
     },
     researchPosts: {

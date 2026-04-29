@@ -4,93 +4,74 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static portfolio website for Triple Tres (333-RESEARCH) built with Next.js 15.2.4, React 18, and TypeScript. The site showcases AI Automation, Complex Systems Analysis and development work and is deployed to GitHub Pages via static export.
+Static portfolio website for Triple Tres (333-RESEARCH) — an AI automation consultancy targeting Mexican SMEs. Built with Next.js 15.2.4 / React 18 / TypeScript, deployed to GitHub Pages via static export (`out/` directory).
 
 ## Development Commands
 
 ```bash
-# Development
-npm run dev      # Start development server (next dev)
-npm run build    # Production build with static export (next build && next export)
-npm run lint     # Run ESLint (next lint)
-npm start        # Start production server (next start)
+# From new-webpage-repo/
+pnpm dev          # Start dev server at localhost:3000
+pnpm build        # Static export → out/
+pnpm lint         # ESLint check
 ```
 
-The project supports both npm and pnpm (both lock files present).
+Deployment is automatic: push to `main` → GitHub Actions builds and deploys to GitHub Pages.
 
-## Architecture Overview
+Note: `typescript.ignoreBuildErrors` and `eslint.ignoreDuringBuilds` are both `true` in `next.config.mjs` — the build will not fail on type or lint errors.
 
-### Single Page Application Structure
+## Architecture
 
-- **App Router**: Uses Next.js 13+ app directory structure
-- **Component-Based**: Main page composed of 7 sections (Header, Hero, About, Research, Publications, Contact, Footer)
-- **Static Generation**: Configured for static export to GitHub Pages
+### Routing
 
-### Key Directories
+- `/` — single-page portfolio (all sections in `app/page.tsx`)
+- `/cv` — iframe embed of `/public/cv/index.html` (the actual CV HTML file lives in `public/cv/`)
 
-- `app/`: Next.js App Router with main layout and page
-- `components/`: React components including extensive shadcn/ui component library (60+ components)
-- `components/ui/`: Complete shadcn/ui component system built on Radix UI primitives
-- `hooks/`: Custom React hooks (mobile detection, toast notifications)
-- `lib/`: Utility functions (primarily Tailwind class merging)
-- `public/`: Static assets including research images and hero image
+### Internationalization
 
-### Technology Stack
+Two-layer system:
 
-- **Framework**: Next.js 15.2.4 with React 18.3.1 and TypeScript
-- **Styling**: Tailwind CSS 3.4.17 with custom dark theme configuration
-- **UI Library**: shadcn/ui components with Radix UI primitives
-- **Animations**: Framer Motion for hero section and interactions
-- **Forms**: React Hook Form with Zod validation
-- **Theme**: next-themes with dark mode as default
+1. **`lib/translations.ts`** — flat object of all copy, keyed by section then field, each with `{ en: "...", es: "..." }`.
+2. **`lib/use-translation.ts`** — `useTranslation()` hook resolves dot-path strings against `translations` for the active language.
 
-## Build Configuration
+Usage pattern in components:
+```tsx
+const { t, language } = useTranslation()
+// t("hero.tagline") returns the string for the active language
+```
 
-### Static Export Setup
+The `t()` function in `lib/i18n-context.tsx` is a stub — do not use it for translations. Always use `useTranslation()` from `lib/use-translation.ts`.
 
-- **Output**: Static files in `out/` directory
-- **Image Optimization**: Disabled for static hosting compatibility
-- **Deployment**: GitHub Actions workflow builds and deploys to GitHub Pages
-- **Build Process**: `next build && next export` for static generation
+Language state is held in `I18nContext` (localStorage-persisted) and toggled by `components/language-toggle.tsx`.
 
-### Development Considerations
+### Analytics
 
-- ESLint errors ignored in build for deployment flexibility
-- Webpack worker optimization enabled
-- Path aliases configured (`@/*` for src imports)
-- Custom CSS variables system using HSL color values
+Umami is loaded via `<Script>` in `app/layout.tsx`. `components/analytics-tracker.tsx` attaches Intersection Observer and DOM event listeners after Umami initializes to track:
+- Section views and dwell time
+- Scroll depth milestones (25/50/75/100%)
+- Button/link clicks (respects `data-umami-event` attributes)
+- Form submissions and external links
 
-## Component Architecture
+To track custom events, add `data-umami-event="event-name"` on any element.
 
-### Main Sections (components/)
+### Key Components
 
-- `hero.tsx` (170 lines): Animated introduction with Framer Motion
-- `about.tsx` (138 lines): Personal background and expertise
-- `contact.tsx` (154 lines): Contact form with validation
-- `research.tsx` (136 lines): Research showcase section
-- `publications.tsx` (129 lines): Featured articles with images
-- `header.tsx` (82 lines): Responsive navigation
-- `footer.tsx` (25 lines): Social links and info
+- `components/mouse-trail.tsx` — canvas-based cursor trail effect (client-only)
+- `components/analytics-tracker.tsx` — Umami wrapper (client-only, returns `null`)
+- `components/language-toggle.tsx` — EN/ES switcher
+- `components/theme-toggle.tsx` — dark/light mode toggle
 
-### UI Components
+### Styling
 
-Complete shadcn/ui implementation with 40+ Radix UI-based components available in `components/ui/`. The project uses Class Variance Authority (CVA) for component variants and follows a consistent design system with custom dark theme colors.
+Tailwind CSS 3.4 with CSS variables (HSL) defined in `app/globals.css`. Dark mode is the default theme via `next-themes`. Custom color system — avoid hardcoding colors, use `bg-background`, `text-foreground`, etc.
 
-## Styling System
+### Static Export Constraints
 
-### Tailwind Configuration
+- `images.unoptimized: true` — use plain `<img>` or Next.js `<Image>` with explicit dimensions; optimization is disabled
+- `basePath` and `assetPrefix` are empty strings — site is served from a custom domain root (`public/CNAME` contains the domain)
+- No server-side features (API routes, server actions, middleware) — this is a fully static site
 
-- Custom color palette using CSS variables (HSL values)
-- Extended animations including pulse effects  
-- Mobile-first responsive design
-- Dark mode as default theme
+## Repository Notes
 
-### Theme Implementation
-
-- CSS variables defined in `app/globals.css`
-- `next-themes` integration with `theme-provider.tsx`
-- Custom color system optimized for dark mode presentation
-
-## Content Focus
-
-This portfolio website targets the Mexican SMEs community and potential AI Automation clients. Content sections emphasize n8n, MCP expertise, full-stack development, and AI Integration systems.
+- `components/*.backup` and `components/*.old` files are left-over backups — they are not imported anywhere
+- Both `package-lock.json` and `pnpm-lock.yaml` exist; use `pnpm` locally
+- `public/` contains PDFs (certificates, publications) and images referenced by components

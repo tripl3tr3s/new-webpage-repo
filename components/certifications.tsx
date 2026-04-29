@@ -500,6 +500,7 @@ function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: ()
         {/* Content */}
         <div className="p-6 overflow-auto max-h-[calc(90vh-120px)]">
           {isImage ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={`/${cert.file}`}
               alt={t(`certifications.certs.${cert.id}`)}

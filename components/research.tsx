@@ -21,6 +21,15 @@ export default function Research() {
 
   const projects = [
     {
+      id: "disaiConta",
+      liveLink: "#",
+      githubLink: "#",
+      image: "/architect-anchor.png",
+      tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
+      tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],
+      status: "development"
+    },
+    {
       id: "n8nStarter",
       liveLink: "#",
       githubLink: "https://github.com/tripl3tr3s/n8n-freelancer-starter",
@@ -61,13 +70,13 @@ export default function Research() {
       liveLink: "https://scratch.mit.edu/projects/1197478584",
       githubLink: "https://scratch.mit.edu/projects/1197478584",
       image: "G_D_G.png",
-      tags: ["Machine Learning", "Back Propagation", "Deep Learning", "]Loss Functions"],
+      tags: ["Machine Learning", "Back Propagation", "Deep Learning", "Loss Functions"],
       tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
       status: "development"
     },
     {
       id: "thisWebsite",
-      liveLink: "https://researchooor.quest",
+      liveLink: "https://tripl3.dev",
       githubLink: "https://github.com/tripl3tr3s/new-webpage-repo",
       image: "/Portfolio.png",
       tags: ["Portfolio", "Web3", "Analytics", "Blockchain", "Toolkit"],
@@ -361,16 +370,33 @@ export default function Research() {
                           {t('research.liveDemo')}
                         </a>
                       )}
-                      <a
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
-                        data-umami-event={`Project Code - ${project.id}`}
-                      >
-                        <GitBranch className="w-4 h-4" />
-                        {t('research.code')}
-                      </a>
+                      {project.githubLink === "#" ? (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg cursor-help opacity-60"
+                              data-umami-event={`Project Code (Private) - ${project.id}`}
+                            >
+                              <GitBranch className="w-4 h-4" />
+                              {t('research.code')}
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Private Repository</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ) : (
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
+                          data-umami-event={`Project Code - ${project.id}`}
+                        >
+                          <GitBranch className="w-4 h-4" />
+                          {t('research.code')}
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.div>

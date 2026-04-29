@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Download } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import Image from "next/image"
@@ -11,6 +11,8 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useI18n } from "@/lib/i18n-context"
 import { translations } from "@/lib/translations"
+
+const words = ["MCP PROTOCOL", "AGENTIC SYSTEMS", "N8N WORKFLOWS", "LLM ORCHESTRATION", "CLAUDE API", "SCALABLE ENGINEERING", "INTELLIGENT AGENTS"]
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,8 +23,6 @@ export default function Header() {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { theme } = useTheme()
   const { language } = useI18n()
-
-  const words = ["AI AUTOMATION", "SYSTEMS ARCHITECTURE", "N8N WORKFLOWS", "LLM INTEGRATIONS", "BUSINESS OPTIMIZATIONS", "SCALABLE ENGINEERING", "INTELLIGENT AGENTS"]
 
   useEffect(() => {
     setMounted(true)
@@ -56,7 +56,7 @@ export default function Header() {
     }
 
     return () => clearTimeout(timeoutId)
-  }, [displayedText, currentWordIndex, isTyping, mounted, words])
+  }, [displayedText, currentWordIndex, isTyping, mounted])
 
   const navItems = [
     { name: translations.nav.about[language], href: "#about" },
@@ -178,6 +178,16 @@ export default function Header() {
               </nav>
               <LanguageToggle />
               <ThemeToggle />
+              <a
+                href="/cv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 text-primary text-sm font-medium hover:bg-primary/10 transition-all"
+                data-umami-event="Header - View CV"
+              >
+                <Download className="w-4 h-4" />
+                CV
+              </a>
             </div>
           )}
         </div>

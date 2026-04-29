@@ -73,7 +73,7 @@ export default function Hero() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="mb-6 inline-block px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20"
             >
-              AI Automation Specialist for PyMEs
+              AI Software Engineer · MCP Protocol · LLM Systems
             </motion.div>
 
             {/* Dynamic Catchphrase with Electric Effect - MAIN HEADLINE */}
@@ -197,13 +197,13 @@ export default function Hero() {
                 className="hidden sm:block absolute -left-10 bottom-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-green-400 font-mono text-xs">
-                  {"async function automate() {"}
+                  {"// MCP tool execution"}
                   <br />
-                  {"  const workflow = await n8n.execute();"}
+                  {"const result = await mcp.callTool("}
                   <br />
-                  {"  return workflow.success;"}
+                  {"  'generar-factura', params"}
                   <br />
-                  {"}"}
+                  {");"}
                 </div>
               </motion.div>
 
@@ -214,11 +214,13 @@ export default function Hero() {
                 className="hidden sm:block absolute -right-10 top-10 p-4 bg-card/90 rounded-lg border border-green-500/20 shadow-[0_0_15px_rgba(6,182,212,0.2)] max-w-[200px]"
               >
                 <div className="text-cyan-400 font-mono text-xs">
-                  {"// AI-powered automation"}
+                  {"// Claude API — Anthropic"}
                   <br />
-                  {"const ai = new OpenAI();"}
+                  {"const client = new Anthropic();"}
                   <br />
-                  {"const response = await ai.process(data);"}
+                  {"const msg = await client.messages"}
+                  <br />
+                  {"  .create({ model, tools });"}
                 </div>
               </motion.div>
             </div>
