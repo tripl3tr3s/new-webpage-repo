@@ -283,7 +283,7 @@ export default function Research() {
                       height={300}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                     <div className="absolute top-4 left-4">
                       <span className={`px-3 py-1 text-xs font-medium rounded-full ${project.status === "live" ? "bg-primary/20 text-primary border border-primary/40" :
                         project.status === "inProgress" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40" :
@@ -407,7 +407,7 @@ export default function Research() {
                       height={300}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                   </div>
 
                   <div className="p-6">
