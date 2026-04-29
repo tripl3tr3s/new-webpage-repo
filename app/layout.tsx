@@ -17,6 +17,12 @@ export const metadata: Metadata = {
   applicationName: 'Triple Tres',
   keywords: ['MCP Protocol', 'Model Context Protocol', 'AI Software Engineer', 'LLM Orchestration', 'Multi-Agent Systems', 'Claude API', 'Anthropic', 'n8n', 'AI automation', 'agentic systems', 'CFDI', 'Mexican PyMEs', 'TypeScript', 'Next.js'],
   authors: [{ name: 'Triple Tres' }],
+  icons: {
+    icon: [
+      { url: '/333_faviccon_for_light_themes.png', media: '(prefers-color-scheme: light)' },
+      { url: '/333_faviccon_for_dark_themes.png', media: '(prefers-color-scheme: dark)' },
+    ],
+  },
   openGraph: {
     title: 'Triple Tres — AI Software Engineer · MCP Protocol · LLM Systems',
     description: 'Building production MCP servers, 3-tier agentic orchestration, and AI-first SaaS for Mexican tax compliance',
