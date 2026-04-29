@@ -157,14 +157,14 @@ export default function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold text-center hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all transform hover:scale-105"
-                data-umami-event="Hero CTA - Book Call"
+                data-umami-event="cta-agendar-llamada"
               >
                 {t('contact.bookCall')}
               </a>
               <a
                 href="#research"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-green-500/30 text-foreground font-semibold text-center hover:bg-green-500/10 hover:border-green-500/50 transition-all"
-                data-umami-event="Hero CTA - View Work"
+                data-umami-event="cta-ver-proyectos"
               >
                 {t('hero.cta')}
               </a>

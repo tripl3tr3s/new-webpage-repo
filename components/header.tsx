@@ -151,7 +151,7 @@ export default function Header() {
                         href={item.href}
                         className="px-4 py-4 rounded-lg hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all text-lg font-medium flex items-center justify-between group"
                         onClick={() => setIsOpen(false)}
-                        data-umami-event={`Mobile Nav - ${item.name}`}
+                        data-umami-event={`nav-movil-${item.name}`}
                       >
                         {item.name}
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary">→</span>
@@ -169,7 +169,7 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     className="text-muted-foreground hover:text-primary transition-colors relative group"
-                    data-umami-event={`Nav - ${item.name}`}
+                    data-umami-event={`nav-${item.name}`}
                   >
                     {item.name}
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
@@ -183,7 +183,7 @@ export default function Header() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-lg border border-primary/30 text-primary text-sm font-medium hover:bg-primary/10 transition-all"
-                data-umami-event="Header - View CV"
+                data-umami-event="header-ver-cv"
               >
                 <Download className="w-4 h-4" />
                 CV

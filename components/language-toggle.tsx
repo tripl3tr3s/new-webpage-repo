@@ -11,6 +11,8 @@ export function LanguageToggle() {
     <div className="flex items-center gap-1 md:gap-2 bg-muted/50 rounded-lg p-0.5 md:p-1">
       <motion.button
         onClick={() => setLanguage("en")}
+        data-umami-event="idioma-cambiado"
+        data-umami-idioma="en"
         className={`px-2 py-1 md:px-3 md:py-1.5 rounded-md text-xs md:text-sm font-medium transition-colors flex items-center gap-1 md:gap-1.5 ${
           language === "en"
             ? "bg-primary text-primary-foreground"
@@ -24,6 +26,8 @@ export function LanguageToggle() {
       </motion.button>
       <motion.button
         onClick={() => setLanguage("es")}
+        data-umami-event="idioma-cambiado"
+        data-umami-idioma="es"
         className={`px-2 py-1 md:px-3 md:py-1.5 rounded-md text-xs md:text-sm font-medium transition-colors flex items-center gap-1 md:gap-1.5 ${
           language === "es"
             ? "bg-primary text-primary-foreground"

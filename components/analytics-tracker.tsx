@@ -5,258 +5,190 @@ import { useEffect, useRef } from "react"
 declare global {
   interface Window {
     umami?: {
-      track: (eventName: string, eventData?: Record<string, any>) => void
-      identify: (data: Record<string, any>) => void
+      track: (eventName: string, eventData?: UmamiData) => void
+      identify: (data: UmamiData) => void
     }
   }
 }
+
+type UmamiData = Record<string, string | number | boolean>
 
 export function AnalyticsTracker() {
   const sectionTimers = useRef<Map<string, number>>(new Map())
   const observerRef = useRef<IntersectionObserver | null>(null)
   const engagementStart = useRef<number>(Date.now())
   const lastActivity = useRef<number>(Date.now())
-  const isUserActive = useRef<boolean>(true)
+  const isActive = useRef<boolean>(true)
+  const cleanups = useRef<Array<() => void>>([])
 
   useEffect(() => {
-    const checkUmami = setInterval(() => {
-      if (window.umami) {
-        clearInterval(checkUmami)
-        initializeTracking()
-      }
-    }, 100)
+    const track = (name: string, data?: UmamiData) => window.umami?.track(name, data)
 
-    // Setup engagement tracking
-    const activityEvents = ["mousedown", "keydown", "scroll", "touchstart"]
+    const findSection = (el: Element): string => {
+      const s = el.closest("section[id], main > div[id]")
+      return s?.id || s?.getAttribute("data-section") || "global"
+    }
+
+    const trackEngagement = (motivo: string) => {
+      if (!isActive.current) return
+      const duracion = Math.round((Date.now() - engagementStart.current) / 1000)
+      if (duracion > 0) track("tiempo-sesion", { duracion, motivo, ruta: window.location.pathname })
+    }
+
+    // Activity heartbeat
     const handleActivity = () => {
       lastActivity.current = Date.now()
-      if (!isUserActive.current) {
-        isUserActive.current = true
+      if (!isActive.current) {
+        isActive.current = true
         engagementStart.current = Date.now()
       }
     }
+    const activityEvents = ["mousedown", "keydown", "scroll", "touchstart"] as const
+    activityEvents.forEach(e => window.addEventListener(e, handleActivity, { passive: true }))
+    cleanups.current.push(() => activityEvents.forEach(e => window.removeEventListener(e, handleActivity)))
 
-    activityEvents.forEach(event => window.addEventListener(event, handleActivity, { passive: true }))
-
-    // Check for inactivity every 10 seconds
-    const inactivityCheck = setInterval(() => {
-      if (Date.now() - lastActivity.current > 30000 && isUserActive.current) {
-        // User has been idle for 30 seconds
-        trackEngagement("idle-timeout")
-        isUserActive.current = false
+    // Idle detection
+    const idleTimer = setInterval(() => {
+      if (Date.now() - lastActivity.current > 30_000 && isActive.current) {
+        trackEngagement("sesion-inactiva")
+        isActive.current = false
       }
-    }, 10000)
+    }, 10_000)
+    cleanups.current.push(() => clearInterval(idleTimer))
 
-    const handleUnload = () => trackEngagement("page-unload")
+    // Page unload
+    const handleUnload = () => trackEngagement("pagina-cerrada")
     window.addEventListener("beforeunload", handleUnload)
+    cleanups.current.push(() => window.removeEventListener("beforeunload", handleUnload))
 
-    return () => {
-      clearInterval(checkUmami)
-      clearInterval(inactivityCheck)
-      window.removeEventListener("beforeunload", handleUnload)
-      activityEvents.forEach(event => window.removeEventListener(event, handleActivity))
-      observerRef.current?.disconnect()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // Session identification + page load — fires once Umami is ready
+    const umamiCheck = setInterval(() => {
+      if (!window.umami) return
+      clearInterval(umamiCheck)
 
-  const trackEngagement = (trigger: string) => {
-    if (!isUserActive.current) return
+      const referido = document.referrer
+      const fuente = referido.includes("linkedin") ? "linkedin"
+        : referido.includes("github") ? "github"
+        : referido.includes("twitter") || referido.includes("x.com") ? "twitter"
+        : referido.includes("google") || referido.includes("bing") || referido.includes("duckduckgo") ? "busqueda"
+        : referido ? "referencia-web"
+        : "directo"
 
-    const duration = Math.round((Date.now() - engagementStart.current) / 1000)
-    if (duration > 0) {
-      window.umami?.track("engagement-time", {
-        duration,
-        trigger,
-        path: window.location.pathname
+      const dispositivo = window.screen.width < 768 ? "movil"
+        : window.screen.width < 1024 ? "tablet"
+        : "escritorio"
+
+      window.umami.identify({ fuente, dispositivo, idioma_navegador: navigator.language })
+
+      track("pagina-cargada", {
+        idioma: navigator.language,
+        pantalla: `${window.screen.width}x${window.screen.height}`,
+        referido: referido || "directo",
       })
+    }, 100)
+    cleanups.current.push(() => clearInterval(umamiCheck))
+
+    // Scroll depth (milestones: 25 / 50 / 75 / 100)
+    let maxScroll = 0
+    const scrollMilestones = new Set<number>()
+    const handleScroll = () => {
+      const docHeight = document.documentElement.scrollHeight
+      if (docHeight === 0) return
+      const pct = Math.round(((window.scrollY + window.innerHeight) / docHeight) * 100)
+      if (pct <= maxScroll) return
+      maxScroll = pct
+      for (const m of [25, 50, 75, 100]) {
+        if (pct >= m && !scrollMilestones.has(m)) {
+          scrollMilestones.add(m)
+          track("profundidad-scroll", { profundidad: m })
+        }
+      }
     }
-  }
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    cleanups.current.push(() => window.removeEventListener("scroll", handleScroll))
 
-  const initializeTracking = () => {
-    // Track initial page load
-    window.umami?.track("page-load", {
-      language: navigator.language,
-      screen: `${window.screen.width}x${window.screen.height}`,
-      referrer: document.referrer
-    })
-
-    // Set up section view tracking
-    trackSectionViews()
-
-    // Track scroll depth
-    trackScrollDepth()
-
-    // Track button clicks with enhanced attribute support
-    trackButtonClicks()
-
-    // Track form submissions
-    trackFormSubmissions()
-
-    // Track external links
-    trackExternalLinks()
-  }
-
-  const trackSectionViews = () => {
+    // Section view + dwell time
     const sections = document.querySelectorAll("section[id], main > div[id]")
-
-    const observerOptions = {
-      threshold: [0.1, 0.5], // Track at 10% and 50% visibility
-      rootMargin: "0px",
-    }
-
-    observerRef.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const sectionId = entry.target.id || entry.target.getAttribute("data-section") || "unknown"
-
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          // Section became mostly visible
-          if (!sectionTimers.current.has(sectionId)) {
-            sectionTimers.current.set(sectionId, Date.now())
-            window.umami?.track("section-view", {
-              section: sectionId,
-              timestamp: new Date().toISOString(),
-            })
-          }
-        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.1) {
-          // Section left view - calculate time spent
-          const startTime = sectionTimers.current.get(sectionId)
-          if (startTime) {
-            const timeSpent = Math.round((Date.now() - startTime) / 1000) // in seconds
-
-            if (timeSpent > 2) { // Only track if spent more than 2 seconds
-              window.umami?.track("section-dwell", {
-                section: sectionId,
-                duration: timeSpent,
-                unit: "seconds",
-              })
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id || entry.target.getAttribute("data-section") || "desconocido"
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            if (!sectionTimers.current.has(id)) {
+              sectionTimers.current.set(id, Date.now())
+              track("seccion-vista", { seccion: id })
             }
-            sectionTimers.current.delete(sectionId)
+          } else if (!entry.isIntersecting || entry.intersectionRatio < 0.1) {
+            const start = sectionTimers.current.get(id)
+            if (start) {
+              const dwell = Math.round((Date.now() - start) / 1000)
+              if (dwell > 2) track("tiempo-en-seccion", { seccion: id, duracion: dwell })
+              sectionTimers.current.delete(id)
+            }
           }
         }
-      })
-    }, observerOptions)
+      },
+      { threshold: [0.1, 0.5] },
+    )
+    sections.forEach(s => observerRef.current?.observe(s))
+    cleanups.current.push(() => observerRef.current?.disconnect())
 
-    sections.forEach((section) => observerRef.current?.observe(section))
-  }
+    // Single unified click handler: data-umami-event → external links → generic buttons
+    const handleClick = (e: MouseEvent) => {
+      const el = (e.target as HTMLElement).closest("button, a, [data-umami-event]") as HTMLElement | null
+      if (!el) return
 
-  const trackScrollDepth = () => {
-    let maxScroll = 0
-    const milestones = [25, 50, 75, 100]
-    const tracked = new Set<number>()
+      const seccion = findSection(el)
 
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight
-      const documentHeight = document.documentElement.scrollHeight
-      const scrollTop = window.scrollY
-
-      if (documentHeight === 0) return
-
-      const scrollPercent = Math.round(((scrollTop + windowHeight) / documentHeight) * 100)
-
-      if (scrollPercent > maxScroll) {
-        maxScroll = scrollPercent
-
-        milestones.forEach((milestone) => {
-          if (scrollPercent >= milestone && !tracked.has(milestone)) {
-            tracked.add(milestone)
-            window.umami?.track("scroll-depth", {
-              depth: milestone,
-              unit: "percent",
-            })
+      const explicitEvent = el.getAttribute("data-umami-event")
+      if (explicitEvent) {
+        const data: UmamiData = { seccion, texto: el.innerText?.substring(0, 50) ?? "" }
+        for (const attr of Array.from(el.attributes)) {
+          if (attr.name.startsWith("data-umami-") && attr.name !== "data-umami-event") {
+            data[attr.name.replace("data-umami-", "")] = attr.value
           }
+        }
+        track(explicitEvent, data)
+        return
+      }
+
+      if (el.tagName === "A") {
+        const a = el as HTMLAnchorElement
+        if (a.hostname && a.hostname !== window.location.hostname) {
+          track("enlace-externo", {
+            destino: a.hostname,
+            texto: a.textContent?.trim().substring(0, 50) ?? "",
+            seccion,
+          })
+        }
+        return
+      }
+
+      const isButton = el.tagName === "BUTTON" || el.getAttribute("role") === "button"
+      if (isButton) {
+        track("clic-boton", {
+          boton: el.textContent?.trim().substring(0, 50) ?? "desconocido",
+          id: el.id || "sin-id",
+          seccion,
         })
       }
     }
+    document.addEventListener("click", handleClick)
+    cleanups.current.push(() => document.removeEventListener("click", handleClick))
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }
-
-  const trackButtonClicks = () => {
-    document.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement
-      const element = target.closest("button, a, [data-umami-event]") as HTMLElement
-
-      if (element) {
-        // Prioritize explicit data attribute
-        const eventName = element.getAttribute("data-umami-event")
-
-        if (eventName) {
-          // If explicit event name provided, track it directly
-          const eventData: Record<string, any> = {
-            section: findParentSection(element),
-            text: element.innerText?.substring(0, 50) || "No Text"
-          }
-
-          // Add any other data-umami-* attributes
-          Array.from(element.attributes).forEach(attr => {
-            if (attr.name.startsWith("data-umami-") && attr.name !== "data-umami-event") {
-              const key = attr.name.replace("data-umami-", "")
-              eventData[key] = attr.value
-            }
-          })
-
-          window.umami?.track(eventName, eventData)
-          return
-        }
-
-        // Fallback for generic buttons without attributes
-        const isButton = element.tagName === "BUTTON" || element.getAttribute("role") === "button" || element.classList.contains("btn")
-
-        if (isButton) {
-          const buttonText = element.textContent?.trim().substring(0, 50) || "Unknown Button"
-          const buttonId = element.id || "unnamed"
-
-          window.umami?.track("button-click", {
-            button: buttonText,
-            id: buttonId,
-            section: findParentSection(element),
-          })
-        }
-      }
-    })
-  }
-
-  const trackFormSubmissions = () => {
-    document.addEventListener("submit", (e) => {
+    // Form submissions
+    const handleSubmit = (e: Event) => {
       const form = e.target as HTMLFormElement
-      const formId = form.id || form.name || "contact-form"
+      track("formulario-enviado", { formulario: form.id || form.name || "contacto" })
+    }
+    document.addEventListener("submit", handleSubmit)
+    cleanups.current.push(() => document.removeEventListener("submit", handleSubmit))
 
-      window.umami?.track("form-submit", {
-        form: formId,
-        section: findParentSection(form),
-      })
-    })
-  }
-
-  const trackExternalLinks = () => {
-    document.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement
-      const link = target.closest("a")
-
-      if (link && link.href) {
-        // Skip if already tracked by data-umami-event
-        if (link.getAttribute("data-umami-event")) return
-
-        const isExternal =
-          link.hostname !== window.location.hostname && link.hostname !== ""
-
-        if (isExternal) {
-          window.umami?.track("external-link", {
-            url: link.href,
-            text: link.textContent?.trim().substring(0, 50) || "Unknown Link",
-            destination: link.hostname,
-          })
-        }
-      }
-    })
-  }
-
-  const findParentSection = (element: Element): string => {
-    const section = element.closest("section[id], main > div[id]")
-    return section?.id || section?.getAttribute("data-section") || "global"
-  }
+    return () => {
+      cleanups.current.forEach(fn => fn())
+      cleanups.current = []
+    }
+  }, [])
 
   return null
 }

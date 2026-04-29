@@ -15,10 +15,10 @@ export default function Footer() {
           </div>
 
           <div className="flex space-x-6">
-            <a href="#" className="text-gray-500 hover:text-green-400 transition-colors text-sm" data-umami-event="Footer - Privacy Policy">
+            <a href="#" className="text-gray-500 hover:text-green-400 transition-colors text-sm" data-umami-event="footer-aviso-privacidad">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-500 hover:text-green-400 transition-colors text-sm" data-umami-event="Footer - Terms of Service">
+            <a href="#" className="text-gray-500 hover:text-green-400 transition-colors text-sm" data-umami-event="footer-terminos">
               Terms of Service
             </a>
           </div>
