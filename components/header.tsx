@@ -84,7 +84,7 @@ export default function Header() {
             >
               {mounted && (
                 <Image
-                  src={theme === "dark" ? "/dado_333_amarillo_sin fondo.png" : "/dado_333_negro_sin fondo.png"}
+                  src={theme === "dark" ? "/dado_333_amarillo_sin fondo.webp" : "/dado_333_negro_sin fondo.webp"}
                   alt="333 Research Logo"
                   width={32}
                   height={32}

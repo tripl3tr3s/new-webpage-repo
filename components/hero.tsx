@@ -180,7 +180,7 @@ export default function Hero() {
             <div className="relative w-full h-[280px] md:h-[400px]">
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
-                  src="/architect-anchor.png"
+                  src="/architect-anchor.webp"
                   alt="AI Automation Architect"
                   width={500}
                   height={400}

@@ -24,7 +24,7 @@ export default function Research() {
       id: "disaiConta",
       liveLink: "#",
       githubLink: "#",
-      image: "/DISAI-Conta.png",
+      image: "/DISAI-Conta.webp",
       tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
       tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],
       status: "development"
@@ -33,7 +33,7 @@ export default function Research() {
       id: "n8nStarter",
       liveLink: "#",
       githubLink: "https://github.com/tripl3tr3s/n8n-freelancer-starter",
-      image: "/n8n_freelancer_starter.jpg",
+      image: "/n8n_freelancer_starter.webp",
       tags: ["Automation", "Docker", "Self-Hosting", "Cost-Optimization"],
       tech: ["n8n", "SQLite", "Docker", "Railway", "Bash"],
       status: "development"
@@ -42,7 +42,7 @@ export default function Research() {
       id: "satMcp",
       liveLink: "#",
       githubLink: "#",
-      image: "/MCP_inspector.png",
+      image: "/MCP_inspector.webp",
       tags: ["Tax Compliance", "MCP Protocol", "Automation", "FinTech"],
       tech: ["TypeScript", "SQLite", "MCP", "XML Signing", "Cryptography"],
       status: "development"
@@ -51,7 +51,7 @@ export default function Research() {
       id: "terminal",
       liveLink: "https://retaildao-terminal.vercel.app/",
       githubLink: "https://github.com/RetailDAO/website",
-      image: "/RD_Terminal.png",
+      image: "/RD_Terminal.webp",
       tags: ["React", "TypeScript", "Docker", "ApexCharts", "Crypto"],
       tech: ["Next.js", "Docker", "Axios", "Redis", "Dual WebSocket", "Custom API"],
       status: "live"
@@ -60,7 +60,7 @@ export default function Research() {
       id: "retailDocs",
       liveLink: "https://retaildao.github.io/Docs/",
       githubLink: "https://github.com/RetailDAO/Docs",
-      image: "/RD_Docs.png",
+      image: "/RD_Docs.webp",
       tags: ["React", "Matplotlib", "Docusaurus", "API"],
       tech: ["TypeScript", "React", "Docusaurus", "GitHub Pages"],
       status: "live"
@@ -69,7 +69,7 @@ export default function Research() {
       id: "gradientGolf",
       liveLink: "https://scratch.mit.edu/projects/1197478584",
       githubLink: "https://scratch.mit.edu/projects/1197478584",
-      image: "G_D_G.png",
+      image: "G_D_G.webp",
       tags: ["Machine Learning", "Back Propagation", "Deep Learning", "Loss Functions"],
       tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
       status: "development"
@@ -80,25 +80,25 @@ export default function Research() {
     {
       id: "lowFloat",
       youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L",
-      image: "/VCsHighFDV_img.jpg",
+      image: "/VCsHighFDV_img.webp",
       tags: ["FDV", "Staking Rewards", "VC's"],
     },
     {
       id: "ethena",
       youtubeLink: "https://youtu.be/wKtFMFTwpTM?si=cZRCe4ZBDrKYlJ2F",
-      image: "/ethena_img.jpg",
+      image: "/ethena_img.webp",
       tags: ["Algorithmic Stablecoin", "Tokenized Bonds", "Hedging"],
     },
     {
       id: "nfts",
       youtubeLink: "https://youtu.be/c8AbMPubzBA?si=HqoDiybuS4KzXYmt",
-      image: "/nfts_dead.jpg",
+      image: "/nfts_dead.webp",
       tags: ["NFT's", "History", "Trend Assessment"],
     },
     {
       id: "blackrock",
       youtubeLink: "https://youtu.be/GuHb_IZlZis?si=KPmKqCFSABtV8CTN",
-      image: "/LFink.jpg",
+      image: "/LFink.webp",
       tags: ["BlackRock", "Bitcoin", "ETF"],
     },
   ]

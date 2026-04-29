@@ -37,7 +37,7 @@ const certificates: Certificate[] = [
     date: "2025",
     platform: "n8n",
     category: "Automation",
-    file: "Captura de pantalla 2025-09-30 211337.png",
+    file: "Captura de pantalla 2025-09-30 211337.webp",
     description: "Workflow automation and n8n fundamentals"
   },
   // New AI Certifications
@@ -509,7 +509,7 @@ function FeaturedCarousel({ certs, onSelect, t }: {
 }
 
 function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: () => void; t: (key: string) => string }) {
-  const isImage = cert.file.endsWith('.png') || cert.file.endsWith('.jpg')
+  const isImage = cert.file.endsWith('.webp') || cert.file.endsWith('.webp')
 
   return (
     <motion.div
