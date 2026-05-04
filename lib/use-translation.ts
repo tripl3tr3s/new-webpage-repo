@@ -1,20 +1,17 @@
-import { useI18n } from "./i18n-context"
 import { translations } from "./translations"
 
 export function useTranslation() {
-  const { language } = useI18n()
-
   const t = (path: string): string => {
     const keys = path.split('.')
     let value: any = translations
 
     for (const key of keys) {
       value = value?.[key]
-      if (!value) return path
+      if (value === undefined) return path
     }
 
-    return value[language] || path
+    return typeof value === 'string' ? value : path
   }
 
-  return { t, language }
+  return { t }
 }

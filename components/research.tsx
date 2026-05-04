@@ -1,11 +1,9 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef, useState } from "react"
+import React, { useRef, useState } from "react"
+import { motion, useInView, type Variants } from "framer-motion"
 import Image from "next/image"
-import { ExternalLink, GitBranch, Play, Code, BarChart, Info } from "lucide-react"
-import { useTranslation } from "@/lib/use-translation"
+import { ExternalLink, GitBranch, FileText, Lock } from "lucide-react"
 import {
   Tooltip,
   TooltipContent,
@@ -13,103 +11,253 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+interface Project {
+  id: string
+  title: string
+  desc: string
+  image: string
+  tags: string[]
+  tech: string[]
+  status: "live" | "development"
+  privateLabel?: string
+  liveLink?: string
+  githubLink?: string
+}
+
+const projects: Project[] = [
+  {
+    id: "disaiConta",
+    title: "DISAI_Conta: AI-First Accounting Platform",
+    desc: "Production AI-native fiscal compliance platform for Mexican SMEs. Architecture: 3-tier agentic system. Haiku router handles intent classification and routing; 10 domain-specialized Sonnet agents with native tool_use, 6-iteration self-correction loops, and parallel tool calls; Expert Registry with scoped tool allowlists and live MCP resource injection at inference time. Streaming SSE chat interface built in Next.js. Deployed on Railway with PostgreSQL, Redis, and full observability.",
+    image: "/DISAI-Conta.webp",
+    tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
+    tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],
+    status: "development",
+    privateLabel: "Private, Enterprise IP",
+  },
+  {
+    id: "satMcp",
+    title: "SAT-MCP: 43-Tool Fiscal MCP Server",
+    desc: "Custom MCP server powering DISAI_Conta's fiscal intelligence layer. Full primitive set: 43 tools (CFDI 4.0 generation, validation, stamping, cancellation), live SAT catalog resource injection, 8 MCP-UI mini-apps for in-chat document rendering. SSE + HTTP Streamable transport. Multi-tenant CSD management, 5 PAC providers with circuit breakers, EFOS/EDOS blacklist monitoring. 3,960 passing tests · 91%+ coverage · solo-built TypeScript codebase.",
+    image: "/MCP_inspector.webp",
+    tags: ["Tax Compliance", "MCP Protocol", "Automation", "FinTech"],
+    tech: ["TypeScript", "SQLite", "MCP", "XML Signing", "Cryptography"],
+    status: "development",
+    privateLabel: "Private, Commercial Product",
+  },
+  {
+    id: "terminal",
+    title: "Crypto / TradFi Analytics Terminal",
+    desc: "Real-time analytics terminal for on-chain and traditional market data. Dual WebSocket connections for live price feeds, custom Node.js backend with Redis caching, React + TypeScript frontend with ApexCharts visualizations. Dockerized, deployed on Vercel/Railway. Built as infrastructure for RetailDAO's community research operations.",
+    image: "/RD_Terminal.webp",
+    tags: ["React", "TypeScript", "Docker", "ApexCharts", "Real-Time Data"],
+    tech: ["Next.js", "Docker", "Axios", "Redis", "Dual WebSocket", "Custom API"],
+    status: "live",
+    liveLink: "https://retaildao-terminal.vercel.app/",
+    githubLink: "https://github.com/RetailDAO/website",
+  },
+  {
+    id: "n8nStarter",
+    title: "n8n Freelancer Starter",
+    desc: "Open-source Railway deployment template for self-hosted n8n. Configured for production: SQLite persistence, environment variable management, one-click Railway deploy. Built to eliminate the $20-30/mo Zapier/Make dependency for small teams.",
+    image: "/n8n_freelancer_starter.webp",
+    tags: ["Automation", "Docker", "Self-Hosting", "Cost-Optimization"],
+    tech: ["n8n", "SQLite", "Docker", "Railway", "Bash"],
+    status: "development",
+    githubLink: "https://github.com/tripl3tr3s/n8n-freelancer-starter",
+  },
+]
+
+const analysisReports = [
+  {
+    title: "On-Chain Data Signals: A Framework for Market Structure Analysis",
+    year: 2025,
+    link: "https://docs.google.com/document/d/e/2PACX-1vQN6k3vqjq8jraYzvwWvHgr7vMSkOC-sLxIUuUpob-u8k6r1pHAQDFvkV2VuAWQEFCWkkJ1BFYErfVc/pub",
+  },
+  {
+    title: "BNB Ecosystem Architecture: A Technical and Economic Assessment",
+    year: 2024,
+    link: "https://docs.google.com/document/d/e/2PACX-1vRVg4Ir_mafKgxc2GZixv6pKSDjilH1AlLCr_DzsPFN10anWUHEXC9zZ9Kkz7NvaKTs6CTK-UIQRyp8/pub",
+  },
+  {
+    title: "SEI Protocol: Tokenomics, Design Tradeoffs, and Investment Thesis",
+    year: 2024,
+    link: "https://docs.google.com/document/d/e/2PACX-1vRVg4Ir_mafKgxc2GZixv6pKSDjilH1AlLCr_DzsPFN10anWUHEXC9zZ9Kkz7NvaKTs6CTK-UIQRyp8/pub",
+  },
+  {
+    title: "Institutional Entry into Digital Asset Markets: A Structural Analysis",
+    year: 2024,
+    link: "https://docs.google.com/document/d/e/2PACX-1vQECKZHvd8iOw5y8LYNDEVgQP50xMQzC7oIFlOfK1lMPpWJfYB2aR2qDEpIMfOekgUUR2cDYd_tu0Dm/pub",
+  },
+  {
+    title: "Speculative Asset Cycles: Why Narrative-Driven Markets Fail at Scale",
+    year: 2024,
+    link: "https://docs.google.com/document/d/e/2PACX-1vTqsPMavIVPp2Sf2XY3GPEMRg4-cLfZ4WuuWZNAf4JYWIlWM7S8f4TMnc1-XTfmRhedsxcCw8xeZiW9/pub",
+  },
+  {
+    title: "Full Research Archive",
+    year: "2024–2025",
+    link: "https://docs.google.com/document/d/e/2PACX-1vRAKgSHq_Ui8XC8nHRVDLmy1nMz8OzsHkj0-vsanC0GdFQ7VWEyeDsq794gpgnre5nMxVHSuRVQGaom/pub",
+  },
+]
+
+function ProjectCard({ project, itemVariants }: { project: Project; itemVariants: Variants }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const spotRef = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = cardRef.current!.getBoundingClientRect()
+    const px = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
+    const py = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
+    setTilt({ x: py * -5, y: px * 5 })
+    setImgOffset({ x: px * -8, y: py * -6 })
+    if (spotRef.current) {
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+      spotRef.current.style.background = `radial-gradient(220px circle at ${x}% ${y}%, rgba(16,185,129,0.1), transparent 70%)`
+      spotRef.current.style.opacity = "1"
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 })
+    setImgOffset({ x: 0, y: 0 })
+    if (spotRef.current) spotRef.current.style.opacity = "0"
+  }
+
+  return (
+    <motion.div variants={itemVariants}>
+      <motion.div
+        ref={cardRef}
+        animate={{ rotateX: tilt.x, rotateY: tilt.y }}
+        transition={{ type: "spring", stiffness: 260, damping: 26 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="tilt-card bg-card/30 rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-colors group relative cursor-pointer"
+        whileTap={{ scale: 0.985, transition: { type: "spring", stiffness: 500, damping: 20 } }}
+        style={{ transformPerspective: 1000 }}
+      >
+        {/* Cursor spotlight */}
+        <div
+          ref={spotRef}
+          className="pointer-events-none absolute inset-0 z-10 rounded-2xl transition-opacity duration-300"
+          style={{ opacity: 0 }}
+        />
+
+        {/* Image with counter-parallax */}
+        <div className="relative h-48 overflow-hidden">
+          <motion.div
+            animate={{ x: imgOffset.x, y: imgOffset.y }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            className="absolute inset-0 scale-[1.14]"
+          >
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={500}
+              height={300}
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute top-4 left-4">
+          <span className={`px-3 py-1 text-xs font-medium rounded-full ${
+            project.status === "live"
+              ? "bg-primary/20 text-primary border border-primary/40"
+              : "bg-blue-500/20 text-blue-400 border border-blue-500/40"
+          }`}>
+            {project.status === "live" ? "Live" : "In Development"}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-6 relative z-20">
+        <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-muted-foreground mb-4 text-sm">{project.desc}</p>
+
+        <div className="mb-4">
+          <p className="text-sm text-muted-foreground mb-2">Tech Stack:</p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tech.map((tech, i) => (
+              <span key={i} className="px-2 py-1 text-xs font-medium rounded bg-muted/50 text-muted-foreground border border-border">
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.map((tag, i) => (
+            <span key={i} className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {project.privateLabel ? (
+          <div className="flex items-center gap-2 mt-2">
+            <Lock className="w-4 h-4 text-muted-foreground/60" />
+            <span className="text-sm text-muted-foreground/60 font-medium">{project.privateLabel}</span>
+          </div>
+        ) : (
+          <div className="flex gap-3">
+            {project.liveLink && (
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all"
+                data-umami-event={`proyecto-demo-${project.id}`}
+              >
+                <ExternalLink className="w-4 h-4" />
+                Live Demo
+              </a>
+            )}
+            {project.githubLink ? (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
+                data-umami-event={`proyecto-codigo-${project.id}`}
+              >
+                <GitBranch className="w-4 h-4" />
+                Code
+              </a>
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg cursor-help opacity-60">
+                    <GitBranch className="w-4 h-4" />
+                    Code
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Private Repository</p>
+                </TooltipContent>
+              </Tooltip>
+            )}
+          </div>
+        )}
+      </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function Research() {
-  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
-  const [activeTab, setActiveTab] = useState("projects")
-
-  const projects = [
-    {
-      id: "disaiConta",
-      liveLink: "#",
-      githubLink: "#",
-      image: "/DISAI-Conta.webp",
-      tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
-      tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],
-      status: "development"
-    },
-    {
-      id: "n8nStarter",
-      liveLink: "#",
-      githubLink: "https://github.com/tripl3tr3s/n8n-freelancer-starter",
-      image: "/n8n_freelancer_starter.webp",
-      tags: ["Automation", "Docker", "Self-Hosting", "Cost-Optimization"],
-      tech: ["n8n", "SQLite", "Docker", "Railway", "Bash"],
-      status: "development"
-    },
-    {
-      id: "satMcp",
-      liveLink: "#",
-      githubLink: "#",
-      image: "/MCP_inspector.webp",
-      tags: ["Tax Compliance", "MCP Protocol", "Automation", "FinTech"],
-      tech: ["TypeScript", "SQLite", "MCP", "XML Signing", "Cryptography"],
-      status: "development"
-    },
-    {
-      id: "terminal",
-      liveLink: "https://retaildao-terminal.vercel.app/",
-      githubLink: "https://github.com/RetailDAO/website",
-      image: "/RD_Terminal.webp",
-      tags: ["React", "TypeScript", "Docker", "ApexCharts", "Crypto"],
-      tech: ["Next.js", "Docker", "Axios", "Redis", "Dual WebSocket", "Custom API"],
-      status: "live"
-    },
-    {
-      id: "retailDocs",
-      liveLink: "https://retaildao.github.io/Docs/",
-      githubLink: "https://github.com/RetailDAO/Docs",
-      image: "/RD_Docs.webp",
-      tags: ["React", "Matplotlib", "Docusaurus", "API"],
-      tech: ["TypeScript", "React", "Docusaurus", "GitHub Pages"],
-      status: "live"
-    },
-    {
-      id: "gradientGolf",
-      liveLink: "https://scratch.mit.edu/projects/1197478584",
-      githubLink: "https://scratch.mit.edu/projects/1197478584",
-      image: "G_D_G.webp",
-      tags: ["Machine Learning", "Back Propagation", "Deep Learning", "Loss Functions"],
-      tech: ["Scratch", "Adobe Illustrator", "Photoshop"],
-      status: "development"
-    },
-  ]
-
-  const researchPosts = [
-    {
-      id: "lowFloat",
-      youtubeLink: "https://youtu.be/LI_WiQDHWoc?si=WQf74oGXhBn1at4L",
-      image: "/VCsHighFDV_img.webp",
-      tags: ["FDV", "Staking Rewards", "VC's"],
-    },
-    {
-      id: "ethena",
-      youtubeLink: "https://youtu.be/wKtFMFTwpTM?si=cZRCe4ZBDrKYlJ2F",
-      image: "/ethena_img.webp",
-      tags: ["Algorithmic Stablecoin", "Tokenized Bonds", "Hedging"],
-    },
-    {
-      id: "nfts",
-      youtubeLink: "https://youtu.be/c8AbMPubzBA?si=HqoDiybuS4KzXYmt",
-      image: "/nfts_dead.webp",
-      tags: ["NFT's", "History", "Trend Assessment"],
-    },
-    {
-      id: "blackrock",
-      youtubeLink: "https://youtu.be/GuHb_IZlZis?si=KPmKqCFSABtV8CTN",
-      image: "/LFink.webp",
-      tags: ["BlackRock", "Bitcoin", "ETF"],
-    },
-  ]
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.2 },
     },
   }
 
@@ -124,324 +272,78 @@ export default function Research() {
 
   return (
     <TooltipProvider>
-      <section id="research" className="py-20 bg-gradient-to-b from-background to-background/90 relative">
-        {/* Decorative elements */}
+      <section id="projects" className="py-20 bg-gradient-to-b from-background to-background/90 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/20 to-transparent"></div>
 
         <div className="container mx-auto px-4">
+          {/* Projects heading */}
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('research.title')}</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto mb-8"></div>
-            <p className="text-muted-foreground text-lg">
-              {t('research.subtitle')}
-            </p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Projects</h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto"></div>
           </div>
 
-          {/* Interactive Tab Navigation */}
-          <div className="flex justify-center mb-12">
-            <div className="bg-card/60 backdrop-blur-sm p-2 rounded-2xl border border-border shadow-2xl">
-              <motion.button
-                onClick={() => setActiveTab("projects")}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 25px rgba(34, 197, 94, 0.3)"
-                }}
-                whileTap={{
-                  scale: 0.95,
-                  boxShadow: "0 0 15px rgba(34, 197, 94, 0.5)"
-                }}
-                className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${activeTab === "projects"
-                  ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25"
-                  : "text-muted-foreground hover:text-foreground"
-                  }`}
-              >
-                {/* Background gradient animation for inactive state */}
-                {activeTab !== "projects" && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: '100%' }}
-                    transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-                  />
-                )}
-
-                {/* Shimmer effect for active state */}
-                {activeTab === "projects" && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent"
-                    initial={{ x: '-100%' }}
-                    animate={{ x: '100%' }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  />
-                )}
-
-                <motion.div
-                  className="relative z-10 flex items-center gap-3"
-                  whileHover={{ x: 2 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Code className="w-5 h-5" />
-                  </motion.div>
-                  {t('research.tabs.projects')}
-                </motion.div>
-
-                {/* Glow border effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl border-2 border-green-400/0 group-hover:border-green-400/50 transition-all duration-300"
-                  whileHover={{
-                    borderColor: "rgba(34, 197, 94, 0.7)",
-                    boxShadow: "inset 0 0 20px rgba(34, 197, 94, 0.1)"
-                  }}
-                />
-              </motion.button>
-
-              <motion.button
-                onClick={() => setActiveTab("research")}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 25px rgba(34, 197, 94, 0.3)"
-                }}
-                whileTap={{
-                  scale: 0.95,
-                  boxShadow: "0 0 15px rgba(34, 197, 94, 0.5)"
-                }}
-                className={`relative px-8 py-4 rounded-xl font-semibold transition-all duration-500 overflow-hidden group ${activeTab === "research"
-                  ? "bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/25"
-                  : "text-muted-foreground hover:text-foreground"
-                  }`}
-              >
-                {/* Background gradient animation for inactive state */}
-                {activeTab !== "research" && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: '100%' }}
-                    transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-                  />
-                )}
-
-                {/* Shimmer effect for active state */}
-                {activeTab === "research" && (
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent"
-                    initial={{ x: '-100%' }}
-                    animate={{ x: '100%' }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  />
-                )}
-
-                <motion.div
-                  className="relative z-10 flex items-center gap-3"
-                  whileHover={{ x: 2 }}
-                  transition={{ type: "spring", stiffness: 400 }}
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <BarChart className="w-5 h-5" />
-                  </motion.div>
-                  {t('research.tabs.research')}
-                </motion.div>
-
-                {/* Glow border effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl border-2 border-green-400/0 group-hover:border-green-400/50 transition-all duration-300"
-                  whileHover={{
-                    borderColor: "rgba(34, 197, 94, 0.7)",
-                    boxShadow: "inset 0 0 20px rgba(34, 197, 94, 0.1)"
-                  }}
-                />
-              </motion.button>
-            </div>
-          </div>
-
+          {/* Project cards grid */}
           <motion.div
             ref={ref}
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="grid md:grid-cols-2 gap-8"
+            className="grid md:grid-cols-2 gap-8 mb-20"
           >
-            {activeTab === "projects" ? (
-              projects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-card/30 rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all group"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={t(`research.projects.${project.id}.title`)}
-                      width={500}
-                      height={300}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                    <div className="absolute top-4 left-4">
-                      <span className={`px-3 py-1 text-xs font-medium rounded-full ${project.status === "live" ? "bg-primary/20 text-primary border border-primary/40" :
-                        project.status === "inProgress" ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40" :
-                          "bg-blue-500/20 text-blue-400 border border-blue-500/40"
-                        }`}>
-                        {t(`research.status.${project.status}`)}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 text-xs font-medium rounded-full bg-muted/80 text-muted-foreground border border-border">
-                        {t(`research.projects.${project.id}.type`)}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                      {t(`research.projects.${project.id}.title`)}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">{t(`research.projects.${project.id}.desc`)}</p>
-
-                    {/* Tech Stack */}
-                    <div className="mb-4">
-                      <p className="text-sm text-muted-foreground mb-2">{t('research.techStack')}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tech.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="px-2 py-1 text-xs font-medium rounded bg-muted/50 text-muted-foreground border border-border"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-3">
-                      {project.liveLink === "#" ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all cursor-help"
-                              data-umami-event={`proyecto-demo-wip-${project.id}`}
-                            >
-                              <ExternalLink className="w-4 h-4" />
-                              {t('research.liveDemo')}
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Work In Progress</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        <a
-                          href={project.liveLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary border border-primary/20 rounded-lg hover:bg-primary/20 transition-all"
-                          data-umami-event={`proyecto-demo-${project.id}`}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          {t('research.liveDemo')}
-                        </a>
-                      )}
-                      {project.githubLink === "#" ? (
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg cursor-help opacity-60"
-                              data-umami-event={`proyecto-codigo-privado-${project.id}`}
-                            >
-                              <GitBranch className="w-4 h-4" />
-                              {t('research.code')}
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Private Repository</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      ) : (
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-muted/50 text-muted-foreground border border-border rounded-lg hover:bg-muted/70 transition-all"
-                          data-umami-event={`proyecto-codigo-${project.id}`}
-                        >
-                          <GitBranch className="w-4 h-4" />
-                          {t('research.code')}
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            ) : (
-              researchPosts.map((post, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-card/30 rounded-2xl overflow-hidden border border-border hover:border-primary/30 transition-all group"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={post.image || "/placeholder.svg"}
-                      alt={t(`research.researchPosts.${post.id}.title`)}
-                      width={500}
-                      height={300}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  </div>
-
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
-                      <a
-                        href={post.youtubeLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline flex items-center gap-2"
-                      >
-                        <Play className="w-4 h-4 text-red-500" />
-                        {t(`research.researchPosts.${post.id}.title`)}
-                      </a>
-                    </h3>
-                    <p className="text-muted-foreground mb-4">{t(`research.researchPosts.${post.id}.desc`)}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag, tagIndex) => (
-                        <span
-                          key={tagIndex}
-                          className="px-3 py-1 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))
-            )}
+            {projects.map((project, index) => (
+              <ProjectCard key={index} project={project} itemVariants={itemVariants} />
+            ))}
           </motion.div>
+
+          {/* Systems Analysis subsection */}
+          <div className="max-w-4xl mx-auto">
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold mb-3">Systems Analysis</h3>
+              <p className="text-muted-foreground">
+                Before building AI systems, I spent years producing deep technical research on complex
+                economic and protocol systems: consensus mechanism design, cryptoeconomic incentive
+                structures, Layer 2 scaling architectures, and on-chain market microstructure. The same
+                pattern recognition and architectural thinking now drives how I design and reason about
+                AI infrastructure.
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {analysisReports.map((report, index) => (
+                <motion.a
+                  key={index}
+                  href={report.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, x: -10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-green-500/30 hover:bg-green-500/5 transition-colors group"
+                  whileHover={{ x: 3, transition: { type: "spring", stiffness: 500, damping: 22 } }}
+                  data-umami-event={`analisis-${index}`}
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div whileHover={{ scale: 1.2, rotate: -8, transition: { type: "spring", stiffness: 400, damping: 12 } }}>
+                      <FileText className="w-4 h-4 text-muted-foreground/60 flex-shrink-0" />
+                    </motion.div>
+                    <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors draw-underline">
+                      {report.title}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 flex-shrink-0 ml-4">
+                    <span className="text-xs text-muted-foreground/60">{report.year}</span>
+                    <motion.div whileHover={{ x: 2, y: -2, transition: { type: "spring", stiffness: 500, damping: 15 } }}>
+                      <ExternalLink className="w-3 h-3 text-muted-foreground/40 group-hover:text-primary transition-colors" />
+                    </motion.div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </TooltipProvider>
   )
 }
-

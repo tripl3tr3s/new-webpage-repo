@@ -3,7 +3,7 @@ import Hero from "@/components/hero"
 import About from "@/components/about"
 import Certifications from "@/components/certifications"
 import Research from "@/components/research"
-import Publications from "@/components/publications"
+import Writing from "@/components/writing"
 import Contact from "@/components/contact"
 import Footer from "@/components/footer"
 
@@ -15,10 +15,9 @@ export default function Home() {
       <About />
       <Certifications />
       <Research />
-      <Publications />
+      <Writing />
       <Contact />
       <Footer />
     </main>
   )
 }
-

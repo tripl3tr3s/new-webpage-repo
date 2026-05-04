@@ -349,7 +349,7 @@ function CertificateCard({ cert, index, onClick, t }: CertificateCardProps) {
 
         {/* Title */}
         <h4 className="text-lg font-bold mb-2 group-hover:text-green-400 transition-colors line-clamp-2">
-          {t(`certifications.certs.${cert.id}`)}
+          {cert.title}
         </h4>
 
         {/* Platform badge */}
@@ -476,7 +476,7 @@ function FeaturedCarousel({ certs, onSelect, t }: {
 
             <div className="flex-1 text-center md:text-left">
               <div className={`${style.text} font-bold text-sm mb-2`}>🏆 {t('certifications.featured')}</div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">{t(`certifications.certs.${cert.id}`)}</h3>
+              <h3 className="text-2xl md:text-3xl font-bold mb-2">{cert.title}</h3>
               <p className="text-muted-foreground mb-4">
                 {cert.platform} • {cert.date}
               </p>
@@ -529,7 +529,7 @@ function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: ()
         {/* Header */}
         <div className="p-6 border-b border-border flex items-center justify-between">
           <div>
-            <h3 className="text-xl font-bold mb-1">{t(`certifications.certs.${cert.id}`)}</h3>
+            <h3 className="text-xl font-bold mb-1">{cert.title}</h3>
             <p className="text-sm text-muted-foreground">{cert.platform} • {cert.date}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -567,14 +567,14 @@ function CertificateModal({ cert, onClose, t }: { cert: Certificate; onClose: ()
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={`/${cert.file}`}
-              alt={t(`certifications.certs.${cert.id}`)}
+              alt={cert.title}
               className="w-full h-auto rounded-lg"
             />
           ) : (
             <iframe
               src={`/${cert.file}`}
               className="w-full h-[600px] rounded-lg"
-              title={t(`certifications.certs.${cert.id}`)}
+              title={cert.title}
             />
           )}
         </div>

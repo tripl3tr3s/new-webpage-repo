@@ -8,11 +8,16 @@ import { useTheme } from "next-themes"
 import Image from "next/image"
 import { useMediaQuery } from "@/hooks/use-mobile"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { LanguageToggle } from "@/components/language-toggle"
-import { useI18n } from "@/lib/i18n-context"
-import { translations } from "@/lib/translations"
 
 const words = ["MCP PROTOCOL", "AGENTIC SYSTEMS", "N8N WORKFLOWS", "LLM ORCHESTRATION", "CLAUDE API", "SCALABLE ENGINEERING", "INTELLIGENT AGENTS"]
+
+const navItems = [
+  { name: "About", href: "#about" },
+  { name: "Stack", href: "#stack" },
+  { name: "Projects", href: "#projects" },
+  { name: "Writing", href: "#writing" },
+  { name: "Contact", href: "#contact" },
+]
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,7 +27,6 @@ export default function Header() {
   const [isTyping, setIsTyping] = useState(true)
   const isMobile = useMediaQuery("(max-width: 768px)")
   const { theme } = useTheme()
-  const { language } = useI18n()
 
   useEffect(() => {
     setMounted(true)
@@ -42,7 +46,7 @@ export default function Header() {
       } else {
         timeoutId = setTimeout(() => {
           setIsTyping(false)
-        }, 2000) // Pause before erasing
+        }, 2000)
       }
     } else {
       if (displayedText.length > 0) {
@@ -58,14 +62,6 @@ export default function Header() {
     return () => clearTimeout(timeoutId)
   }, [displayedText, currentWordIndex, isTyping, mounted])
 
-  const navItems = [
-    { name: translations.nav.about[language], href: "#about" },
-    { name: translations.nav.credentials[language], href: "#certifications" },
-    { name: translations.nav.scope[language], href: "#research" },
-    { name: translations.nav.reports[language], href: "#publications" },
-    { name: translations.nav.contact[language], href: "#contact" },
-  ]
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-primary/20">
       <div className="container mx-auto px-4 py-4">
@@ -74,12 +70,8 @@ export default function Header() {
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-                delay: 0.1,
-              }}
+              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+              whileHover={{ rotate: 20, scale: 1.15, transition: { type: "spring", stiffness: 500, damping: 12 } }}
               className="relative w-6 h-6 md:w-8 md:h-8"
             >
               {mounted && (
@@ -95,12 +87,7 @@ export default function Header() {
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{
-                type: "spring",
-                stiffness: 100,
-                damping: 10,
-                delay: 0.3,
-              }}
+              transition={{ type: "spring", stiffness: 100, damping: 10, delay: 0.3 }}
               className="text-lg md:text-2xl font-bold font-mono"
             >
               <span className="text-foreground">
@@ -125,7 +112,6 @@ export default function Header() {
           {isMobile ? (
             <>
               <div className="flex items-center gap-2">
-                <LanguageToggle />
                 <ThemeToggle />
                 <button
                   onClick={() => setIsOpen(!isOpen)}
@@ -172,11 +158,10 @@ export default function Header() {
                     data-umami-event={`nav-${item.name}`}
                   >
                     {item.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
                   </Link>
                 ))}
               </nav>
-              <LanguageToggle />
               <ThemeToggle />
               <a
                 href="/cv"
@@ -195,4 +180,3 @@ export default function Header() {
     </header>
   )
 }
-

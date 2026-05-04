@@ -1,42 +1,57 @@
 "use client"
 
+import React, { useRef, useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
-import { useState, useEffect } from "react"
-import { useTranslation } from "@/lib/use-translation"
+
+function MagneticLink({
+  href,
+  children,
+  className,
+  target,
+  rel,
+  "data-umami-event": umamiEvent,
+}: {
+  href: string
+  children: React.ReactNode
+  className: string
+  target?: string
+  rel?: string
+  "data-umami-event"?: string
+}) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const rect = ref.current!.getBoundingClientRect()
+    setOffset({
+      x: (e.clientX - rect.left - rect.width / 2) * 0.38,
+      y: (e.clientY - rect.top - rect.height / 2) * 0.38,
+    })
+  }
+
+  const handleMouseLeave = () => setOffset({ x: 0, y: 0 })
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      target={target}
+      rel={rel}
+      data-umami-event={umamiEvent}
+      animate={{ x: offset.x, y: offset.y }}
+      transition={{ type: "spring", stiffness: 420, damping: 26 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      whileTap={{ scale: 0.94 }}
+      className={className}
+    >
+      {children}
+    </motion.a>
+  )
+}
 
 export default function Hero() {
-  const { t } = useTranslation()
-  const [currentCatchphrase, setCurrentCatchphrase] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [mounted, setMounted] = useState(false)
-
-  const catchphrases = [
-    t('hero.catchphrase1'),
-    t('hero.catchphrase2'),
-    t('hero.catchphrase3')
-  ]
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Cycling catchphrase effect
-  useEffect(() => {
-    if (!mounted) return
-
-    const cycleInterval = setInterval(() => {
-      setIsTransitioning(true)
-
-      setTimeout(() => {
-        setCurrentCatchphrase((prev) => (prev + 1) % catchphrases.length)
-        setIsTransitioning(false)
-      }, 400) // Half of transition time
-    }, 6000) // Change every 6 seconds
-
-    return () => clearInterval(cycleInterval)
-  }, [mounted, catchphrases.length])
-
   return (
     <section id="hero" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 md:pt-16">
       {/* Background grid effect */}
@@ -67,107 +82,61 @@ export default function Hero() {
             transition={{ duration: 0.8 }}
             className="text-center md:text-left order-2 md:order-1"
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="mb-6 inline-block px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-green-400 text-sm font-medium border border-primary/20 dark:border-green-500/20"
+            {/* Subhead badge — clip-path reveal */}
+            <div
+              className="mb-6 inline-block px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-green-400 text-sm font-medium border border-primary/20 dark:border-green-500/20 animate-badge-reveal"
+              style={{ animationDelay: "0.25s" }}
             >
-              AI Software Engineer · MCP Protocol · LLM Systems
-            </motion.div>
+              MCP Protocol Architect · Multi-Agent Orchestration · Production LLM Systems
+            </div>
 
-            {/* Dynamic Catchphrase with Electric Effect - MAIN HEADLINE */}
+            {/* Static headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="relative mb-8 max-w-2xl mx-auto md:mx-0"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-green-700 via-teal-600 to-green-700 dark:from-green-400 dark:via-cyan-400 dark:to-green-400 bg-clip-text text-transparent leading-tight"
             >
-              <motion.div
-                key={currentCatchphrase}
-                initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-                animate={{
-                  opacity: isTransitioning ? 0 : 1,
-                  scale: isTransitioning ? 0.95 : 1,
-                  filter: isTransitioning ? "blur(4px)" : "blur(0px)"
-                }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="relative"
-              >
-                {/* Electric glow effect */}
-                <motion.div
-                  animate={{
-                    boxShadow: [
-                      "0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
-                      "0 0 30px rgba(34, 197, 94, 0.4), 0 0 50px rgba(6, 182, 212, 0.3)",
-                      "0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
-                    ]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="absolute inset-0 rounded-lg blur-xl opacity-50"
-                />
-
-                {/* Main headline text with gradient */}
-                <h1 className="relative text-3xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-700 via-teal-600 to-green-700 dark:from-green-400 dark:via-cyan-400 dark:to-green-400 bg-clip-text text-transparent leading-tight min-h-[80px] md:min-h-auto flex items-center justify-center md:justify-start">
-                  {catchphrases[currentCatchphrase]}
-                </h1>
-
-                {/* Electric border flash on transition */}
-                {isTransitioning && (
-                  <motion.div
-                    initial={{ opacity: 1 }}
-                    animate={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0 border-2 border-cyan-400 rounded-lg"
-                    style={{
-                      boxShadow: "0 0 20px rgba(6, 182, 212, 0.8), inset 0 0 20px rgba(6, 182, 212, 0.3)"
-                    }}
-                  />
-                )}
-              </motion.div>
-
-              {/* Tech scanline effect */}
-              <motion.div
-                animate={{
-                  y: ["-100%", "200%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                className="absolute inset-0 pointer-events-none overflow-hidden"
-              >
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-              </motion.div>
+              I build AI systems that ship.
             </motion.h1>
 
+            {/* Body copy */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto md:mx-0"
+            >
+              I design and ship production AI infrastructure: custom MCP servers with 40+ tools,
+              3-tier agentic orchestration, domain-specialized agents with scoped tool allowlists,
+              and streaming LLM frontends. Currently building DISAI_Conta, an AI-native fiscal
+              compliance platform for Mexican SMEs. Open to senior AI engineering roles and
+              high-leverage consulting engagements.
+            </motion.p>
+
+            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full sm:w-auto px-4 sm:px-0"
             >
-              <a
+              <MagneticLink
+                href="#projects"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold text-center hover:shadow-[0_0_28px_rgba(6,182,212,0.5)] transition-shadow"
+                data-umami-event="cta-ver-proyectos"
+              >
+                View My Work
+              </MagneticLink>
+              <MagneticLink
                 href="https://calendly.com/tripl3tr3s/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold text-center hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all transform hover:scale-105"
-                data-umami-event="cta-agendar-llamada"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-green-500/30 text-foreground font-semibold text-center hover:bg-green-500/10 hover:border-green-500/50 transition-colors"
+                data-umami-event="cta-lets-talk"
               >
-                {t('contact.bookCall')}
-              </a>
-              <a
-                href="#research"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-green-500/30 text-foreground font-semibold text-center hover:bg-green-500/10 hover:border-green-500/50 transition-all"
-                data-umami-event="cta-ver-proyectos"
-              >
-                {t('hero.cta')}
-              </a>
+                Let&apos;s Talk
+              </MagneticLink>
             </motion.div>
           </motion.div>
 
@@ -181,7 +150,7 @@ export default function Hero() {
               <div className="absolute inset-0 rounded-2xl overflow-hidden border border-green-500/20 shadow-[0_0_50px_rgba(6,182,212,0.2)]">
                 <Image
                   src="/architect-anchor.webp"
-                  alt="AI Automation Architect"
+                  alt="AI Systems Engineer"
                   width={500}
                   height={400}
                   className="w-full h-full object-cover"
@@ -189,7 +158,6 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent"></div>
               </div>
 
-              {/* Animated code snippets - Hidden on very small screens to reduce clutter */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}

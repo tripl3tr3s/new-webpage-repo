@@ -1,46 +1,96 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { Code2, Database, GitBranch, Cpu, Brain, TrendingUp, Network } from "lucide-react"
-import { useTranslation } from "@/lib/use-translation"
+import React, { useRef, useState } from "react"
+import { motion, useInView, type Variants } from "framer-motion"
+import { Brain, Database, Code2, Workflow } from "lucide-react"
+
+interface Skill {
+  icon: React.ReactNode
+  title: string
+  description: string
+}
+
+function SkillCard({ skill, itemVariants }: { skill: Skill; itemVariants: Variants }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const spotRef = useRef<HTMLDivElement>(null)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = cardRef.current!.getBoundingClientRect()
+    const px = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2)
+    const py = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2)
+    setTilt({ x: py * -7, y: px * 7 })
+    if (spotRef.current) {
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+      spotRef.current.style.background = `radial-gradient(160px circle at ${x}% ${y}%, rgba(16,185,129,0.14), transparent 70%)`
+      spotRef.current.style.opacity = "1"
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 })
+    if (spotRef.current) spotRef.current.style.opacity = "0"
+  }
+
+  return (
+    <motion.div variants={itemVariants}>
+      <motion.div
+        ref={cardRef}
+        animate={{ rotateX: tilt.x, rotateY: tilt.y }}
+        transition={{ type: "spring", stiffness: 280, damping: 24 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="tilt-card glass-card p-6 rounded-xl border border-border hover:border-green-500/40 transition-colors group cursor-pointer relative overflow-hidden"
+        whileTap={{ scale: 0.97, transition: { type: "spring", stiffness: 600, damping: 18 } }}
+        style={{ transformPerspective: 800 }}
+      >
+        {/* Cursor spotlight */}
+        <div
+          ref={spotRef}
+          className="pointer-events-none absolute inset-0 rounded-xl z-0 transition-opacity duration-300"
+          style={{ opacity: 0 }}
+        />
+
+        <div className="relative z-10">
+          <motion.div
+            className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
+            whileHover={{ rotate: 15, scale: 1.18, transition: { type: "spring", stiffness: 500, damping: 10 } }}
+          >
+            {skill.icon}
+          </motion.div>
+          <h4 className="text-xl font-bold mb-2">{skill.title}</h4>
+          <p className="text-muted-foreground text-sm">{skill.description}</p>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
 
 export default function About() {
-  const { t } = useTranslation()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   const skills = [
     {
-      icon: <Code2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
-      title: t('about.skills.frontend.title'),
-      description: t('about.skills.frontend.desc'),
+      icon: <Brain className="w-6 h-6 text-teal-600 dark:text-cyan-400" />,
+      title: "AI Systems & LLM Orchestration",
+      description: "Anthropic Claude API (tool_use, streaming, multi-turn), MCP Protocol (full primitive set: tools, resources, prompts, elicitations, tasks, MCP-UI), multi-agent orchestration (3-tier domain architecture, Expert Registry pattern, scoped tool allowlists), agentic loop design with self-correction and parallel tool calls.",
     },
     {
       icon: <Database className="w-6 h-6 text-green-700 dark:text-green-400" />,
-      title: t('about.skills.backend.title'),
-      description: t('about.skills.backend.desc'),
+      title: "Backend & Infrastructure",
+      description: "TypeScript / Node.js, Python, PostgreSQL (RLS, pgvector), SQLite, Redis, Docker, Railway, CI/CD pipelines, rate limiting, security headers, observability and monitoring. REST API design, Zod schema validation, circuit breakers, multi-tenant architecture.",
     },
     {
-      icon: <Cpu className="w-6 h-6 text-teal-600 dark:text-cyan-400" />,
-      title: t('about.skills.visualization.title'),
-      description: t('about.skills.visualization.desc'),
+      icon: <Code2 className="w-6 h-6 text-blue-600 dark:text-blue-400" />,
+      title: "Frontend & Interfaces",
+      description: "Next.js, React, Tailwind CSS, shadcn/ui, SSE streaming UIs, real-time data visualization (ApexCharts, Recharts). TypeScript throughout.",
     },
     {
-      icon: <GitBranch className="w-6 h-6 text-purple-600 dark:text-purple-400" />,
-      title: t('about.skills.devops.title'),
-      description: t('about.skills.devops.desc'),
-    },
-    {
-      icon: <Network className="w-6 h-6 text-pink-600 dark:text-pink-400" />,
-      title: t('about.skills.ml.title'),
-      description: t('about.skills.ml.desc'),
-    },
-    {
-      icon: <TrendingUp className="w-6 h-6 text-amber-600 dark:text-yellow-400" />,
-      title: t('about.skills.web3.title'),
-      description: t('about.skills.web3.desc'),
+      icon: <Workflow className="w-6 h-6 text-amber-600 dark:text-yellow-400" />,
+      title: "Automation & Workflows",
+      description: "n8n (self-hosted, multi-client deployments, complex workflow design), webhook orchestration, scheduled pipelines, third-party API integration.",
     },
   ]
 
@@ -48,9 +98,7 @@ export default function About() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.2 },
     },
   }
 
@@ -63,30 +111,12 @@ export default function About() {
     },
   }
 
-  const bounceEase = (x: number) => {
-    const n1 = 7.5625
-    const d1 = 2.75
-
-    if (x < 1 / d1) {
-      return n1 * x * x
-    } else if (x < 2 / d1) {
-      return n1 * (x -= 1.5 / d1) * x + 0.75
-    } else if (x < 2.5 / d1) {
-      return n1 * (x -= 2.25 / d1) * x + 0.9375
-    } else {
-      return n1 * (x -= 2.625 / d1) * x + 0.984375
-    }
-  }
-
   return (
     <section id="about" className="py-20 relative">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('about.title')}</h2>
-          <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto mb-8"></div>
-          <p className="text-muted-foreground text-lg">
-            {t('about.intro')}
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
+          <div className="h-1 w-20 bg-gradient-to-r from-green-600 to-teal-500 dark:from-green-400 dark:to-cyan-500 mx-auto"></div>
         </div>
 
         <div ref={ref} className="grid md:grid-cols-2 gap-8 mb-16">
@@ -96,24 +126,32 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="glass-card p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)] relative overflow-hidden group cursor-pointer"
             whileHover={{
-              scale: 1.02,
-              transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-                duration: 0.4
-              }
+              y: -4,
+              scale: 1.015,
+              transition: { type: "spring", stiffness: 420, damping: 20 }
             }}
+            whileTap={{ scale: 0.99 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-4">{t('about.backgroundTitle')}</h3>
+              <h3 className="text-2xl font-bold mb-4">Background</h3>
               <p className="text-muted-foreground mb-4">
-                {t('about.backgroundText1')}
+                My path to AI engineering wasn&apos;t conventional. That&apos;s the point.
               </p>
-              <p className="text-muted-foreground">
-                {t('about.backgroundText2')}
+              <p className="text-muted-foreground mb-4">
+                I started in graphic design and tattoo artistry, where I learned that precision and
+                intentionality aren&apos;t optional. Then I spent years writing deep technical analysis:
+                20+ research reports on decentralized protocol architecture, on-chain data patterns,
+                and economic system design. That work trained me to read complex systems, find failure
+                modes, and communicate findings clearly.
+              </p>
+              <p className="text-muted-foreground mb-4">
+                When I discovered LLMs, MCP, and agentic systems, I stopped analyzing other people&apos;s
+                infrastructure and started building my own.
+              </p>
+              <p className="text-muted-foreground text-sm">
+                I&apos;m Mexican, I operate globally, I speak both En and Es.
               </p>
             </div>
           </motion.div>
@@ -124,80 +162,49 @@ export default function About() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="glass-card p-8 rounded-2xl border border-green-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)] relative overflow-hidden group cursor-pointer"
             whileHover={{
-              scale: 1.02,
-              transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-                duration: 0.4
-              }
+              y: -4,
+              scale: 1.015,
+              transition: { type: "spring", stiffness: 420, damping: 20 }
             }}
+            whileTap={{ scale: 0.99 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-4">{t('about.focusTitle')}</h3>
+              <h3 className="text-2xl font-bold mb-4">Current Focus</h3>
               <p className="text-muted-foreground mb-4">
-                {t('about.focusText1')} <span className="text-green-700 dark:text-green-400 font-semibold">{t('about.focusRole')}</span> {t('about.focusText2')}
+                Today I specialize in production AI systems engineering. Specifically:
               </p>
+              <ul className="text-muted-foreground space-y-2 mb-4">
+                <li>Custom MCP server design (tools, resources, prompts, elicitations, tasks, MCP-UI mini-apps) with SSE and HTTP Streamable transport</li>
+                <li>3-tier agentic orchestration: lightweight router → domain-specialized agents with native tool_use → Expert Registry with scoped allowlists and live MCP resource injection</li>
+                <li>LLM system testing: 3,960+ passing tests, 91%+ coverage on a solo-built TypeScript codebase</li>
+                <li>Full deployment stack: Docker, Railway, CI/CD, rate limiting, security headers, RLS, observability</li>
+              </ul>
               <p className="text-muted-foreground">
-                {t('about.focusText3')}
+                I currently operate as an independent AI engineer, building DISAI_Conta (a production
+                fiscal AI platform) and taking on select consulting engagements for teams that need
+                real AI infrastructure, not demos.
               </p>
             </div>
           </motion.div>
         </div>
 
-        <h3 className="text-2xl font-bold text-center mb-8">{t('about.toolkitTitle')}</h3>
+        <div id="stack">
+          <h3 className="text-2xl font-bold text-center mb-8">Stack & Expertise</h3>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {skills.map((skill, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="glass-card p-6 rounded-xl border border-border hover:border-green-500/40 transition-all group cursor-pointer"
-              whileHover={{
-                y: -10,
-                rotate: 5,
-                transition: {
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 20,
-                  duration: 0.6
-                }
-              }}
-              whileTap={{
-                scale: 0.98,
-                transition: {
-                  duration: 1.2,
-                  ease: bounceEase,
-                }
-              }}
-            >
-              <motion.div
-                className="p-3 bg-muted rounded-lg inline-block mb-4 group-hover:bg-green-500/10 transition-colors"
-                whileHover={{
-                  rotate: 180,
-                  scale: 1.1,
-                  transition: {
-                    duration: 0.8,
-                    ease: bounceEase,
-                  }
-                }}
-              >
-                {skill.icon}
-              </motion.div>
-              <h4 className="text-xl font-bold mb-2">{skill.title}</h4>
-              <p className="text-muted-foreground">{skill.description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {skills.map((skill, index) => (
+              <SkillCard key={index} skill={skill} itemVariants={itemVariants} />
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   )
 }
-

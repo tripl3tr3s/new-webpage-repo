@@ -11,8 +11,8 @@ import { AnalyticsTracker } from "@/components/analytics-tracker"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Triple Tres — AI Software Engineer · MCP Protocol · LLM Systems",
-  description: "AI Software Engineer shipping production LLM systems — 43-tool MCP servers, 3-tier multi-agent orchestration with Claude API, and n8n automation for Mexican businesses.",
+  title: "Triple Tres | AI Software Engineer · MCP Protocol · LLM Systems",
+  description: "AI Software Engineer shipping production LLM systems: 43-tool MCP servers, 3-tier multi-agent orchestration with Claude API, and n8n automation for Mexican businesses.",
   generator: 'Triple Tres',
   applicationName: 'Triple Tres',
   keywords: ['MCP Protocol', 'Model Context Protocol', 'AI Software Engineer', 'LLM Orchestration', 'Multi-Agent Systems', 'Claude API', 'Anthropic', 'n8n', 'AI automation', 'agentic systems', 'CFDI', 'Mexican PyMEs', 'TypeScript', 'Next.js'],
@@ -24,11 +24,10 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Triple Tres — AI Software Engineer · MCP Protocol · LLM Systems',
+    title: 'Triple Tres | AI Software Engineer · MCP Protocol · LLM Systems',
     description: 'Building production MCP servers, 3-tier agentic orchestration, and AI-first SaaS for Mexican tax compliance',
     type: 'website',
-    locale: 'es_MX',
-    alternateLocale: 'en_US',
+    locale: 'en_US',
   },
 }
 
