@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { ExternalLink, Clock } from "lucide-react"
+import { ExternalLink } from "lucide-react"
 
 interface Post {
   title: string
@@ -11,7 +11,6 @@ interface Post {
   link: string
   date: string
   tags: string[]
-  comingSoon: boolean
 }
 
 const posts: Post[] = [
@@ -21,7 +20,6 @@ const posts: Post[] = [
     link: "https://www.linkedin.com/posts/tripl3tr3s_hace-un-par-de-d%C3%ADas-alcanc%C3%A9-un-hito-que-me-ugcPost-7395001162833387520-A22X",
     date: "2025",
     tags: ["MCP Server", "Performance", "Benchmarking"],
-    comingSoon: false,
   },
   {
     title: "AI Strategy is Not Business Strategy with AI Bolted On",
@@ -29,15 +27,20 @@ const posts: Post[] = [
     link: "https://www.linkedin.com/posts/tripl3tr3s_aistrategy-businessai-mlops-share-7437688675934789632-uTg5",
     date: "2025",
     tags: ["AI Strategy", "MLOps", "Engineering"],
-    comingSoon: false,
   },
   {
-    title: "Coming Soon",
-    excerpt: "",
-    link: "#",
-    date: "",
-    tags: [],
-    comingSoon: true,
+    title: "Building AI-Native Mexican Fiscal Compliance — 7 Months Solo",
+    excerpt: "CFDI 4.0, EFOS/EDOS blacklist monitoring, CSD state management — rule-dense fiscal compliance is the ideal AI domain. What 'AI-native' actually means when engineered, not marketed.",
+    link: "https://www.linkedin.com/posts/tripl3tr3s_mcp-aiengineering-buildinpublic-share-7457548155954475008-a6CF",
+    date: "2025",
+    tags: ["AI Engineering", "Build in Public", "DISAI"],
+  },
+  {
+    title: "80% of Requests Never Hit the Expensive Model",
+    excerpt: "How 3-tier routing — Haiku classifier (~100ms, 60 tokens) → domain specialists → Sonnet for full orchestration — cuts cost without degrading quality. Routing as architecture, not afterthought.",
+    link: "https://www.linkedin.com/posts/tripl3tr3s_mcp-aiengineering-buildinpublic-ugcPost-7457998591287054336-JkT-",
+    date: "2025",
+    tags: ["LLM Orchestration", "Cost Optimization", "MCP"],
   },
 ]
 
@@ -75,22 +78,23 @@ export default function Writing() {
           </p>
         </div>
 
-        <motion.div
-          ref={ref}
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
-        >
-          {posts.map((post, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              {post.comingSoon ? (
-                <div className="h-full bg-card/20 rounded-2xl border border-border/50 border-dashed p-6 flex flex-col items-center justify-center text-center opacity-50">
-                  <Clock className="w-8 h-8 text-muted-foreground/40 mb-4" />
-                  <p className="text-muted-foreground/60 font-medium">Coming Soon</p>
-                  <p className="text-muted-foreground/40 text-sm mt-1">Next post dropping soon</p>
-                </div>
-              ) : (
+        <div className="relative">
+          {/* Right fade hint */}
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-background to-transparent z-10" />
+
+          <motion.div
+            ref={ref}
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="flex gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {posts.map((post, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="snap-start shrink-0 w-[85vw] sm:w-[360px]"
+              >
                 <motion.a
                   href={post.link}
                   target="_blank"
@@ -129,10 +133,10 @@ export default function Writing() {
                     </motion.div>
                   </div>
                 </motion.a>
-              )}
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   )
