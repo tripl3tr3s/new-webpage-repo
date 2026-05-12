@@ -87,7 +87,7 @@ export default function Hero() {
               className="mb-6 inline-block px-3 py-1 rounded-full bg-primary/10 text-primary dark:text-green-400 text-sm font-medium border border-primary/20 dark:border-green-500/20 animate-badge-reveal"
               style={{ animationDelay: "0.25s" }}
             >
-              MCP Protocol Architect · Multi-Agent Orchestration · Production LLM Systems
+              MCP Protocol Architect · Multi-Agent Orchestration · Langfuse Observability · HITL Systems
             </div>
 
             {/* Static headline */}
@@ -107,11 +107,12 @@ export default function Hero() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto md:mx-0"
             >
-              I design and ship production AI infrastructure: custom MCP servers with 40+ tools,
-              3-tier agentic orchestration, domain-specialized agents with scoped tool allowlists,
-              and streaming LLM frontends. Currently building DISAI_Conta, an AI-native fiscal
-              compliance platform for Mexican SMEs. Open to senior AI engineering roles and
-              high-leverage consulting engagements.
+              AI engineer and solo founder replacing manual fiscal and accounting work with
+              production-grade agent systems. Shipped a 43-tool MCP server, multi-tier Claude
+              orchestration, Langfuse end-to-end observability, and HITL reviewer surfaces — all
+              from zero in TypeScript. Currently building DISAI_Conta, an AI-native fiscal compliance
+              platform for Mexican SMEs. Open to senior AI engineering roles and high-leverage
+              consulting engagements.
             </motion.p>
 
             {/* CTAs */}

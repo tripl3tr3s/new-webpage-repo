@@ -28,7 +28,7 @@ const projects: Project[] = [
   {
     id: "disaiConta",
     title: "DISAI_Conta: AI-First Accounting Platform",
-    desc: "Production AI-native fiscal compliance platform for Mexican SMEs. Architecture: 3-tier agentic system. Haiku router handles intent classification and routing; 10 domain-specialized Sonnet agents with native tool_use, 6-iteration self-correction loops, and parallel tool calls; Expert Registry with scoped tool allowlists and live MCP resource injection at inference time. Streaming SSE chat interface built in Next.js. Deployed on Railway with PostgreSQL, Redis, and full observability.",
+    desc: "Production AI-native fiscal compliance platform for Mexican SMEs. Architecture: 3-tier agentic system. Haiku router handles intent classification and routing; 10 domain-specialized Sonnet agents with native tool_use, 6-iteration self-correction loops, and parallel tool calls; Expert Registry with scoped tool allowlists and live MCP resource injection at inference time. Langfuse end-to-end tracing on every LLM call, tool invocation, model selection, token cost, and streaming event — cost attribution per session, failure triage without log digging. HITL reviewer surfaces: compliance dashboard and EFOS monitor as Next.js interfaces with one-click approval flows wired directly into the agent pipeline. Streaming SSE chat interface built in Next.js. Deployed on Railway with PostgreSQL, Redis, and full observability.",
     image: "/DISAI-Conta.webp",
     tags: ["MCP Protocol", "Multi-Agent", "LLM Orchestration", "SaaS"],
     tech: ["Next.js 16", "Claude API", "Anthropic SDK", "MCP Client", "shadcn/ui", "SSE"],

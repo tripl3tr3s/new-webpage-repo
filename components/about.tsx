@@ -75,7 +75,7 @@ export default function About() {
     {
       icon: <Brain className="w-6 h-6 text-teal-600 dark:text-cyan-400" />,
       title: "AI Systems & LLM Orchestration",
-      description: "Anthropic Claude API (tool_use, streaming, multi-turn), MCP Protocol (full primitive set: tools, resources, prompts, elicitations, tasks, MCP-UI), multi-agent orchestration (3-tier domain architecture, Expert Registry pattern, scoped tool allowlists), agentic loop design with self-correction and parallel tool calls.",
+      description: "Anthropic Claude API (tool_use, streaming, multi-turn), MCP Protocol (full primitive set: tools, resources, prompts, elicitations, tasks, MCP-UI), multi-agent orchestration (3-tier domain architecture, Expert Registry pattern, scoped tool allowlists), agentic loop design with self-correction and parallel tool calls. Langfuse end-to-end tracing (every LLM call, tool invocation, token cost, streaming event). HITL reviewer surface patterns for human approval layers wired directly into the agent pipeline.",
     },
     {
       icon: <Database className="w-6 h-6 text-green-700 dark:text-green-400" />,
@@ -90,7 +90,7 @@ export default function About() {
     {
       icon: <Workflow className="w-6 h-6 text-amber-600 dark:text-yellow-400" />,
       title: "Automation & Workflows",
-      description: "n8n (self-hosted, multi-client deployments, complex workflow design), webhook orchestration, scheduled pipelines, third-party API integration.",
+      description: "n8n (self-hosted, multi-client deployments, complex workflow design), webhook orchestration, scheduled pipelines, third-party API integration. Familiar with Make and Zapier; migrated workflows to self-hosted n8n for full data ownership and agent-native integration.",
     },
   ]
 
@@ -178,6 +178,8 @@ export default function About() {
               <ul className="text-muted-foreground space-y-2 mb-4">
                 <li>Custom MCP server design (tools, resources, prompts, elicitations, tasks, MCP-UI mini-apps) with SSE and HTTP Streamable transport</li>
                 <li>3-tier agentic orchestration: lightweight router → domain-specialized agents with native tool_use → Expert Registry with scoped allowlists and live MCP resource injection</li>
+                <li>Langfuse observability: every LLM call, tool invocation, model selection, token cost, and streaming event tracked end-to-end with cost attribution per session</li>
+                <li>HITL reviewer surfaces: compliance dashboard and EFOS monitor as Next.js interfaces with one-click approval flows wired directly into the agent pipeline</li>
                 <li>LLM system testing: 3,960+ passing tests, 91%+ coverage on a solo-built TypeScript codebase</li>
                 <li>Full deployment stack: Docker, Railway, CI/CD, rate limiting, security headers, RLS, observability</li>
               </ul>
