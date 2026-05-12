@@ -1,9 +1,8 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
-import { ExternalLink } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { useRef, useState, useCallback } from "react"
+import { ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
 
 interface Post {
   title: string
@@ -45,8 +44,40 @@ const posts: Post[] = [
 ]
 
 export default function Writing() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const sectionRef = useRef(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
+
+  // Drag state
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeft = useRef(0)
+  const [cursor, setCursor] = useState<"grab" | "grabbing">("grab")
+
+  const onMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!scrollRef.current) return
+    isDragging.current = true
+    startX.current = e.pageX - scrollRef.current.offsetLeft
+    scrollLeft.current = scrollRef.current.scrollLeft
+    setCursor("grabbing")
+  }, [])
+
+  const onMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return
+    e.preventDefault()
+    const x = e.pageX - scrollRef.current.offsetLeft
+    const walk = (x - startX.current) * 1.5
+    scrollRef.current.scrollLeft = scrollLeft.current - walk
+  }, [])
+
+  const onMouseUp = useCallback(() => {
+    isDragging.current = false
+    setCursor("grab")
+  }, [])
+
+  const scroll = useCallback((dir: "left" | "right") => {
+    scrollRef.current?.scrollBy({ left: dir === "left" ? -380 : 380, behavior: "smooth" })
+  }, [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -78,16 +109,38 @@ export default function Writing() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Right fade hint */}
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-background to-transparent z-10" />
+        <div className="relative" ref={sectionRef}>
+          {/* Fade hints */}
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-12 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-background to-transparent z-10" />
+
+          {/* Nav buttons */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-background/80 border border-border hover:border-green-500/40 hover:bg-green-500/10 transition-colors shadow-md"
+            aria-label="Scroll left"
+          >
+            <ChevronLeft className="w-5 h-5 text-muted-foreground" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-background/80 border border-border hover:border-green-500/40 hover:bg-green-500/10 transition-colors shadow-md"
+            aria-label="Scroll right"
+          >
+            <ChevronRight className="w-5 h-5 text-muted-foreground" />
+          </button>
 
           <motion.div
-            ref={ref}
+            ref={scrollRef}
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="flex gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-6 overflow-x-auto px-8 pb-4 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden select-none"
+            style={{ cursor }}
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            onMouseLeave={onMouseUp}
           >
             {posts.map((post, index) => (
               <motion.div
@@ -103,8 +156,8 @@ export default function Writing() {
                   whileHover={{ y: -6, transition: { type: "spring", stiffness: 400, damping: 20 } }}
                   whileTap={{ scale: 0.98, y: 0 }}
                   data-umami-event={`writing-post-${index}`}
+                  draggable={false}
                 >
-                  {/* Left accent bar that draws in from top on hover */}
                   <span className="absolute left-0 top-0 h-full w-[3px] bg-gradient-to-b from-primary to-cyan-500 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300 ease-out rounded-l-2xl" />
 
                   <div className="flex-1">
