@@ -13,27 +13,38 @@
         box-sizing: border-box;
       }
 
+      @page { size: A4; margin: 0; }
+
       body {
         font-family: "DM Sans", sans-serif;
         background: #1a1a1a;
         color: #e8e4dc;
         width: 210mm;
-        min-height: 297mm;
         margin: 0 auto;
-        font-size: 8.5pt;
-        line-height: 1.38;
+        font-size: 9pt;
+        line-height: 1.44;
       }
 
       .page {
         display: grid;
         grid-template-columns: 62mm 1fr;
-        min-height: 297mm;
+        height: 297mm;
+        overflow: hidden;
+      }
+
+      .page-two {
+        display: grid;
+        grid-template-columns: 62mm 1fr;
+        height: 297mm;
+        overflow: hidden;
+        break-before: page;
+        page-break-before: always;
       }
 
       /* SIDEBAR */
       .sidebar {
         background: #111111;
-        padding: 16px 13px;
+        padding: 18px 14px;
         display: flex;
         flex-direction: column;
         gap: 0;
@@ -167,7 +178,7 @@
 
       /* MAIN */
       .main {
-        padding: 14px 20px 14px 18px;
+        padding: 18px 22px 14px 20px;
         background: #1a1a1a;
       }
 
@@ -177,14 +188,14 @@
         letter-spacing: 2px;
         text-transform: uppercase;
         color: #6a6660;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
       }
 
       .profile-headline {
-        font-size: 9.5pt;
+        font-size: 10pt;
         color: #c8c4bc;
-        line-height: 1.42;
-        margin-bottom: 9px;
+        line-height: 1.48;
+        margin-bottom: 11px;
         border-left: 2px solid #e05a2b;
         padding-left: 10px;
       }
@@ -250,15 +261,15 @@
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 5px;
       }
 
       .exp-bullets li {
-        font-size: 7.5pt;
+        font-size: 8pt;
         color: #a8a49c;
-        padding-left: 12px;
+        padding-left: 13px;
         position: relative;
-        line-height: 1.38;
+        line-height: 1.42;
       }
 
       .exp-bullets li::before {
@@ -332,23 +343,104 @@
         border-radius: 2px;
       }
 
-      @page {
-        size: 210mm 297mm;
-        margin: 0mm;
+      /* PAGE TWO — identity strip */
+      .page-strip {
+        background: #111111;
+        padding: 28px 14px 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .strip-nick {
+        font-family: "Space Mono", monospace;
+        font-size: 7pt;
+        color: #e05a2b;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .strip-name {
+        font-family: "Space Mono", monospace;
+        font-size: 13pt;
+        font-weight: 700;
+        color: #e8e4dc;
+        line-height: 1.15;
+        margin-bottom: 14px;
+      }
+
+      .strip-rule {
+        height: 1px;
+        background: linear-gradient(to right, #e05a2b, transparent);
+        margin-bottom: 18px;
+      }
+
+      .strip-section-label {
+        font-family: "Space Mono", monospace;
+        font-size: 6pt;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: #e05a2b;
+        margin-bottom: 10px;
+      }
+
+      .strip-tech-item {
+        font-size: 7.5pt;
+        font-family: "Space Mono", monospace;
+        color: #5a5650;
+        margin-bottom: 7px;
+        line-height: 1.4;
+      }
+
+      .strip-tech-item strong {
+        color: #8a8680;
+        font-weight: 400;
+      }
+
+      /* PAGE TWO — projects */
+      .main-two {
+        padding: 28px 24px 20px 20px;
+        background: #1a1a1a;
+      }
+
+      .project-grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 10px;
+      }
+
+      .project-grid-two .project-card {
+        padding: 14px 16px;
+      }
+
+      .project-grid-two .project-card h4 {
+        font-size: 9pt;
+        margin-bottom: 6px;
+      }
+
+      .project-grid-two .project-card p {
+        font-size: 8.5pt;
+        line-height: 1.48;
+        color: #8a8680;
+      }
+
+      .project-grid-two .proj-stack {
+        margin-top: 8px;
+        gap: 4px;
+      }
+
+      .project-grid-two .proj-tag {
+        font-size: 6.5pt;
+        padding: 2px 6px;
+      }
+
+      .project-card-full {
+        grid-column: 1 / -1;
       }
 
       @media print {
-        html {
-          zoom: 0.97;
-        }
-        body {
-          width: 217mm;
-          min-height: 297mm;
-        }
-        .page {
-          min-height: 297mm;
-          height: auto;
-        }
+        html { zoom: 1; }
+        body { width: 210mm; }
       }
     </style>
     <link rel="icon" href="/333_faviccon_for_light_themes.png" media="(prefers-color-scheme: light)" />
@@ -603,10 +695,27 @@
           </ul>
         </div>
 
-        <!-- KEY PROJECTS -->
-        <div class="section-title">Key Projects</div>
+      </main>
+    </div>
 
-        <div class="project-grid">
+    <!-- PAGE TWO -->
+    <div class="page-two">
+      <aside class="page-strip">
+        <div class="strip-nick">Triple Tres (333)</div>
+        <div class="strip-name">Ricardo<br>Jaimes Ch.</div>
+        <div class="strip-rule"></div>
+        <div class="strip-section-label">Key Projects</div>
+        <div class="strip-tech-item"><strong>MCP SDK</strong> · TypeScript</div>
+        <div class="strip-tech-item"><strong>Claude API</strong> · Tool Use</div>
+        <div class="strip-tech-item"><strong>Next.js 16</strong> · React 19</div>
+        <div class="strip-tech-item"><strong>Langfuse</strong> · HITL</div>
+        <div class="strip-tech-item"><strong>n8n</strong> · Docker</div>
+        <div class="strip-tech-item"><strong>PostgreSQL</strong> · pgvector</div>
+        <div class="strip-tech-item"><strong>Railway</strong> · Coolify</div>
+      </aside>
+      <main class="main main-two">
+        <div class="section-title" style="margin-top: 0">Key Projects</div>
+        <div class="project-grid project-grid-two">
           <div class="project-card">
             <h4>SAT-MCP Server</h4>
             <p>
@@ -629,13 +738,14 @@
             <p>
               Haiku router + 10 domain DomainAgents (Sonnet, native tool_use,
               6-iter agentic loops) + Expert Registry with scoped allowlists
-              and live MCP Resource injection. Streaming SSE UI for Mexican SMEs.
+              and live MCP Resource injection. Langfuse full-stack tracing.
+              HITL compliance dashboard. Streaming SSE UI for Mexican SMEs.
             </p>
             <div class="proj-stack">
               <span class="proj-tag">Next.js 16</span>
               <span class="proj-tag">Claude API</span>
               <span class="proj-tag">Tool Use</span>
-              <span class="proj-tag">MCP Client</span>
+              <span class="proj-tag">Langfuse</span>
               <span class="proj-tag">shadcn/ui</span>
             </div>
           </div>
@@ -644,7 +754,8 @@
             <p>
               Self-hosted n8n with direct MCP client integration for SAT
               tool execution. Specialized sub-agents per CFDI type, 400+
-              integrations, context bundle architecture.
+              integrations, context bundle architecture. Replaced Zapier/Make —
+              80% cost reduction.
             </p>
             <div class="proj-stack">
               <span class="proj-tag">n8n</span>
@@ -668,20 +779,20 @@
               <span class="proj-tag">Docker</span>
             </div>
           </div>
-          <div class="project-card">
+          <div class="project-card project-card-full">
             <h4>Mastra + Langfuse Stack Evaluation</h4>
             <p>
-              Evaluated Mastra framework for HITL patterns, agent workflows,
-              and MCP connections. Identified tradeoffs vs. custom harness
-              (Soniox TTS incompatibility, Langfuse A/B testing depth).
-              Production stack uses custom orchestrator with pure Langfuse
-              cloud for full observability control.
+              Evaluated Mastra framework for HITL patterns, agent workflows, and MCP connections.
+              Identified tradeoffs vs. custom harness: Soniox TTS incompatibility, shallower Langfuse
+              A/B testing depth. Production stack uses a custom orchestrator with pure Langfuse cloud
+              for full observability and cost-attribution control.
             </p>
             <div class="proj-stack">
               <span class="proj-tag">Mastra</span>
               <span class="proj-tag">Langfuse</span>
               <span class="proj-tag">HITL</span>
               <span class="proj-tag">Observability</span>
+              <span class="proj-tag">MCP</span>
             </div>
           </div>
         </div>
